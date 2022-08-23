@@ -37,7 +37,11 @@ function Board_write() {
         // history.push('/Board');
         //window.history.pushState(state,url);//Board로 보냄.
         //alert('등록 완료!');
-        //toast.success(<h4>작성하신 글이 등록되었습니다.</h4>, { position: "top-center", autoClose:1000});
+        //toast.success('작성하신 글이 등록되었습니다.', { position: "top-center", autoClose:1000});
+        toast.success('작성하신 글이 등록되었습니다.', { 
+          position: toast.POSITION.BOTTOM_CENTER,
+          autoClose: 1000,
+          hideProgressBar: true});
       })
   };
 
@@ -62,7 +66,7 @@ function Board_write() {
         <hr className='line'></hr>
         <CKEditor
           editor={ClassicEditor}
-          data="<p>Hello from CKEditor 5!</p>"
+          data=""
           onReady={editor => {
             // You can store the "editor" and use when it is needed.
             console.log('Editor is ready to use!', editor);
