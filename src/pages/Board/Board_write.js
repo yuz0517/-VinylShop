@@ -14,6 +14,7 @@ import { useHistory } from "react-router";
 2. 이모지를 입력했을 때 db에 저장이 안 됨. (페이지는 정상적으로 넘어감.)
 3. 사진 입력도 따로 처리해야 함. 
 4. 사용자 이름을 따로 db에 저장해야 할 듯. 
+5. 작성 날짜도 표시해줘야 한다. 
 */
 function Board_write() {
   const [BoardContent, setBoardContent] = useState({
@@ -34,10 +35,6 @@ function Board_write() {
         content: BoardContent.content
       }).then(() => {//글이 등록 되면
         history.push({pathname: "/Board", submit:'done'});
-        // history.push('/Board');
-        //window.history.pushState(state,url);//Board로 보냄.
-        //alert('등록 완료!');
-        //toast.success('작성하신 글이 등록되었습니다.', { position: "top-center", autoClose:1000});
         toast.success('작성하신 글이 등록되었습니다.', { 
           position: toast.POSITION.BOTTOM_CENTER,
           autoClose: 1000,
@@ -95,7 +92,7 @@ function Board_write() {
               pathname: "/Board",
             state: {displays: '게시글 등록 완료'}})}}*/>저장</button>
         </Link>
-        <ToastContainer />
+        
       </div>
 
 
