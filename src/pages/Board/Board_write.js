@@ -1,18 +1,48 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import './Board_write.css';
-import {useState} from 'react'
+import { useState } from 'react'
 import ReactHtmlParser from 'html-react-parser';
-/* 저장 버튼 중앙 정렬 필요합니다. */
+import Axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useHistory } from "react-router";
+/* 
+1.저장 버튼 중앙 정렬 필요합니다.
+2. 이모지를 입력했을 때 db에 저장이 안 됨. (페이지는 정상적으로 넘어감.)
+3. 사진 입력도 따로 처리해야 함. 
+4. 사용자 이름을 따로 db에 저장해야 할 듯. 
+*/
 function Board_write() {
   const [BoardContent, setBoardContent] = useState({
     title: '',
     content: ''
   });
+  //const httpsAgent = new https.Agent({ rejectUnauthorized: false });
+  /* board_write에서 제출 버튼 누르면 등록 완료시킴.  */
 
-  const getValue = e =>{// 이벤트가 발생하면 그 이벤트의 name과 value를 가지고 오는 함수. input의 내용이 변할 때 마다 그 값을 state에 업데이트 해줌.
-    const{ name, value } = e.target;
+  const history = useHistory();
+  const state = { display: '등록완료', /*'user_id': 5*/ };
+  const url = '/Board';
+  
+
+  const submitBoardPost = () => { //등록버튼 onclick에 올려준다. 
+      Axios.post('http://localhost:8000/api/insert', {
+        title: BoardContent.title,
+        content: BoardContent.content
+      }).then(() => {//글이 등록 되면
+        history.push({pathname: "/Board", submit:'done'});
+        // history.push('/Board');
+        //window.history.pushState(state,url);//Board로 보냄.
+        //alert('등록 완료!');
+        //toast.success(<h4>작성하신 글이 등록되었습니다.</h4>, { position: "top-center", autoClose:1000});
+      })
+  };
+
+  const getValue = e => {// 이벤트가 발생하면 그 이벤트의 name과 value를 가지고 오는 함수. input의 내용이 변할 때 마다 그 값을 state에 업데이트 해줌.
+    const { name, value } = e.target;
     setBoardContent({
       ...BoardContent,
       [name]: value
@@ -20,8 +50,9 @@ function Board_write() {
     console.log(BoardContent);
   };
   const [viewContent, setViewContent] = useState({
-    
+
   });
+
 
   return (
     <div className='total-container'>
@@ -52,12 +83,17 @@ function Board_write() {
             console.log('Focus.', editor);
           }}
         />
-         <button className='save-button'
-         onClick={() => {
-          setViewContent(viewContent.concat({...BoardContent}));
-         }}>저장</button>
+
+        <Link to="/Board">
+          <button className='save-button' 
+          onClick={submitBoardPost}
+            /*onClick={() => {history.push({
+              pathname: "/Board",
+            state: {displays: '게시글 등록 완료'}})}}*/>저장</button>
+        </Link>
+        <ToastContainer />
       </div>
-       
+
 
     </div>
   );

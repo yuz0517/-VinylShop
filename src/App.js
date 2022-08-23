@@ -9,6 +9,7 @@ import Signup from './pages/Signup';
 import Board_write from './pages/Board/Board_write';
 import Board_Main from './pages/Board/Board_Main';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+
 function App(){
   return(
   <>
@@ -28,5 +29,6 @@ function App(){
   </>
   );
 }
+
 
 export default App;
