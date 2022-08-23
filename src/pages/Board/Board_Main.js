@@ -9,7 +9,7 @@ function Board_Main({location}) {
     console.log(issubmit);    // 결과:  value
     if(issubmit=='done'){
         //toast.success(
-        <h4>작성하신 글이 등록되었습니다.</h4>, { position: "top-center", autoClose:1000});
+        <h4>작성하신 글이 등록되었습니다.</h4>, { position: "top-center", autoClose:1000}
     }
 
   return (
