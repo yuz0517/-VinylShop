@@ -31,13 +31,18 @@ app.post("/api/insert", (req,res) => {
     });
 });
 //접속 시 응답메시지 출력
-/*app.get("/",(req,res)=>{
-    const sqlQuery = "INSERT INTO board (title,content) VALUES (?,?) ";
+app.get("/api/boardread",(req,res)=>{
+    const sqlQuery = "SELECT id,title, date FROM board";
     db.query(sqlQuery,(err,result)=>{
-        res.send('서버가 정상적으로 open되었습니다.') //서버가 정상적으로 오픈되면 이 메시지가 열림. 
-        //res.send(err); //에러코드를 표시.
+        if(!err){ 
+            //res.send(result); 
+            return res.send(result);
+        } else { 
+            res.send(err); 
+        }
     });
-})*/
+})
+
 app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);
 });

@@ -4,11 +4,12 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import './Board_write.css';
 import { useState } from 'react'
-import ReactHtmlParser from 'html-react-parser';
+//import ReactHtmlParser from 'html-react-parser';
 import Axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from "react-router";
+
 /* 
 1.저장 버튼 중앙 정렬 필요합니다.
 2. 이모지를 입력했을 때 db에 저장이 안 됨. (페이지는 정상적으로 넘어감.)
@@ -19,7 +20,8 @@ import { useHistory } from "react-router";
 function Board_write() {
   const [BoardContent, setBoardContent] = useState({
     title: '',
-    content: ''
+    content: '',
+    date: ''
   });
   //const httpsAgent = new https.Agent({ rejectUnauthorized: false });
   /* board_write에서 제출 버튼 누르면 등록 완료시킴.  */
@@ -28,11 +30,11 @@ function Board_write() {
   const state = { display: '등록완료', /*'user_id': 5*/ };
   const url = '/Board';
   
-
   const submitBoardPost = () => { //등록버튼 onclick에 올려준다. 
       Axios.post('http://localhost:8000/api/insert', {
         title: BoardContent.title,
-        content: BoardContent.content
+        content: BoardContent.content,
+        date: BoardContent.date
       }).then(() => {//글이 등록 되면
         history.push({pathname: "/Board", submit:'done'});
         toast.success('작성하신 글이 등록되었습니다.', { 
