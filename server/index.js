@@ -28,7 +28,7 @@ app.post("/api/insert", (req,res) => {
     const sqlQuery =  "INSERT INTO board (title,content) VALUES (?,?)";
     db.query(sqlQuery,[title,content],(err,result)=>{
         res.send('success'); 
-        //res.send(err); //에러코드를 표시.
+        //res.send(err); //에러코드를 표시.  
     });
 });
 //접속 시 응답메시지 출력
