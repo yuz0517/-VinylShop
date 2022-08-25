@@ -36,7 +36,7 @@ app.get("/api/boardread",(req,res)=>{
     const sqlQuery = "SELECT id,title, date FROM board";
     db.query(sqlQuery,(err,result)=>{
         if(!err){ 
-            //res.send(result); 
+            
             return res.send(result);
         } else { 
             res.send(err);
