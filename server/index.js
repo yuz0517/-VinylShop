@@ -39,7 +39,7 @@ app.get("/api/boardread",(req,res)=>{
             //res.send(result); 
             return res.send(result);
         } else { 
-            res.send(err); 
+            res.send(err);  
             
         }
     });
