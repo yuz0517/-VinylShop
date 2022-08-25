@@ -7,6 +7,7 @@ const mysql = require('mysql');
 const cors = require('cors');
 const bodyParser =  require('body-parser');
 const { urlencoded } = require('body-parser');
+const { default: axios } = require('axios');
 
 const PORT = process.env.port || 8000;
  
@@ -39,9 +40,13 @@ app.get("/api/boardread",(req,res)=>{
             return res.send(result);
         } else { 
             res.send(err); 
+            
         }
     });
 })
+
+
+
 
 app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);

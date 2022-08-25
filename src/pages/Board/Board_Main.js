@@ -31,15 +31,29 @@ function Board_Main({ location }) {
 
 
 
-    const ViewBoardList = () => { //등록버튼 onclick에 올려준다. 
+    /*const ViewBoardList = () => { //등록버튼 onclick에 올려준다. 
         Axios.get('http://localhost:8000/api/boardread', {
             title: BoardData.title,
             date: BoardData.date
         }).then((res) => { //연동 완료 되면 다음을 실행. 
             console.log(res.data);// 이렇게 찍으면 server의 index.js에서 받아온 데이터를 로그에 찍기 가능!                           
         })
-    };
+    };*/
 
+    let [dbdata,set_dbdata] = useState([]);
+    useEffect(() => {
+        Axios.get('http://localhost:8000/api/boardread',encodeURIComponent(""))
+        .then((res)=>{
+              set_dbdata([...dbdata, ...res.data]);
+              //console.log(res.data);
+        })
+      .catch((err)=>{
+        console.log(err);
+      })
+        
+      }, []);
+
+  
 
     /*
     useEffect(async() => {
@@ -71,9 +85,10 @@ function Board_Main({ location }) {
     return (
         <>
 
-            <ViewBoardList />
+            
             <Link to='/Board-write'>
                 <button className='write-button'>글쓰기</button>
+                <br />{dbdata[3]?.title}
             </Link>
             <ToastContainer /> {/* Board_write에 썼던 toast가 여기서 실행됨. */}
         </>
