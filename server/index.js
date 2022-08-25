@@ -40,7 +40,7 @@ app.get("/api/boardread",(req,res)=>{
             return res.send(result);
         } else { 
             res.send(err);
-            
+   
         }
     });
 })
