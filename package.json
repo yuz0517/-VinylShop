@@ -19,6 +19,7 @@
     "react-daum-postcode": "^3.1.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-js-pagination": "^3.0.3",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-router-dom": "^5.3.0",

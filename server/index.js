@@ -33,7 +33,7 @@ app.post("/api/insert", (req,res) => {
 });
 //접속 시 응답메시지 출력
 app.get("/api/boardread",(req,res)=>{
-    const sqlQuery = "SELECT id,title, date FROM board";
+    const sqlQuery = "SELECT id,title,content,date FROM board";
     db.query(sqlQuery,(err,result)=>{
         if(!err){ 
             
