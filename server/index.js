@@ -23,12 +23,12 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.post("/api/signup", (req,res) => {
-    const usrID = req.body.usrID;
-    const Nickname =  req.body.Nickname;
+    const Nickname =  req.body.nickname;
+    const usrID = req.body.id;
     const sqlQuery =  "INSERT INTO Persons (Nickname,usrID) VALUES (?,?)";
     db.query(sqlQuery,[usrID,Nickname],(err,result)=>{
         if(!err){ 
-            alert(err);
+            
             return res.send(result);
         } else { 
             res.send(err);

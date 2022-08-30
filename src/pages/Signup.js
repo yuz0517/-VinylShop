@@ -19,8 +19,8 @@ const Signup = () => {
     /* Persons(유저 정보 db) db 불러오기 */
     const submitPerson = () => { //등록버튼 onclick에 올려준다. 
         Axios.post('http://localhost:8000/api/signup', {
+            nickname: Persons_db.nickname,
             id: Persons_db.id,
-            nickname: Persons_db.nickname
             //date: Persons_db.date,
         }).then(() => {//글이 등록 되면
             console.log();
