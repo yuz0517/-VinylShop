@@ -1,0 +1,13 @@
+.div.Like {
+    margin-top: 300px;
+    border-top: solid 1px #ababab;
+    display: grid;
+    grid-template-columns:  25%, 40%, 25%;
+}
+.icon_Like {
+    width: 30px;
+    cursor: pointer;
+}
+.Like { margin : 50px 0px 0px 48%; }
+
+.Like h5 {margin-top: 10px; }

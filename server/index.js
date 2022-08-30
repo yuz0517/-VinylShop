@@ -22,6 +22,21 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+app.post("/api/signup", (req,res) => {
+    const usrID = req.body.usrID;
+    const Nickname =  req.body.Nickname;
+    const sqlQuery =  "INSERT INTO Persons (Nickname,usrID) VALUES (?,?)";
+    db.query(sqlQuery,[usrID,Nickname],(err,result)=>{
+        if(!err){ 
+            alert(err);
+            return res.send(result);
+        } else { 
+            res.send(err);
+   
+        }
+    });
+});
+
 app.post("/api/insert", (req,res) => {
     const title = req.body.title;
     const content =  req.body.content;
