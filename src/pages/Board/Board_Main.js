@@ -6,7 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react'
 import Pagination from 'react-js-pagination';
 //import 'bootstrap/dist/css/bootstrap.min.css';
-import List from './List'
+import List from './Board_List/List'
+import { render } from '@testing-library/react';
 function Board_Main({ location }) {
     let issubmit = location.submit;
     console.log(issubmit);    // 결과:  value
@@ -33,40 +34,18 @@ function Board_Main({ location }) {
             })
 
     }, []);
+    
+        return (
+            <>
+                <Link to='/Board-write'>
+                    <button className='write-button'>글쓰기</button>
+                </Link>
+                <List dbdata={dbdata}></List> {/*배열을 List.js에게 속성값으로 보낸다. */}
 
-    const [page, setPage] = useState(1);
-
-    const handlePageChange = (page) => { 
-        //console.log(`active page is ${pageNumber}`)
-        //this.setPage({activePage: pageNumber}); };
-        setPage(page);
-        console.log(page);
-    }
-    return (
-        <>
-            <Link to='/Board-write'>
-                <button className='write-button'>글쓰기</button>
-            </Link>
-            <List dbdata={dbdata}></List> {/*배열을 List.js에게 속성값으로 보낸다. */}
-
-            <Pagination
-                // 현제 보고있는 페이지 
-                activePage={page}
-                // 한페이지에 출력할 아이템수
-                itemsCountPerPage={10}
-                // 총 아이템수
-                totalItemsCount={dbdata.length - 1}
-                // 표시할 페이지수
-                pageRangeDisplayed={5}
-                // 함수
-                prevPageText = "prev"
-                nextPageText = "next"
-                onChange={handlePageChange}>
-            </Pagination>
-
-            <ToastContainer /> {/* Board_write에 썼던 toast가 여기서 실행됨. */}
-        </>
-    );
+                <ToastContainer /> {/* Board_write에 썼던 toast가 여기서 실행됨. */}
+            </>
+        );
+   
 }
 
 
