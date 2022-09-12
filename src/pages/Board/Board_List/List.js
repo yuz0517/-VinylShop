@@ -15,21 +15,25 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
     const indexLastPage = page * itemPerPage;
     const indexFirstPage = indexLastPage - itemPerPage;
     //currentPost = dbdata.dbdata.slice(1);
+    const reverse = dbdata.dbdata.reverse();
+    const handlePageChange = (page) => {
+        //setBoardData([...dbdata.dbdata].reverse()); //순서 reverse
+        setPage(page);
+    }
     useEffect(() => {
         
-        console.log(BoardData)
+        //console.log(BoardData)
         //setCurrentPost(dbdata.dbdata.slice(indexFirstPage, indexLastPage))
-        setCurrentPost(BoardData.slice(indexFirstPage, indexLastPage))
-        console.log("useEffect rendering");
+        //setBoardData([...dbdata.dbdata].reverse());
+        
+        setCurrentPost(reverse.slice(indexFirstPage, indexLastPage));
+        console.log("useeffec");
     }
-        , [indexFirstPage, indexLastPage,BoardData,page] //length 부분을 추가하니  페이지 로딩 시 바로 목록이 뜸.  => length 부분 변화 
+        , [indexFirstPage, indexLastPage,reverse,BoardData,page] //length 부분을 추가하니  페이지 로딩 시 바로 목록이 뜸.  => length 부분 변화 
 
     )
    
-    const handlePageChange = (page) => {
-        setBoardData([...dbdata.dbdata].reverse()); //순서 reverse
-        setPage(page);
-    }
+    
    
 
    
