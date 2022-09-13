@@ -1,3 +1,10 @@
+.table{
+    width: 100%;
+    border: 1px solid #444444;
+}
+.th{
+    border: 1px solid #444444;
+}
 /*pagination css */
 .pagination {
     display: flex;

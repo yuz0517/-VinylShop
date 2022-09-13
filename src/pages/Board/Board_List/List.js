@@ -9,8 +9,8 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
 
     const [page, setPage] = useState(1); //page-> current page
     const [currentPost, setCurrentPost] = useState([]);
-    
-    const [BoardData,setBoardData] = useState([]) //reverse해서 저장할 데이터
+
+    const [BoardData, setBoardData] = useState([]) //reverse해서 저장할 데이터
     const [itemPerPage] = useState(10) //한 페이지 당 포스트 개수
     const indexLastPage = page * itemPerPage;
     const indexFirstPage = indexLastPage - itemPerPage;
@@ -21,43 +21,63 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
         setPage(page);
     }
     useEffect(() => {
-        
+
         //console.log(BoardData)
         //setCurrentPost(dbdata.dbdata.slice(indexFirstPage, indexLastPage))
         //setBoardData([...dbdata.dbdata].reverse());
-        
+
         setCurrentPost(reverse.slice(indexFirstPage, indexLastPage));
         console.log("useeffec");
     }
-        , [indexFirstPage, indexLastPage,reverse,BoardData,page] //length 부분을 추가하니  페이지 로딩 시 바로 목록이 뜸.  => length 부분 변화 
+        , [indexFirstPage, indexLastPage, reverse, BoardData, page] //length 부분을 추가하니  페이지 로딩 시 바로 목록이 뜸.  => length 부분 변화 
 
     )
-   
-    
-   
 
-   
-   // console.log(currentPost); //성공
+
+
+
+
+    // console.log(currentPost); //성공
     //console.log("itemPerPage",itemPerPage);
-    console.log("page",page);
-    console.log("currentPost",currentPost);
+    console.log("page", page);
+    console.log("currentPost", currentPost);
     //console.log("page")
     return (
         <>
             <h4>총 {itemPerPage} 개의 데이터가 있습니다. </h4>
-            <table align='center'>
+            <table>
+                <thead>
+                    <tr>
+                        <th>제목</th>
+                        <th>날짜</th>
+                    </tr>
+                </thead>
+
                 <tbody>
                     <tr>
                         <td>
 
-                            {currentPost.map((data)=>{
-                            {/*{dbdata.dbdata.map((data) => {*/}
+                            {currentPost.map((data) => {
+                                {/*{dbdata.dbdata.map((data) => {*/ }
                                 return (
                                     <Link to={{
                                         pathname: `/Board-view/${data.id}`,
                                         state: { select_data: data }
-                                    }}    //성공!!!!!!!!! 
+                                    }}    //성공
+                                        className='list'
                                         key={data.id} >{data.title}<br /></Link>
+                                );
+                            })}
+
+                            {/* })} */}
+                        </td>
+                        <td>
+
+                            {currentPost.map((data) => {
+                                {/*{dbdata.dbdata.map((data) => {*/ }
+                                return (
+                                    <h4
+                                        key={data.id} >{data.date}<br /></h4>
                                 );
                             })}
 
