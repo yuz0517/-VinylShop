@@ -1,15 +1,56 @@
-.table{
+
+.list-full{
     width: 100%;
-    border: 1px solid #444444;
 }
-.th{
-    border: 1px solid #444444;
+table{
+    
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: separate,initial;
+    border-top: 1px solid #1c1c1c;
+	
 }
+tbody{
+    border-spacing: 0 1rem;
+}
+tr{
+    border: #c6c6c6;
+    
+    
+}
+th{
+    
+  
+    font-style: normal;
+    font-size: 15px;
+    color: #1c1c1c;
+    border-bottom: 2px  #c6c6c6;
+    padding: 10px;
+    
+}
+.th-title{
+    width: 60%;
+}
+.th-date{
+    width: 40%;
+}
+
+
+td{
+    font-size: 13px;
+    padding: 10px;
+    border-bottom: 1px solid #c6c6c6;
+    padding: 10px;
+  
+}
+
+
 /*pagination css */
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 ul {
@@ -21,7 +62,6 @@ ul.pagination li{
     display: inline-block;
     width: 30px;
     height: 30px;
-    border: 1px solid #e2e2e2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,7 +78,7 @@ ul.pagination li:last-child{
 
 ul.pagination li a{
     text-decoration: none;
-    color: #337ab7;
+    color: #48424d;
     font-size: 1rem;
 }
 
@@ -47,12 +87,12 @@ ul.pagination li.active a{
 }
 
 ul.pagination li.active{
-    background-color: #337ab7;
+    background-color: #1c1c1c;
 }
 
 ul.pagination li a:hover,
 ul.pagination li a.ctive{
-    color:blue;
+    color:#7c7c7c;
 }
 
 .page-selection{

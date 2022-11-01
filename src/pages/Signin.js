@@ -4,9 +4,9 @@ import {onAuthStateChanged } from "firebase/auth";
 import { useState } from 'react';
 import { auth } from "../firebase";//파베
 import { Link } from 'react-router-dom';
-import LoginModal from './Login/LoginModal';
+
 //sign in 
-const Loginform = () => {
+const Signin = () => {
     
     const [Email, setLoginEmail] = useState("");
     const [Password, setLoginPassword] = useState("");
@@ -47,4 +47,4 @@ const Loginform = () => {
   )
 }
 
-export default Loginform ;
+export default Signin ;

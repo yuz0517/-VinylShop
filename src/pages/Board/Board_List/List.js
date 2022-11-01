@@ -43,47 +43,50 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
     console.log("currentPost", currentPost);
     //console.log("page")
     return (
-        <>
-            <h4>총 {itemPerPage} 개의 데이터가 있습니다. </h4>
+        <div className='list-full'>
+            {/*<h4>총 {itemPerPage} 개의 데이터가 있습니다. </h4> */}
             <table>
                 <thead>
                     <tr>
-                        <th>제목</th>
-                        <th>날짜</th>
+                        <th className='th-title'>Title</th>
+                        <th className='th-date'>Date</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>
 
-                            {currentPost.map((data) => {
-                                {/*{dbdata.dbdata.map((data) => {*/ }
-                                return (
-                                    <Link to={{
-                                        pathname: `/Board-view/${data.id}`,
-                                        state: { select_data: data }
-                                    }}    //성공
+
+
+                    {currentPost.map((item) => {
+                        var date_kst = new Date(Date.parse(item.date) + 9 * 60 * 60000).toISOString(Date(Date.parse(item.data) + 9 * 60 * 60000))
+                        var kst = date_kst.slice(0, 4) + '년' + date_kst.slice(5, 7) + '월' + date_kst.slice(8, 10) + '일' + date_kst.slice(11, 16);
+
+
+                        return (
+                            <tr key={item.id}>
+                                <td>
+                                    <Link
+                                        style={{
+
+                                            textDecoration: 'none'
+                                        }}
+                                        to={{
+
+                                            pathname: `/Board-view/${item.id}`,
+                                            state: { select_data: item }//selected data로 board_view.js에서 받음 
+                                        }}    //성공
                                         className='list'
-                                        key={data.id} >{data.title}<br /></Link>
-                                );
-                            })}
+                                        key={item.id} >{item.title}</Link>
+                                </td>
+                                <td>{kst}</td>
+                            </tr>
+                        );
+                    })}
 
-                            {/* })} */}
-                        </td>
-                        <td>
+                   
 
-                            {currentPost.map((data) => {
-                                {/*{dbdata.dbdata.map((data) => {*/ }
-                                return (
-                                    <h4
-                                        key={data.id} >{data.date}<br /></h4>
-                                );
-                            })}
 
-                            {/* })} */}
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
 
@@ -102,7 +105,7 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
                 onChange={handlePageChange}>
             </Pagination>
 
-        </>
+        </div>
     )
 }
 

@@ -8,6 +8,7 @@ import Pagination from 'react-js-pagination';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import List from './Board_List/List'
 import { render } from '@testing-library/react';
+import './Board_Main.scss'
 function Board_Main({ location }) {
     let issubmit = location.submit;
     console.log(issubmit);    // 결과:  value
@@ -34,18 +35,27 @@ function Board_Main({ location }) {
             })
 
     }, []);
-    
-        return (
-            <>
-                <Link to='/Board-write'>
-                    <button className='write-button'>글쓰기</button>
-                </Link>
-                <List dbdata={dbdata}></List> {/*배열을 List.js에게 속성값으로 보낸다. */}
 
-                <ToastContainer /> {/* Board_write에 썼던 toast가 여기서 실행됨. */}
-            </>
-        );
-   
+    return (
+        <>
+            <div className='div-full'>
+                <div className='div-board'>
+                    <p className='p-board'>FORUM</p>
+                    <Link to='/Board-write'>
+                        <button className='btn'>글쓰기</button>
+                    </Link>
+                </div>
+            
+            <div className='board_list'>
+                <List dbdata={dbdata}></List> {/*배열을 List.js에게 속성값으로 보낸다. */}
+            </div>
+            </div>
+            <ToastContainer /> {/* Board_write에 썼던 toast가 여기서 실행됨. */}
+
+
+        </>
+    );
+
 }
 
 

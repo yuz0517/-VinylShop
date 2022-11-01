@@ -1,8 +1,33 @@
-.div.Like {
-    margin-top: 300px;
-    border-top: solid 1px #ababab;
-    display: grid;
-    grid-template-columns:  25%, 40%, 25%;
+.div-full{
+    margin-top: 20px;
+    width: 80%;    
+    
+}
+.div-title{
+    
+    position: fix;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #1c1c1c;
+}
+.div-content{
+    margin-top:20px;
+}
+.div-htmlcontent{
+    font-size: 15px;
+}
+.div-icons {
+
+    margin-top: 30px;
+    display: flex;
+    
+    width:100%
+    
+    
+}
+.p-date{
+    float: right;
+    font-size: 7px;
+    color: #9b9999;
 }
 .icon_Like {
     width: 30px;
