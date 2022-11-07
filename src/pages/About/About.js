@@ -1,23 +1,56 @@
-import React from 'react'
-//import { auth } from ".././firebase";//파베
-/*이름, 등등은 디비에만잇는거니까 디비에잇는 내용 수정 필요. 
-  정보 불러올떄는 파이어베이스에서 아이디와 불러오고 디비 에서 그 아이디를 찾아서 띄우면 될듯?
-*/
+import React, { useEffect } from 'react'
+import axios from 'axios';
+//import * as firebase from 'firebase';
+import { AiOutlineConsoleSql } from 'react-icons/ai';
+import { getAuth, indexedDBLocalPersistence } from "firebase/auth";
+import { useState } from 'react'
+import Axios from 'axios';
 function About() {
 
-  //불러와서 띄우고 (textbox로)
 
-  /*firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      var uid = user.uid;
-      // ...
-    } else {
-      // User is signed out
-      // ...
-    }
-  });*/
+  const [User, setUser] = useState({
+    email: ''
+  });
+  var Firebase_ID;
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (user) {//user is signed in
+    User.email = user.email; //useState의 User의 email에 Firebase 유저 이메일을 넣어준다. 
+
+    Axios.get('http://localhost:8000/api/userinfo',
+      { params: { user: User.email } })
+      .then((res) => {
+        //set_dbdata([...dbdata, ...res.data]);
+
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
+    console.log("로그인 O");
+
+  } else {
+    // No user is signed in.
+    console.log("로그인이 필요합니다.");
+  }
+
+
+
+
+  //console.log(User.email);
+  /*useEffect(() => {
+    Axios.get('http://localhost:8000/api/userinfo', { user: User.email})
+      .then((res) => {
+        //set_dbdata([...dbdata, ...res.data]);
+          
+            console.log(res.data);
+  })
+    .catch((err) => {
+      console.log(err.message);
+    })
+
+}, []);*/
 
   return (
     <div>About</div>

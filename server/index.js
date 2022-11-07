@@ -22,14 +22,32 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+/* Persons */
 app.post("/api/signup", (req,res) => {
     const Nickname =  req.body.nickname;
     const usrID = req.body.id;
-    const sqlQuery =  "INSERT INTO Persons (Nickname,usrID) VALUES (?,?)";
-    db.query(sqlQuery,[usrID,Nickname],(err,result)=>{
+    const sqlQuery =  "INSERT INTO Persons (Nickname,userID) VALUES (?,?)";
+    db.query(sqlQuery,[Nickname,usrID],(err,result)=>{
         if(!err){ 
             
             return res.send(result);
+        } else { 
+            res.send(err);
+   
+        }
+    });
+});
+
+app.get("/api/userinfo",(req,res)=>{
+    
+    const sqlQuery = "SELECT userID, Nickname FROM Persons WHERE userID LIKE ?";
+    //전달받은 parameter 값.
+    const Firebase_ID = req.query.user;
+    console.log(req.body.user);
+    db.query(sqlQuery,[Firebase_ID],(err,data)=>{
+        if(!err){ 
+            //console.log(Firebase_ID);
+            return res.send(data);
         } else { 
             res.send(err);
    

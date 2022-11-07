@@ -3,6 +3,7 @@ import {signInWithEmailAndPassword} from "firebase/auth";//파베
 import {onAuthStateChanged } from "firebase/auth";
 import { useState } from 'react';
 import { auth } from "../firebase";//파베
+import { getAuth } from "firebase/auth";
 import { Link } from 'react-router-dom';
 
 //sign in 
