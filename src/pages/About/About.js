@@ -5,18 +5,25 @@ import { AiOutlineConsoleSql } from 'react-icons/ai';
 import { getAuth, indexedDBLocalPersistence } from "firebase/auth";
 import { useState } from 'react'
 import Axios from 'axios';
-function About() {
+import { isReactNative } from '@firebase/util';
+import Signin from '../Signin';//수정필요
+import { Redirect } from 'react-router-dom';
+
+function About({history}) {
 
 
   const [User, setUser] = useState({
     email: sessionStorage.key(0)
   });
-  var Firebase_ID;
-  const auth = getAuth();
-  const user = auth.currentUser;
+  //https://codingapple.com/unit/react-if-else-patterns-enum-switch-case/
+  if(User.email===null){
+    //history.push("/signin"); //render 안에서 history를 사용하면 안 된다.
+    return <Redirect to={'/signin'} />
+    
+  }
 
-  var email = sessionStorage.key(0);
-  console.log(sessionStorage.key(0))
+  //var email = sessionStorage.key(0);
+  //console.log(User.email)
 
   Axios.get('http://localhost:8000/api/userinfo',
     { params: { user: User.email } })
