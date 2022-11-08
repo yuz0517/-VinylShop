@@ -9,31 +9,28 @@ function About() {
 
 
   const [User, setUser] = useState({
-    email: ''
+    email: sessionStorage.key(0)
   });
   var Firebase_ID;
   const auth = getAuth();
   const user = auth.currentUser;
 
-  if (user) {//user is signed in
-    User.email = user.email; //useState의 User의 email에 Firebase 유저 이메일을 넣어준다. 
+  var email = sessionStorage.key(0);
+  console.log(sessionStorage.key(0))
 
-    Axios.get('http://localhost:8000/api/userinfo',
-      { params: { user: User.email } })
-      .then((res) => {
-        //set_dbdata([...dbdata, ...res.data]);
+  Axios.get('http://localhost:8000/api/userinfo',
+    { params: { user: User.email } })
+    .then((res) => {
+      //set_dbdata([...dbdata, ...res.data]);
 
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      })
-    console.log("로그인 O");
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.message);
+    })
+  console.log("로그인 O");
 
-  } else {
-    // No user is signed in.
-    console.log("로그인이 필요합니다.");
-  }
+
 
 
 

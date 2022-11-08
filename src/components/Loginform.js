@@ -23,11 +23,10 @@ const Loginform = () => {
             const user = await signInWithEmailAndPassword(
                 auth, Email, Password
             );
-
-            
             //console.log(user.user.accessToken); //accesstoken
+            sessionStorage.setItem(user.user.email,user.user.accessToken)
             //console.log(user.user.email);//email
-            
+
         } catch (error) {
             console.log("실패");
 
