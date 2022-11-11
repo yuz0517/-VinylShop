@@ -1,27 +1,26 @@
-.div-all {
+.div-all{
     width: 80%;
-    place-content: center;
+    place-content:center;
     flex-direction: column;
     margin: auto;
+    
 }
-
-.div-about {
-    width: 80%;
-    height: 50px;
+.div-about{
+    width:80%;
+    height:50px;
     margin-top: 40px;
     border-bottom: solid #1c1c1c;
     display: flex;
 }
-
-.div-map {
+.div-map{   
     display: flex;
-    width: 80%;
-
-
+  width: 80%;
+    
+    
 }
 
-.p-title {
+.p-title{
     display: flex;
-
+    
     font-size: 30px;
 }
