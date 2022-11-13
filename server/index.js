@@ -38,6 +38,21 @@ app.post("/api/signup", (req,res) => {
     });
 });
 
+app.post("/api/userinfoupdate", (req,res) => {
+    const Nickname =  req.body.nickname;
+    //const userID = req.body.userid;
+    const PersonID = req.body.personid;
+    const sqlQuery =  "UPDATE Persons SET Nickname = ? WHERE PersonID = ?";
+    db.query(sqlQuery,[Nickname,PersonID],(err,result)=>{
+        if(!err){ 
+            
+            return res.send(result);
+        } else { 
+            res.send(err);
+   
+        }
+    });
+});
 app.get("/api/userinfo",(req,res)=>{
     
     const sqlQuery = "SELECT userID, Nickname, PersonID FROM Persons WHERE userID LIKE ?";
@@ -55,6 +70,8 @@ app.get("/api/userinfo",(req,res)=>{
     });
 });
 
+
+//----board----
 app.post("/api/insert", (req,res) => {
     const title = req.body.title;
     const content =  req.body.content;
