@@ -8,11 +8,11 @@ import Axios from 'axios';
 import { isReactNative } from '@firebase/util';
 import Signin from '../Signin';//수정필요
 import { Redirect } from 'react-router-dom';
-import './About.css'
+import './Mypage.css'
 import { IfFulfilled } from 'react-async';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-function About({ history }) {
+function Mypage({ history }) {
 
 
   const [User, setUser] = useState({
@@ -128,7 +128,7 @@ function About({ history }) {
   return (
     <div className='div-all'>
       <div className='div-about'>
-        <p className='p-title'>Information</p>
+        <p className='p-title'>Mypage</p>
         <button className='btn-edit' onClick={onEditClick} >수정</button>
         <ToastContainer/>
       </div>
@@ -180,4 +180,4 @@ function About({ history }) {
 }
 
 
-export default About
+export default Mypage

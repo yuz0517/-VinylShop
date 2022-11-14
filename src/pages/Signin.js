@@ -18,7 +18,8 @@ const Signin = () => {
             const user = await signInWithEmailAndPassword(
                 auth, Email, Password
             );
-           console.log(user.email);
+            sessionStorage.setItem(user.user.email,user.user.accessToken)
+           console.log("login success",user.email);
         }catch(error){
             console.log(error.message);
                 

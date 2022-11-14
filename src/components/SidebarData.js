@@ -16,8 +16,8 @@ export const SidebarData=[
         cName: 'nav-text',
     },
     {
-        title: 'About',
-        path: '/about',
+        title: 'MY PAGE',
+        path: '/mypage',
         icon:<VscIcons.VscAccount />,
         cName: 'nav-text'
     },

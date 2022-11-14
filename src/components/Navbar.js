@@ -5,6 +5,7 @@ import './Navbar.css';
 import { IconContext } from 'react-icons';
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
+import * as ioIcons from "react-icons/io";
 import Loginform from './Loginform';
 
 function Navbar() {
@@ -23,7 +24,9 @@ function Navbar() {
                     <Link to="#" className='menu-bars'>
                         <FaIcons.FaBars onClick={showSidebar} />
                     </Link>
-                    <Loginform />
+                    {/*<Loginform />*/}
+                    <ioIcons.IoIosLogOut/>
+
 
                 </div>
 

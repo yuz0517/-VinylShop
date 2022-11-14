@@ -1,7 +1,7 @@
 import React from 'react';
 //import { Route } from 'react-router-dom';
 import './App.css';
-import About from './pages/About/About.js';
+import Mypage from './pages/Mypage/Mypage.js';
 import Home from './pages/Home';
 import Bookmark from './pages/Bookmark';
 import Navbar from './components/Navbar';
@@ -21,7 +21,7 @@ function App(){
       <Navbar />
       <Switch>
       <Route path='/' exact={true} component={Home}/>
-        <Route path='/About' component={About}/>
+        <Route path='/Mypage' component={Mypage}/>
         <Route path='/Bookmark' component={Bookmark}/>
         <Route path='/Signup' component={Signup}/>
         <Route path='/Board' exact={true} component={Board_Main}/>
