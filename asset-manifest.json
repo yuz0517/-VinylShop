@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/first-app2022/static/css/main.90ff7db1.css",
+    "main.js": "/first-app2022/static/js/main.8f627558.js",
+    "index.html": "/first-app2022/index.html",
+    "main.90ff7db1.css.map": "/first-app2022/static/css/main.90ff7db1.css.map",
+    "main.8f627558.js.map": "/first-app2022/static/js/main.8f627558.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.90ff7db1.css",
+    "static/js/main.8f627558.js"
+  ]
+}
