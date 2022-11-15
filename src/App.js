@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 //import { Route } from 'react-router-dom';
 import './App.css';
 import Mypage from './pages/Mypage/Mypage.js';
@@ -10,15 +10,19 @@ import Board_write from './pages/Board/Board_write';
 import Board_Main from './pages/Board/Board_Main';
 import Board_View from './pages/Board/Board_View';
 import Signin from './pages/Signin';
+import { Context } from './components/ContextProvider';
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App(){
+  const [isLoggedIn, setIsloggedIn] = useState(false);
   return(
   <>
 
   
     <Router>
+    <Context.Provider value={{ isLoggedIn, setIsloggedIn }}>
       <Navbar />
+     
       <Switch>
       <Route path='/' exact={true} component={Home}/>
         <Route path='/Mypage' component={Mypage}/>
@@ -29,6 +33,7 @@ function App(){
         <Route path='/Board-view/:no' exact={true} component={Board_View}/>
         <Route path='/Signin' component={Signin}/>
       </Switch>
+      </Context.Provider>  
     </Router>
   </>
   );
