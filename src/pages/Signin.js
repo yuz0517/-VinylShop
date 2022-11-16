@@ -6,6 +6,7 @@ import { auth } from "../firebase";//파베
 import { getAuth } from "firebase/auth";
 import { Link } from 'react-router-dom';
 import  * as Navbar from '../components/Navbar.js'
+import './Signin.css'
 //sign in 
 import {Context, UserContextProvider} from "../components/ContextProvider";
 //
@@ -32,27 +33,33 @@ const Signin = () => {
         }
     }
 
-    
-  
-
     return (
     <>
-    
-        <input 
+    <div className = 'div-all'>
+        <div className = 'div-title'>
+            <p className='p-login'>로그인</p>
+        </div>
+        <p className='p-id'>아이디 ( 이메일 형식 )</p>
+        <input
+            className = 'input-id'
             placeholder='Email'
             onChange={(e)=> { setLoginEmail(e.target.value);}}
             />
+        <p className='p-password'>비밀번호</p>
         <input 
+            className = 'input-password'
             placeholder="Password"
             onChange={(e) => {setLoginPassword(e.target.value);}}
             />
-        <button onClick={login}>Sign In</button>
+        <button 
+            className = 'button-signin'
+            onClick={login}>Sign In</button>
         
         
         <Link to="/SignUp">
-            <button >Sign Up</button>
+            <button className = 'button-signup'>Sign Up</button>
         </Link> 
-  
+    </div>
     </>
   )
 }
