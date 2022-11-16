@@ -24,11 +24,9 @@
 .button-signin,.button-signup{
     width: 190px;
     height: 50px;
-    background-color: #ffffff;
-    box-shadow: none !important;
-    -webkit-box-shadow: none;
-    border: 0;
-    outline:0;
-    background-color:aqua;
+    background-color: aqua;
+    color: black;
+    border: 1px solid aqua;
+    border-radius: 50%;
 }
 
