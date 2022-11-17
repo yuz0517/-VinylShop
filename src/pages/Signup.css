@@ -1,39 +1,100 @@
-.bg{
-    display:grid;
-    place-content: center;
+
+.div-all{
+    background-color: #ffffff;
+    width:80%;
+    place-content:center;
+    flex-direction: column;
+    margin: auto;
+    display: grid;
 }
-.input_contents {
-    background-color: rgb(229, 229, 231);
-    width:350px;
-    height: 100vh;
-    scroll-margin: 100%;
-    padding-top: 100px;
-    font-weight: bold;
-    font-size: 0.9em;
-    padding-left: 40px;
+
+.div-title{
+    margin-top: 50px;
+    margin-bottom: 50px;;
+}
+.div-passwordcheck{
+    font-size: 11px;
+    margin-top: none;
+    height: 35px;
+}
+
+.p-login{
+    font-size: 18px;
+}
+.p-id{
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+.p-password, .p-nickname{
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+.p-passwordcheck-null{
+    color: #8d8d8d;
+}
+
+.p-passwordcheck-false{
+    color: red;
+}
+
+.p-passwordcheck-true{
+    color: blue
+}
+
+.input-id, .input-password, .input-nickname {
+    width: 400px;
+    height: 50px;
     
+}
+
+.input-password-check{
+    width: 400px;
+    height: 50px;
+    margin-bottom: 5px;
+}
+
+.button-register{
+    width: 300px;
+    height: 50px;
+    background-color: aqua;
+    color: black;
+    border: 1px solid aqua;
+    border-radius: 50%;
+    font-size: 12px;
+    margin-top: 30px;
     
 
+}
+.button-register::before{
+    content: "회원가입"
+}
+.button-register:hover{
+    transition: 0.7s;
+    background-color:#f9ff90;
+    border: 1px solid #f9ff90;
     
 }
-.signup{
-   
-    width: 250px;
-    height: 50px;
-    margin-bottom: 15px;
-    align-items: center;
-    line-height: 10px;
+.button-register:enabled:hover:before{
+    color: blue;
+    content:"💞 환 영 합 니 다 💞";
+    font-size: 13px;
 }
-input::placeholder{
-    align-items: center;
+.button-register:disabled {
+    color: rgb(133, 132, 132);
+    background-color: rgb(214, 211, 211);
+    border: none;
 }
-.signup_button{
+
+
+
+
+
+
+.div-button{
+    place-content: center;
    
-    width: 250px;
-    height: 50px;
-    margin-bottom: 15px;
-    background-color: black;
-    color:aliceblue;
-    border: 0;
-    outline:0;
+    display: flex;
+
 }

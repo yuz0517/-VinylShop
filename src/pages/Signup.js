@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useCallback } from 'react'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";//파베
 import { useState } from 'react';
 import { auth } from "../firebase";//파베
@@ -22,13 +22,9 @@ const Signup = () => {
             nickname: Persons_db.nickname,
             id: Persons_db.id,
             //date: Persons_db.date,
-        }).then(() => {//글이 등록 되면
+        }).then(() => {
             console.log();
-            toast.success('계정생성완료.', {
-                position: toast.POSITION.BOTTOM_CENTER,
-                autoClose: 1000,
-                hideProgressBar: true
-            });
+            //여기서 firebase에 올라가지 않아도 여기서 db에는 값이 저장됨... 
         })
     };
     const getValue = e => {// 이벤트가 발생하면 그 이벤트의 name과 value를 가지고 오는 함수. input의 내용이 변할 때 마다 그 값을 state에 업데이트 해줌.
@@ -45,9 +41,41 @@ const Signup = () => {
     /* firebase e-mail login */
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
+    const [PasswordCheck, setPasswordCheck] = useState("");
     const [error, setErrorMsg] = useState("  ");
     //const navigate = useNavigate();
     var errormsg;
+
+    const [isPasswordSame, setIsPasswordSame] = useState(false)
+    const [isPasswordNull, setIsPasswordNull] = useState(false)
+    const onChangePassword = useCallback( e=>{
+        //setRegisterPassword(e.target.value);  
+        const regispw = e.target.value;
+        setRegisterPassword(regispw);
+        console.log("registerpassword",registerPassword)
+        if(regispw===PasswordCheck && (regispw!==""&&PasswordCheck!=="")) {
+            setIsPasswordSame(true)
+        }else if(regispw==="" && PasswordCheck===""){
+            setIsPasswordNull(true)
+        }
+        else setIsPasswordSame(false)
+
+    })
+    const onChangePasswordSame = useCallback(
+        e=>{
+            const pwcheck = e.target.value;
+            console.log("",PasswordCheck)
+            setPasswordCheck(pwcheck);
+            if ( pwcheck === registerPassword && (pwcheck!==""&& registerPassword!=="")) {
+                setIsPasswordSame( true );
+                //console.log(isPasswordSame, pwcheck,registerPassword);
+            
+            } else { setIsPasswordSame ( false );
+                //console.log(isPasswordSame, pwcheck,registerPassword);
+
+            }
+            
+        });
     const register = async () => { //밑에서 회원가입 버튼 onclick에 할당한다. 
         try {
 
@@ -84,32 +112,60 @@ const Signup = () => {
 
                 <div className='div-title'>
 
-                    <span>회원가입</span><br /><br />
-                    <input
-                        className='signup'
-                        placeholder='아이디'
-                        type='text'
-                        name='id'
-                        onChange={(e) => { getValue(e); setRegisterEmail(e.target.value); }} /><br />
-                    <input
-                        className='signup'
-                        placeholder="비밀번호"
-                        onChange={(e) => { setRegisterPassword(e.target.value); }} /><br></br>
-                    <input
-                        className='signup'
-                        placeholder="이름"
-                        type='text'
-                        name='nickname'
-                        onChange={getValue}
-                    /><br></br>
+                    <p className='p-login'>회원가입</p>
+                </div>
+                <p className='p-id'>아이디 ( 이메일 형식으로 입력 해 주세요. )</p>
+                <input
+                    className='input-id'
+                    placeholder='id ( email )'
+                    type='text'
+                    name='id'
+                    onChange={(e) => { getValue(e); setRegisterEmail(e.target.value); }} />
+               
+                <p className='p-password'>비밀번호</p>
+                <input
+                    type= "password"
+                    className='input-password'
+                    placeholder="password: 6자리 이상으로 입력 해 주세요."
+                    onChange={onChangePassword} />
+               
+                <p className='p-password'>비밀번호 확인</p>
+                <input
+                    type= "password"
+                    className='input-password-check'
+                    placeholder="password를 한번 더 입력 해 주세요."
+                    onChange={onChangePasswordSame}
+                    />
+                <div className='div-passwordcheck'>
+                    { isPasswordSame
+                        ?
+                        <p className='p-passwordcheck-true'> 정확한 비밀번호를 입력하셨습니다.</p> 
+                        : (registerPassword==="" && PasswordCheck==="" //===null 로 입력 시 이 조건문은 안 돌아감.
+                            ?<p className='p-passwordcheck-null'>비밀번호를 입력 해 주세요</p>
+                            : <p className='p-passwordcheck-false'>비밀번호가 틀립니다. 다시 입력 해 주세요.  </p>)
+                       
+                        
 
+                    }
+                </div>
+                <p className='p-nickname'>닉네임</p>
+                <input
+                    className='input-nickname'
+                    placeholder="nickname"
+                    type='text'
+                    name='nickname'
+                    onChange={getValue}
+                />
+                <div className='div-button'>
                     <button
-                        className="signup_button"
-                        onClick={() => { register(); submitPerson(); }}>회원가입
+                        className="button-register"
+                        disabled={!(registerEmail&&registerPassword&&Persons_db.nickname&&isPasswordSame)}//해당 state의 내용이 없으면 disabled로 표시해주기.
+                        onClick={() => { register(); submitPerson(); }}>
 
                     </button>
-                    <ToastContainer />
                 </div>
+                <ToastContainer />
+
             </div>
         </>
     );
