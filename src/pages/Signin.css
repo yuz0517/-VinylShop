@@ -1,8 +1,20 @@
 .div-all{
+    background-color: #ffffff;
     width:80%;
     place-content:center;
     flex-direction: column;
     margin: auto;
+    display: grid;
+}
+.div-title{
+    margin-top: 50px;
+    margin-bottom: 50px;;
+}
+.div-button{
+    place-content: center;
+    justify-content: space-between;
+    display: flex;
+
 }
 
 .p-login{
@@ -10,15 +22,18 @@
 }
 .p-id{
     font-size: 10px;
+    margin-bottom: 5px;
 }
 
 .p-password{
     font-size: 10px;
+    margin-bottom: 5px;
 }
 
 .input-id, .input-password{
-    width: 300px;
-    height: 50px
+    width: 400px;
+    height: 50px;
+    margin-bottom: 35px;
 }
 
 .button-signin,.button-signup{
@@ -28,5 +43,7 @@
     color: black;
     border: 1px solid aqua;
     border-radius: 50%;
+    font-size: 12px;
+    
 }
 

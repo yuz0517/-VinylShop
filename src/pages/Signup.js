@@ -80,9 +80,9 @@ const Signup = () => {
     return (
         <>
 
-            <div className='bg'>
+            <div className='div-all'>
 
-                <div className='input_contents'>
+                <div className='div-title'>
 
                     <span>회원가입</span><br /><br />
                     <input

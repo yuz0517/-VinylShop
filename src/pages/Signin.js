@@ -51,14 +51,16 @@ const Signin = () => {
             placeholder="Password"
             onChange={(e) => {setLoginPassword(e.target.value);}}
             />
-        <button 
-            className = 'button-signin'
-            onClick={login}>Sign In</button>
+        <div className='div-button'>
+            <button 
+                className = 'button-signin'
+                onClick={login}>Sign In</button>
         
         
-        <Link to="/SignUp">
-            <button className = 'button-signup'>Sign Up</button>
-        </Link> 
+            <Link to="/SignUp">
+                <button className = 'button-signup'>Sign Up</button>
+            </Link> 
+        </div>
     </div>
     </>
   )
