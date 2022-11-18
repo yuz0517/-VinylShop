@@ -48,13 +48,14 @@ const Signin = () => {
         <p className='p-password'>비밀번호</p>
         <input 
             className = 'input-password'
-            placeholder="Password"
+            placeholder= "Password"
+            type='password'
             onChange={(e) => {setLoginPassword(e.target.value);}}
             />
         <div className='div-button'>
             <button 
                 className = 'button-signin'
-                onClick={login}>Sign In</button>
+                onClick={login}>Sign    In</button>
         
         
             <Link to="/SignUp">

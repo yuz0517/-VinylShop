@@ -12,7 +12,7 @@
     margin-top: 50px;
     margin-bottom: 50px;;
 }
-.div-passwordcheck{
+.div-passwordcheck, .div-checkid{
     font-size: 11px;
     margin-top: none;
     height: 35px;
@@ -31,25 +31,25 @@
     margin-bottom: 5px;
 }
 
-.p-passwordcheck-null{
+.p-passwordcheck-null, .p-checkid-null{
     color: #8d8d8d;
 }
 
-.p-passwordcheck-false{
+.p-passwordcheck-false, .p-checkid-false{
     color: red;
 }
 
-.p-passwordcheck-true{
+.p-passwordcheck-true, .p-checkid-true{
     color: blue
 }
 
-.input-id, .input-password, .input-nickname {
+.input-password, .input-nickname {
     width: 400px;
     height: 50px;
     
 }
 
-.input-password-check{
+.input-password-check, .input-id{
     width: 400px;
     height: 50px;
     margin-bottom: 5px;

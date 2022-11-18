@@ -9,11 +9,16 @@ import Axios from 'axios';
 import { useHistory } from "react-router";
 //import {useNavigate} from "useNavigate";
 const Signup = () => {
+    
     const [Persons_db, setPerson_db] = useState({
         id: '',
         nickname: '',
     });
-    const history = useHistory();
+    const [registerEmail, setRegisterEmail] = useState("");
+    const [registerPassword, setRegisterPassword] = useState("");
+    const [PasswordCheck, setPasswordCheck] = useState("");
+    const [isPasswordSame, setIsPasswordSame] = useState(false);
+    const [isPasswordNull, setIsPasswordNull] = useState(false);
     //const state = { display: '등록완료', /*'user_id': 5*/ };
     // const url = '/Board';
     /* Persons(유저 정보 db) db 불러오기 */
@@ -35,19 +40,18 @@ const Signup = () => {
         })
         console.log(Persons_db);
     };
-    const [viewContent, setViewContent] = useState({
-
-    });
+   
     /* firebase e-mail login */
-    const [registerEmail, setRegisterEmail] = useState("");
-    const [registerPassword, setRegisterPassword] = useState("");
-    const [PasswordCheck, setPasswordCheck] = useState("");
-    const [error, setErrorMsg] = useState("  ");
+   
     //const navigate = useNavigate();
-    var errormsg;
-
-    const [isPasswordSame, setIsPasswordSame] = useState(false)
-    const [isPasswordNull, setIsPasswordNull] = useState(false)
+    
+    const [isEmail, setIsEmail] = useState (false);
+    const onChangeID = useCallback( e=>{
+        var Checkemail  = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+        if(Checkemail.test(e.target.value)===true){
+            setIsEmail(true);
+        }else setIsEmail(false);
+    })
     const onChangePassword = useCallback( e=>{
         //setRegisterPassword(e.target.value);  
         const regispw = e.target.value;
@@ -61,7 +65,7 @@ const Signup = () => {
         else setIsPasswordSame(false)
 
     })
-    const onChangePasswordSame = useCallback(
+    const onChangePasswordSame = useCallback( //isPasswordSame을 t/f로 set해주는 함수. t/f여부에 따라서 jsx에서 password 입력 상태에 따라 나타나는 메세지가 다름. 
         e=>{
             const pwcheck = e.target.value;
             console.log("",PasswordCheck)
@@ -120,7 +124,19 @@ const Signup = () => {
                     placeholder='id ( email )'
                     type='text'
                     name='id'
-                    onChange={(e) => { getValue(e); setRegisterEmail(e.target.value); }} />
+                    onChange={(e) => {getValue(e); setRegisterEmail(e.target.value);onChangeID(e) }
+                    } />
+                <div className='div-checkid'>
+                    { isEmail
+                        ?
+                        <p className='p-checkid-true'>올바른 이메일 형식입니다.</p>
+                        : (registerEmail===""
+                            ?<p className='p-checkid-null'>이메일을 입력 해 주세요</p>
+                            :<p className='p-checkid-false'>올바른 이메일 형식으로 입력 해 주세요.</p>)
+                        
+                    }
+                </div>
+
                
                 <p className='p-password'>비밀번호</p>
                 <input
