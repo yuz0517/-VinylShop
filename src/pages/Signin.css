@@ -8,13 +8,12 @@
 }
 .div-title{
     margin-top: 50px;
-    margin-bottom: 50px;;
+    margin-bottom: 50px;
 }
-.div-button{
-    place-content: center;
-    justify-content: space-between;
+.div-signin-button{
     display: flex;
-
+    justify-content: space-evenly;
+    margin-top: 40px;
 }
 
 .p-login{
@@ -30,14 +29,14 @@
     margin-bottom: 5px;
 }
 
-.input-id, .input-password{
+.input-signin-id, .input-signin-password{
     width: 400px;
     height: 50px;
     margin-bottom: 35px;
 }
 
 .button-signin,.button-signup{
-    width: 190px;
+    width: 150px;
     height: 50px;
     background-color: aqua;
     color: black;
