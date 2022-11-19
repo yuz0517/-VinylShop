@@ -6,10 +6,10 @@ import './Signup.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Axios from 'axios';
-import { useHistory } from "react-router";
+import { useDaumPostcodePopup } from 'react-daum-postcode';
 //import {useNavigate} from "useNavigate";
 const Signup = () => {
-    
+
     const [Persons_db, setPerson_db] = useState({
         id: '',
         nickname: '',
@@ -40,46 +40,72 @@ const Signup = () => {
         })
         console.log(Persons_db);
     };
-   
+
     /* firebase e-mail login */
-   
+
     //const navigate = useNavigate();
-    
-    const [isEmail, setIsEmail] = useState (false);
-    const onChangeID = useCallback( e=>{
-        var Checkemail  = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
-        if(Checkemail.test(e.target.value)===true){
+
+    const [isEmail, setIsEmail] = useState(false);
+    const onChangeID = useCallback(e => {
+        var Checkemail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
+        if (Checkemail.test(e.target.value) === true) {
             setIsEmail(true);
-        }else setIsEmail(false);
+        } else setIsEmail(false);
     })
-    const onChangePassword = useCallback( e=>{
+    const onChangePassword = useCallback(e => {
         //setRegisterPassword(e.target.value);  
         const regispw = e.target.value;
         setRegisterPassword(regispw);
-        console.log("registerpassword",registerPassword)
-        if(regispw===PasswordCheck && (regispw!==""&&PasswordCheck!=="")) {
+        console.log("registerpassword", registerPassword)
+        if (regispw === PasswordCheck && (regispw !== "" && PasswordCheck !== "")) {
             setIsPasswordSame(true)
-        }else if(regispw==="" && PasswordCheck===""){
+        } else if (regispw === "" && PasswordCheck === "") {
             setIsPasswordNull(true)
         }
         else setIsPasswordSame(false)
 
     })
     const onChangePasswordSame = useCallback( //isPasswordSame을 t/f로 set해주는 함수. t/f여부에 따라서 jsx에서 password 입력 상태에 따라 나타나는 메세지가 다름. 
-        e=>{
+        e => {
             const pwcheck = e.target.value;
-            console.log("",PasswordCheck)
+            console.log("", PasswordCheck)
             setPasswordCheck(pwcheck);
-            if ( pwcheck === registerPassword && (pwcheck!==""&& registerPassword!=="")) {
-                setIsPasswordSame( true );
+            if (pwcheck === registerPassword && (pwcheck !== "" && registerPassword !== "")) {
+                setIsPasswordSame(true);
                 //console.log(isPasswordSame, pwcheck,registerPassword);
-            
-            } else { setIsPasswordSame ( false );
+
+            } else {
+                setIsPasswordSame(false);
                 //console.log(isPasswordSame, pwcheck,registerPassword);
 
             }
-            
+
         });
+    /* ----- react-daum-postcode api 적용 */
+    const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    const open = useDaumPostcodePopup(scriptUrl);
+
+    const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = '';
+
+        if (data.addressType === 'R') {
+            if (data.bname !== '') {
+                extraAddress += data.bname;
+            }
+            if (data.buildingName !== '') {
+                extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+            }
+            fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+        }
+
+        console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+    };
+
+    const handleClick = () => {
+        open({ onComplete: handleComplete });
+    };
+
     const register = async () => { //밑에서 회원가입 버튼 onclick에 할당한다. 
         try {
 
@@ -124,43 +150,43 @@ const Signup = () => {
                     placeholder='id ( email )'
                     type='text'
                     name='id'
-                    onChange={(e) => {getValue(e); setRegisterEmail(e.target.value);onChangeID(e) }
+                    onChange={(e) => { getValue(e); setRegisterEmail(e.target.value); onChangeID(e) }
                     } />
                 <div className='div-checkid'>
-                    { isEmail
+                    {isEmail
                         ?
                         <p className='p-checkid-true'>올바른 이메일 형식입니다.</p>
-                        : (registerEmail===""
-                            ?<p className='p-checkid-null'>이메일을 입력 해 주세요</p>
-                            :<p className='p-checkid-false'>올바른 이메일 형식으로 입력 해 주세요.</p>)
-                        
+                        : (registerEmail === ""
+                            ? <p className='p-checkid-null'>이메일을 입력 해 주세요</p>
+                            : <p className='p-checkid-false'>올바른 이메일 형식으로 입력 해 주세요.</p>)
+
                     }
                 </div>
 
-               
+
                 <p className='p-password'>비밀번호</p>
                 <input
-                    type= "password"
+                    type="password"
                     className='input-password'
                     placeholder="password: 6자리 이상으로 입력 해 주세요."
                     onChange={onChangePassword} />
-               
+
                 <p className='p-password'>비밀번호 확인</p>
                 <input
-                    type= "password"
+                    type="password"
                     className='input-password-check'
                     placeholder="password를 한번 더 입력 해 주세요."
                     onChange={onChangePasswordSame}
-                    />
+                />
                 <div className='div-passwordcheck'>
-                    { isPasswordSame
+                    {isPasswordSame
                         ?
-                        <p className='p-passwordcheck-true'> 정확한 비밀번호를 입력하셨습니다.</p> 
-                        : (registerPassword==="" && PasswordCheck==="" //===null 로 입력 시 이 조건문은 안 돌아감.
-                            ?<p className='p-passwordcheck-null'>비밀번호를 입력 해 주세요</p>
+                        <p className='p-passwordcheck-true'> 정확한 비밀번호를 입력하셨습니다.</p>
+                        : (registerPassword === "" && PasswordCheck === "" //===null 로 입력 시 이 조건문은 안 돌아감.
+                            ? <p className='p-passwordcheck-null'>비밀번호를 입력 해 주세요</p>
                             : <p className='p-passwordcheck-false'>비밀번호가 틀립니다. 다시 입력 해 주세요.  </p>)
-                       
-                        
+
+
 
                     }
                 </div>
@@ -172,10 +198,23 @@ const Signup = () => {
                     name='nickname'
                     onChange={getValue}
                 />
+                <p className='p-address'>주소</p>
+                <button
+                    className='button-address'
+                    onClick={handleClick}>
+                    찾기
+                </button>
+                <input
+                    className='input-address'
+                    placeholder="address"
+                    type='text'
+                    //name='address'
+                    onChange={getValue}
+                />
                 <div className='div-button'>
                     <button
                         className="button-register"
-                        disabled={!(registerEmail&&registerPassword&&Persons_db.nickname&&isPasswordSame)}//해당 state의 내용이 없으면 disabled로 표시해주기.
+                        disabled={!(registerEmail && registerPassword && Persons_db.nickname && isPasswordSame)}//해당 state의 내용이 없으면 disabled로 표시해주기.
                         onClick={() => { register(); submitPerson(); }}>
 
                     </button>
