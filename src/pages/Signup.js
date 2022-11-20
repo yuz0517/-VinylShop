@@ -19,6 +19,7 @@ const Signup = () => {
     const [PasswordCheck, setPasswordCheck] = useState("");
     const [isPasswordSame, setIsPasswordSame] = useState(false);
     const [isPasswordNull, setIsPasswordNull] = useState(false);
+    const [Address, setAddress] = useState("");
     //const state = { display: '등록완료', /*'user_id': 5*/ };
     // const url = '/Board';
     /* Persons(유저 정보 db) db 불러오기 */
@@ -98,8 +99,8 @@ const Signup = () => {
             }
             fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
         }
-
-        console.log(fullAddress); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+        setAddress  = fullAddress;
+        console.log(Address); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
     };
 
     const handleClick = () => {
@@ -210,7 +211,9 @@ const Signup = () => {
                     type='text'
                     //name='address'
                     onChange={getValue}
-                />
+                >
+                
+                </input>
                 <div className='div-button'>
                     <button
                         className="button-register"
