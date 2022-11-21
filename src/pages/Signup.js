@@ -13,13 +13,15 @@ const Signup = () => {
     const [Persons_db, setPerson_db] = useState({
         id: '',
         nickname: '',
+        address: '',
+        address1:'',
     });
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
     const [PasswordCheck, setPasswordCheck] = useState("");
     const [isPasswordSame, setIsPasswordSame] = useState(false);
     const [isPasswordNull, setIsPasswordNull] = useState(false);
-    const [Address, setAddress] = useState("");
+    const [Address, setAddress] = useState("");//daum 으로 검색한 주소는 여기에 담아줌. 
     //const state = { display: '등록완료', /*'user_id': 5*/ };
     // const url = '/Board';
     /* Persons(유저 정보 db) db 불러오기 */
@@ -27,6 +29,8 @@ const Signup = () => {
         Axios.post('http://localhost:8000/api/signup', {
             nickname: Persons_db.nickname,
             id: Persons_db.id,
+            address: Address,
+            address1: Persons_db.address1,
             //date: Persons_db.date,
         }).then(() => {
             console.log();
@@ -41,6 +45,7 @@ const Signup = () => {
         })
         console.log(Persons_db);
     };
+
 
     /* firebase e-mail login */
 
@@ -82,6 +87,7 @@ const Signup = () => {
             }
 
         });
+        
     /* ----- react-daum-postcode api 적용 */
     const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
     const open = useDaumPostcodePopup(scriptUrl);
@@ -99,12 +105,14 @@ const Signup = () => {
             }
             fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
         }
-        setAddress  = fullAddress;
-        console.log(Address); // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
+        setAddress(fullAddress);
+        //setPerson_db.address(fullAddress);
+        console.log(Address,Persons_db.address)
     };
 
     const handleClick = () => {
         open({ onComplete: handleComplete });
+
     };
 
     const register = async () => { //밑에서 회원가입 버튼 onclick에 할당한다. 
@@ -201,19 +209,34 @@ const Signup = () => {
                 />
                 <p className='p-address'>주소</p>
                 <button
-                    className='button-address'
-                    onClick={handleClick}>
+                    className='button-signup-address'
+                    onClick={handleClick}
+                    //onChange={getValue}
+                    >
+                    
                     찾기
                 </button>
                 <input
-                    className='input-address'
+                    className='input-signup-address'
                     placeholder="address"
                     type='text'
-                    //name='address'
+                    name='address'
+                    //onChange={getValue}
+                    defaultValue={Address} //vlaue로 하면 에러남
+
+                    //onChange={onChangeAddress}//쓸모없는거!! 지워버리자
+                />
+             
+                <input
+                    className='input-signup-address1'
+                    placeholder="상세 주소를 입력 해 주세요."
+                    type='text'
+                    name='address1'
+                    //onChange={onChangeAddress}//쓸모없는거!! 지워버리자
                     onChange={getValue}
-                >
+                />
                 
-                </input>
+                
                 <div className='div-button'>
                     <button
                         className="button-register"

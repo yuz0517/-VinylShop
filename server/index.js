@@ -26,8 +26,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.post("/api/signup", (req,res) => {
     const Nickname =  req.body.nickname;
     const usrID = req.body.id;
-    const sqlQuery =  "INSERT INTO Persons (Nickname,userID) VALUES (?,?)";
-    db.query(sqlQuery,[Nickname,usrID],(err,result)=>{
+    const Address = req.body.address;
+    const Address1 = req.body.address1;
+    const sqlQuery =  "INSERT INTO Persons (Nickname,userID,Address,Address1) VALUES (?,?,?,?)";
+    db.query(sqlQuery,[Nickname,usrID,Address,Address1],(err,result)=>{
         if(!err){ 
             
             return res.send(result);
