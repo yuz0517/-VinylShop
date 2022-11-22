@@ -26,7 +26,7 @@
     margin-bottom: 5px;
 }
 
-.p-password, .p-nickname{
+.p-password, .p-nickname, .p-address{
     font-size: 10px;
     margin-bottom: 5px;
 }
@@ -43,17 +43,42 @@
     color: blue
 }
 
-.input-password, .input-nickname {
+.input-password, .input-nickname, .input-signup-address1 {
     width: 400px;
     height: 50px;
     margin-bottom: 35px;
     
 }
-
+.input-signup-address {
+    width: 350px;
+    height: 50px;
+    margin-bottom: 6px;
+    border-radius: 0%;
+    border: 1px solid #7b7b7b;
+    
+    
+}
 .input-password-check, .input-id{
     width: 400px;
     height: 50px;
     margin-bottom: 5px;
+    
+}
+.button-signup-address{
+    width: 50px;
+    height: 50px;
+    border: 1px solid #7b7b7b;
+    border-left: none;
+    background: #ffffff;
+    border-radius: 0%;
+}
+.button-signup-address::before{
+    font-size:10px ;
+    content: "🔍 ";
+}
+.button-signup-address:hover::before{
+    font-size:10px ;
+    content: "click";
 }
 
 .button-register{

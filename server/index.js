@@ -31,7 +31,7 @@ app.post("/api/signup", (req,res) => {
     const sqlQuery =  "INSERT INTO Persons (Nickname,userID,Address,Address1) VALUES (?,?,?,?)";
     db.query(sqlQuery,[Nickname,usrID,Address,Address1],(err,result)=>{
         if(!err){ 
-            
+            console.log(result);    
             return res.send(result);
         } else { 
             res.send(err);
@@ -44,8 +44,10 @@ app.post("/api/userinfoupdate", (req,res) => {
     const Nickname =  req.body.nickname;
     //const userID = req.body.userid;
     const PersonID = req.body.personid;
-    const sqlQuery =  "UPDATE Persons SET Nickname = ? WHERE PersonID = ?";
-    db.query(sqlQuery,[Nickname,PersonID],(err,result)=>{
+    const Address = req.body.address;
+    const Address1 = req.body.address1;
+    const sqlQuery =  "UPDATE Persons SET Nickname = ? , Address = ? , Address1 = ? WHERE PersonID = ?";
+    db.query(sqlQuery,[Nickname,Address,Address1,PersonID],(err,result)=>{
         if(!err){ 
             
             return res.send(result);
@@ -57,13 +59,12 @@ app.post("/api/userinfoupdate", (req,res) => {
 });
 app.get("/api/userinfo",(req,res)=>{
     
-    const sqlQuery = "SELECT userID, Nickname, PersonID FROM Persons WHERE userID LIKE ?";
+    const sqlQuery = "SELECT userID, Nickname, PersonID, Address, Address1 FROM Persons WHERE userID LIKE ?";
     //전달받은 parameter 값.
     const Firebase_ID = req.query.user;
     console.log(req.body.user);
     db.query(sqlQuery,[Firebase_ID],(err,data)=>{
         if(!err){ 
-            //console.log(Firebase_ID);
             return res.send(data);
         } else { 
             res.send(err);

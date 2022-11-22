@@ -14,7 +14,7 @@ const Signup = () => {
         id: '',
         nickname: '',
         address: '',
-        address1:'',
+        address1: '',
     });
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
@@ -87,7 +87,7 @@ const Signup = () => {
             }
 
         });
-        
+
     /* ----- react-daum-postcode api 적용 */
     const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
     const open = useDaumPostcodePopup(scriptUrl);
@@ -107,7 +107,7 @@ const Signup = () => {
         }
         setAddress(fullAddress);
         //setPerson_db.address(fullAddress);
-        console.log(Address,Persons_db.address)
+        console.log(Address, Persons_db.address)
     };
 
     const handleClick = () => {
@@ -200,6 +200,7 @@ const Signup = () => {
                     }
                 </div>
                 <p className='p-nickname'>닉네임</p>
+
                 <input
                     className='input-nickname'
                     placeholder="nickname"
@@ -207,26 +208,31 @@ const Signup = () => {
                     name='nickname'
                     onChange={getValue}
                 />
+
                 <p className='p-address'>주소</p>
-                <button
-                    className='button-signup-address'
-                    onClick={handleClick}
-                    //onChange={getValue}
-                    >
-                    
-                    찾기
-                </button>
-                <input
-                    className='input-signup-address'
-                    placeholder="address"
-                    type='text'
-                    name='address'
-                    //onChange={getValue}
-                    defaultValue={Address} //vlaue로 하면 에러남
+                <div>
+                    <input
+                        className='input-signup-address'
+                        placeholder="address"
+                        type='text'
+                        name='address'
+                        //onChange={getValue}
+                        defaultValue={Address} //vlaue로 하면 에러남
 
                     //onChange={onChangeAddress}//쓸모없는거!! 지워버리자
-                />
-             
+                    />
+
+                    <button
+                        className='button-signup-address'
+                        onClick={handleClick}
+                    //onChange={getValue}
+                        
+                    >
+                       
+                        
+                    </button>
+                </div>
+
                 <input
                     className='input-signup-address1'
                     placeholder="상세 주소를 입력 해 주세요."
@@ -235,12 +241,13 @@ const Signup = () => {
                     //onChange={onChangeAddress}//쓸모없는거!! 지워버리자
                     onChange={getValue}
                 />
-                
-                
+
+
                 <div className='div-button'>
                     <button
                         className="button-register"
-                        disabled={!(registerEmail && registerPassword && Persons_db.nickname && isPasswordSame)}//해당 state의 내용이 없으면 disabled로 표시해주기.
+                        disabled={!(registerEmail && registerPassword && Persons_db.nickname && isPasswordSame
+                            && Address)}//해당 state의 내용이 없으면 disabled로 표시해주기.
                         onClick={() => { register(); submitPerson(); }}>
 
                     </button>
