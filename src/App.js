@@ -15,12 +15,13 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App(){
   const [isLoggedIn, setIsloggedIn] = useState(false);
+  const [sessionUsername, setSessionUsername] = useState("");//작성자 등록
   return(
   <>
 
   
     <Router>
-    <Context.Provider value={{ isLoggedIn, setIsloggedIn }}>
+    <Context.Provider value={{ isLoggedIn, setIsloggedIn, sessionUsername, setSessionUsername}}>
       <Navbar />
      
       <Switch>

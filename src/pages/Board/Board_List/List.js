@@ -50,6 +50,7 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
                     <tr>
                         <th className='th-title'>Title</th>
                         <th className='th-date'>Date</th>
+                        <th className='th-writer'>Writer</th>
                     </tr>
                 </thead>
 
@@ -79,6 +80,7 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
                                         key={item.id} >{item.title}</Link>
                                 </td>
                                 <td>{kst}</td>
+                                <td></td>
                             </tr>
                         );
                     })}

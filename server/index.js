@@ -78,15 +78,17 @@ app.get("/api/userinfo",(req,res)=>{
 app.post("/api/insert", (req,res) => {
     const title = req.body.title;
     const content =  req.body.content;
-    const sqlQuery =  "INSERT INTO board (title,content) VALUES (?,?)";
-    db.query(sqlQuery,[title,content],(err,result)=>{
+    const writer = req.body.writer;
+    const writer_email = req.body.writer_email;
+    const sqlQuery =  "INSERT INTO board (title,content,writer,writer_email) VALUES (?,?,?,?)";
+    db.query(sqlQuery,[title,content,writer,writer_email],(err,result)=>{
         res.send('success'); 
         //res.send(err); //에러코드를 표시.  
     });
 });
 //접속 시 응답메시지 출력
 app.get("/api/boardread",(req,res)=>{
-    const sqlQuery = "SELECT id,title,content,date FROM board";
+    const sqlQuery = "SELECT id,title,content,date,writer FROM board";
     db.query(sqlQuery,(err,result)=>{
         if(!err){ 
             

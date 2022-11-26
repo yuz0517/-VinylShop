@@ -17,6 +17,7 @@ const Signin = () => {
     const [user, setUser] = useState({});
     //const [isLoggedIn, setIsloggedIn] = useState(false);
     const { isLoggedIn, setIsloggedIn } = useContext(Context);
+    const { sessionUsername, setSessionUsername } = useContext(Context);
     const login = async () => {
         try {
             const user = await signInWithEmailAndPassword(
@@ -24,6 +25,21 @@ const Signin = () => {
             );
             sessionStorage.setItem(user.user.email, user.user.accessToken);
             setIsloggedIn(true);
+            Axios.get('http://localhost:8000/api/userinfo',
+      { params: { user: sessionStorage.key(0) } })
+      .then((res) => {
+        set_dbdata([...dbdata, ...res.data]);
+        console.log(res.data[0].userID)
+        nickname = res.data[0].Nickname;
+        userid = res.data[0].userID;
+        BoardContent.writer = nickname;
+        BoardContent.writer_email=userid;
+        console.log(BoardContent.writer,BoardContent.writer_email)
+
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
             //context.setIsloggedIn(true);
             //Navbar.signinupdate();
             //console.log("login success",isLoggedIn);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -10,7 +10,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from "react-router";
 import { auth } from "../../firebase";//파베
-
+import { browserSessionPersistence } from 'firebase/auth';
+import { Context, UserContextProvider } from "../../components/ContextProvider";
 
 /* 
 1.저장 버튼 중앙 정렬 필요합니다.
@@ -25,7 +26,17 @@ function Board_write() {
   var user = auth.currentUser;
   var name, email, photoUrl, uid, emailVerified;
 
-  if (user != null) {
+  const [BoardContent, setBoardContent] = useState({
+    title: '',
+    content: '',
+    date: '',
+    writer:'',
+    writer_email:''
+  });
+  const { sessionUsername} = useContext(Context);//session storage
+  
+  console.log("Board_write.js:",sessionUsername);
+  /*if (user != null) {
 
     name = user.displayName;
     email = user.email;
@@ -35,12 +46,31 @@ function Board_write() {
     uid = user.uid;
   }else if(user == null){
     history.push("/");
-  }
-  const [BoardContent, setBoardContent] = useState({
-    title: '',
-    content: '',
-    date: ''
-  });
+  }*/
+  //db에서 유저 정보 가져오기. (작성자 등록 위함)
+  let [dbdata, set_dbdata] = useState([]);
+  const [Writer, setWriter] = useState("");
+  const [Writer_email, setWriter_email] = useState("");
+  let userid = '', nickname = '';
+  useEffect(() => {
+    Axios.get('http://localhost:8000/api/userinfo',
+      { params: { user: sessionStorage.key(0) } })
+      .then((res) => {
+        set_dbdata([...dbdata, ...res.data]);
+        console.log(res.data[0].userID)
+        nickname = res.data[0].Nickname;
+        userid = res.data[0].userID;
+        BoardContent.writer = nickname;
+        BoardContent.writer_email=userid;
+        console.log(BoardContent.writer,BoardContent.writer_email)
+
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
+  }, []);
+
+  console.log(Writer_email);
   //const httpsAgent = new https.Agent({ rejectUnauthorized: false });
   /* board_write에서 제출 버튼 누르면 등록 완료시킴.  */
 
@@ -52,7 +82,9 @@ function Board_write() {
     Axios.post('http://localhost:8000/api/insert', {
       title: BoardContent.title,
       content: BoardContent.content,
-      date: BoardContent.date
+      date: BoardContent.date,
+      writer:BoardContent.writer,
+      writer_email:BoardContent.writer_email
     }).then(() => {//글이 등록 되면
       history.push({ pathname: "/Board", submit: 'done' });
       toast.success('작성하신 글이 등록되었습니다.', {
