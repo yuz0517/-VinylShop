@@ -24,7 +24,17 @@
     
     
 }
+.div-info{
+    display: flex;
+    flex-direction: column;
+    float: right;
+}
 .p-date{
+    float: right;
+    font-size: 7px;
+    color: #9b9999;
+}
+.p-writer{
     float: right;
     font-size: 7px;
     color: #9b9999;

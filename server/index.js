@@ -14,7 +14,7 @@ const PORT = process.env.port || 8000;
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "2Pac7307!",
+    password: "Dldbtlr0517!",
     database: "mydb"
 });
 

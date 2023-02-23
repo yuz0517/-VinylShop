@@ -58,6 +58,9 @@ function Board_Main({ location }) {
                     <Link to='/Board-write'>
                         <button className='btn'>글쓰기</button>
                     </Link>
+                    <Link to='/Board-mine'>
+                        <button className='btn-mine'>나의 글</button>
+                    </Link>
                 </div>
             
             <div className='board_list'>

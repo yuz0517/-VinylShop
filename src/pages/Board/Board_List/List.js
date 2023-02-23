@@ -80,7 +80,7 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
                                         key={item.id} >{item.title}</Link>
                                 </td>
                                 <td>{kst}</td>
-                                <td></td>
+                                <td>{item.writer}</td>
                             </tr>
                         );
                     })}
