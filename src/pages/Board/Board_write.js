@@ -8,7 +8,7 @@ import { useState } from 'react'
 import Axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { auth } from "../../firebase";//파베
 import { browserSessionPersistence } from 'firebase/auth';
 import { Context, UserContextProvider } from "../../components/ContextProvider";
@@ -74,7 +74,7 @@ function Board_write() {
   //const httpsAgent = new https.Agent({ rejectUnauthorized: false });
   /* board_write에서 제출 버튼 누르면 등록 완료시킴.  */
 
-  const history = useHistory();
+  const history = useNavigate();
   const state = { display: '등록완료', /*'user_id': 5*/ };
   const url = '/Board';
 

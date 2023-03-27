@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Pagination from 'react-js-pagination';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import List from './Board_List/List'
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { render } from '@testing-library/react';
 import './Board_Main.scss'
 function Board_Main({ location }) {
@@ -46,7 +46,7 @@ function Board_Main({ location }) {
       if (User.email === null) {
         //history.push("/signin"); //render 안에서 history를 사용하면 안 된다.
         console.log("logout상태입니다.");
-        return <Redirect to={'/signin'} />
+        return <Navigate to={'/signin'} />
     
     }
 

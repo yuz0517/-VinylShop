@@ -6,17 +6,19 @@ import { useState } from 'react'
 import Axios from 'axios';
 import { isReactNative } from '@firebase/util';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
-import { Redirect } from 'react-router-dom';
-import './Mypage.css'
+import { Navigate } from 'react-router-dom';
+import styles from './Mypage.module.css'
 import { IfFulfilled } from 'react-async';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function Mypage({ history }) {
 
 
   const [User, setUser] = useState({
     email: sessionStorage.key(0)
   });
+
 
 
   //var email = sessionStorage.key(0);
@@ -174,26 +176,29 @@ function Mypage({ history }) {
   if (User.email === null) {
     //history.push("/signin"); //render 안에서 history를 사용하면 안 된다.
     console.log("logout상태입니다.");
-    return <Redirect to={'/signin'} />
+    return <Navigate to={'/signin'} />
 
   }
 
 
   return (
-    <div className='div-all'>
-      <div className='div-about'>
-        <p className='p-title'>Mypage</p>
-        <button className='btn-edit' onClick={onEditClick} >수정</button>
-        <ToastContainer />
+    <div className= {styles.all}>
+      <div className={styles.about}>
+        <p className={styles.category}>기본 회원정보</p>
+        <p className={styles.detail}>더블클릭 후 수정하세요.</p>
+        <button className={styles.edit} onClick={onEditClick} >저장</button>
+       
       </div>
+      <ToastContainer />
 
 
 
-
-
-      <div ref={ref}  >{/* ref를 input 안에 써줬을 때 오류났음 div에 썼을때 안 남 */}
+      
+      <div ref={ref} className={styles.information}  >{/* ref를 input 안에 써줬을 때 오류났음 div에 썼을때 안 남 */}
+      <p className={styles.subcategory}>이메일</p>
         {isEditable ? (
           <input
+            
             type="text"
             value={text_email}
 
@@ -204,7 +209,9 @@ function Mypage({ history }) {
           <p onDoubleClick={handleDoubleClick}>{text_email}</p>
         )}
       </div>
-      <div ref={refNickname}  >{/* ref를 input 안에 써줬을 때 오류났음 div에 썼을때 안 남 */}
+      
+      <div ref={refNickname}  className={styles.information} >{/* ref를 input 안에 써줬을 때 오류났음 div에 썼을때 안 남 */}
+      <p className={styles.subcategory}>닉네임</p>
         {isNicknameEditable ? (
           <input
             type="text"
@@ -217,7 +224,35 @@ function Mypage({ history }) {
           <p onDoubleClick={handleNicknameDoubleClick}>{text_nickname}</p>
         )}
       </div>
+      
+      
+      <div>
+      <p className={styles.subcategory}>주소 1</p>
+        
+        <input
+
+          className={styles.addressinput}
+          placeholder="address"
+          type='text'
+          name='address'
+          //onChange={getValue}
+          defaultValue={text_address}
+         
+        //onChange={onChangeAddress}//쓸모없는거!! 지워버리자
+        />
+        <button
+          
+          className= {styles.addresssearch}
+          onClick={handleClick}
+        //onChange={getValue}
+        >
+          찾기
+        </button>
+      </div>
+
+      
       <div ref={refAddress1}  >{/* ref를 input 안에 써줬을 때 오류났음 div에 썼을때 안 남 */}
+      <p className={styles.subcategory}>주소 2</p>
         {isAddress1Editable ? (
           <input
             type="text"
@@ -229,25 +264,6 @@ function Mypage({ history }) {
         ) : (
           <p onDoubleClick={handleAddress1DoubleClick}>{text_address1}</p>
         )}
-      </div>
-      <div>
-        <button
-          className='button-signup-address'
-          onClick={handleClick}
-        //onChange={getValue}
-        >
-          찾기
-        </button>
-        <input
-          className='input-signup-address'
-          placeholder="address"
-          type='text'
-          name='address'
-          //onChange={getValue}
-          defaultValue={text_address}
-         
-        //onChange={onChangeAddress}//쓸모없는거!! 지워버리자
-        />
       </div>
       <div>
 

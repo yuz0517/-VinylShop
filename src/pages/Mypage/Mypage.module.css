@@ -1,41 +1,69 @@
-.div-all{
+
+.all{
     width: 80%;
     place-content:center;
-    flex-direction: column;
-    margin: auto;
+    margin-top: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+
     
 }
-.div-about{
-    width:80%;
-    height:50px;
-    margin-top: 40px;
-    border-bottom: solid 1.1px #1c1c1c;
-    display: flex;
-
+.about{
+    
     justify-content: space-between;
-   
-    margin-left: 5px;
-    width: 80%;
-}
-.div-map{   
+    border-bottom: solid 2px #1c1c1c;
     display: flex;
-  width: 80%;
+
+
+   
+ 
     
+}
+.map{   
+    display: flex;
+    width: 80%;
     
+
 }
 
-.p-title{
+.category{
     display: flex;
     
     font-size: 30px;
 }
 
-.btn-edit{
-    justify-content: flex-end;
-    place-content: right;
+.information{
+  display: flex;
+
+}
+.subcategory{
+  font-size: 20px;
+
+}
+.addresssearch{
+  margin-left: 10px;
+  height: 40px;
+  width: 40px;
+  border: solid 1.2px#b9b8b8;
+  box-shadow: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.addresssearch:hover{
+  border: solid 1.2px #000
+  
+}
+.addressinput{
+  height: 40px;
+  width: 80%;
+}
+.edit{
+
+   
     display: flex;
     transform: translate(0,10%);
-    font-family: sans-serif, arial;
     font-weight: normal;
     font-size: 13px;
     padding: 10px 10px;
@@ -43,21 +71,21 @@
     color: #1c1c1c;
     border: 1.1px solid #1c1c1c;
     cursor: pointer;
-    margin-right: 10px;
+    
     margin-bottom: 10px;
 
 
  
   }
-  .btn-edit:active, .btn:focus{
+  .edit:active, .btn:focus{
     outline: none;
   }
-  .btn-edit:hover{
+  .edit:hover{
     color: #fff;
     box-shadow: 0px 4px 8px 1px #000;
     transition: all .2s ease;
   }
-  .btn-edit::after{
+  .edit::after{
     content: '';
     position: absolute;
     bottom: 0px;
@@ -70,7 +98,7 @@
     transition-duration: 0.1s;
     z-index: -1;
   }
-  .btn-edit:hover::after{
+  .edit:hover::after{
     width: 100%;
     height: 100%;
   }
