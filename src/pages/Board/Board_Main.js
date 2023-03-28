@@ -13,10 +13,10 @@ import './Board_Main.scss'
 function Board_Main({ location }) {
 
     
-    let issubmit = location.submit;
-    console.log(issubmit);    // 결과:  value
-    if (issubmit == 'done') {
-    }
+    // let issubmit = location.submit;
+    // console.log(issubmit);    // 결과:  value
+    // if (issubmit == 'done') {
+    // }
     /*const ViewBoardList = () => { //등록버튼 onclick에 올려준다. 
         Axios.get('http://localhost:8000/api/boardread', {
             title: BoardData.title,

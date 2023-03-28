@@ -226,7 +226,7 @@ function Mypage({ history }) {
       </div>
       
       
-      <div>
+      <div className={styles.information}>
       <p className={styles.subcategory}>주소 1</p>
         
         <input
@@ -251,7 +251,7 @@ function Mypage({ history }) {
       </div>
 
       
-      <div ref={refAddress1}  >{/* ref를 input 안에 써줬을 때 오류났음 div에 썼을때 안 남 */}
+      <div ref={refAddress1} className={styles.information}  >{/* ref를 input 안에 써줬을 때 오류났음 div에 썼을때 안 남 */}
       <p className={styles.subcategory}>주소 2</p>
         {isAddress1Editable ? (
           <input

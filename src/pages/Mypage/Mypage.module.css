@@ -9,11 +9,23 @@
 
     
 }
+.detail{
+  margin-top: 30px;
+  font-size: 10px;
+  color: #858282;
+  display: flex;
+}
+.category{
+  display: flex;
+  
+  font-size: 30px;
+}
 .about{
-    
+    margin-bottom: 30px;
     justify-content: space-between;
     border-bottom: solid 2px #1c1c1c;
     display: flex;
+
 
 
    
@@ -27,18 +39,20 @@
 
 }
 
-.category{
-    display: flex;
-    
-    font-size: 30px;
-}
+
 
 .information{
   display: flex;
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: solid 0.9px #b0b0b0;
 
 }
 .subcategory{
-  font-size: 20px;
+  margin-right: 40px;
+  font-size: 17px;
+
+  
 
 }
 .addresssearch{
