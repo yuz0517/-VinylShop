@@ -32,8 +32,8 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/Mypage" element={<Mypage/>}>
-              <Route path="myinfo" element={<Mypage_Main/>} />
+            <Route path="/Mypage" element={<Mypage_Main/>}>
+              <Route path="myinfo" element={<Mypage/>} />
             </Route>
             <Route path="/Bookmark" element={<Bookmark/>} />
             <Route path="/Signup" element={<Signup/>} />
