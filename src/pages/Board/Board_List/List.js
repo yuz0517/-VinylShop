@@ -68,14 +68,13 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
                                 <td>
                                     <Link
                                         style={{
-
-                                            textDecoration: 'none'
+                                            color: "black",
+                                            textDecoration: "none"
                                         }}
-                                        to={{
-
-                                            pathname: `/Board-view/${item.id}`,
-                                            state: { select_data: item }//selected data로 board_view.js에서 받음 
-                                        }}    //성공
+                                        to= {`/Board-view/${item.id}`}
+                                        state = { {select_data: item }}
+                                           //selected data로 board_view.js에서 받음 
+                                            //성공board_view
                                         className='list'
                                         key={item.id} >{item.title}</Link>
                                 </td>
