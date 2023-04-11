@@ -11,6 +11,7 @@ import Board_write from "./pages/Board/Board_write";
 import Board_Main from "./pages/Board/Board_Main";
 import Board_View from "./pages/Board/Board_View";
 import Signin from "./pages/Signin";
+import Search from "./pages/Search/Search";
 import { Context } from "./components/ContextProvider";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/Board-write" element={<Board_write/>} />
             <Route path="/Board-view/:no" element={<Board_View/>} />
             <Route path="/Signin" element={<Signin/>} />
+            <Route path="/Search" element={<Search/>} />
           </Routes>
         </Context.Provider>
       </Router>

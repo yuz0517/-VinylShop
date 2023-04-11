@@ -8,12 +8,14 @@ import './Board_View.css';
 
 //수정 버튼은 작성자에게만 보이게.  => private route로 처리. 
 
-const Board_View = ({ location }) => {
+const Board_View = ({  }) => {
   //const [data, set_data] = useState({});
 
 
   //const { no } = match.params; //match.parms-> 글 번호 
-  console.log(location.state); // List.js에서 Props 보낸 값 확인 가능. select_data 로 표시됨.  
+  //console.log(location.state); // List.js에서 Props 보낸 값 확인 가능. select_data 로 표시됨.  
+  const location = useLocation();
+  console.log(location)
   const title = location.state.select_data.title; // List.js에서 Link to 로 보낸 값 받아오는 코드. 
   const content = location.state.select_data.content;
   const writer = location.state.select_data.writer;
