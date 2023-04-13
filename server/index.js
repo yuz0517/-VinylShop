@@ -101,6 +101,26 @@ app.get("/api/boardread",(req,res)=>{
 })
 
 
+app.get("/api/boardsearch",(req,res)=>{
+    //const sqlQuery = "SELECT id,title,content,date,writer FROM board";
+   
+    //전달받은 parameter 값.
+    const key = req.query.key;
+    const querykey = '%'+key+'%';
+    const sqlQuery = "SELECT id,title,content,date,writer FROM board WHERE title Like ? OR content Like ?";
+    console.log(sqlQuery);
+    db.query(sqlQuery,[querykey,querykey],(err,data)=>{
+        
+        if(!err){ 
+            console.log(data)
+            return res.send(data);
+        } else { 
+           
+            res.send(err);
+   
+        }
+    });
+});
 
 
 app.listen(PORT, ()=>{
