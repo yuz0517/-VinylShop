@@ -88,7 +88,7 @@ app.post("/api/insert", (req,res) => {
 });
 //접속 시 응답메시지 출력
 app.get("/api/boardread",(req,res)=>{
-    const sqlQuery = "SELECT id,title,content,date,writer FROM board";
+    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board";
     db.query(sqlQuery,(err,result)=>{
         if(!err){ 
             
@@ -107,7 +107,7 @@ app.get("/api/boardsearch",(req,res)=>{
     //전달받은 parameter 값.
     const key = req.query.key;
     const querykey = '%'+key+'%';
-    const sqlQuery = "SELECT id,title,content,date,writer FROM board WHERE title Like ? OR content Like ?";
+    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE title Like ? OR content Like ?";
     console.log(sqlQuery);
     db.query(sqlQuery,[querykey,querykey],(err,data)=>{
         

@@ -7,7 +7,7 @@ import Pagination from 'react-js-pagination';
 import './List.css';
 function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아옴. 
 
-    const [page, setPage] = useState(2); //page-> current page
+    const [page, setPage] = useState(1); //page-> current page
     const [currentPost, setCurrentPost] = useState([]);
 
     const [BoardData, setBoardData] = useState([]) //reverse해서 저장할 데이터
