@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { Context } from "../../components/ContextProvider";
 import Pagination from "react-js-pagination";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import List from "./Board_List/List";
@@ -24,9 +24,9 @@ function Board_Main({ location }) {
         })
     };*/
 
-
+  const {prevPagenation,setPrevpagenation} = useContext(Context);
   let [dbdata, set_dbdata] = useState([]);
-  let [search,setSearch] = useState('');
+  let [search,setSearch] = useState('초기값');
   let [updatesearch,setUpdatesearch] = useState('');
   let navigate = useNavigate();
   useEffect(() => {
@@ -66,8 +66,9 @@ function Board_Main({ location }) {
             onChange={onSearchchange}
           />
           <button className="btn" onClick={() => {
+                          setPrevpagenation(1)
                           setUpdatesearch(search);
-                          navigate("/search/");}}>검색</button>
+                          navigate('/search', {state: {search: search}});}}>검색</button>
           <Link to="/Board-mine">
             <button className="btn-mine">나의 글</button>
           </Link>

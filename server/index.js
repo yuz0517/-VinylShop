@@ -107,7 +107,7 @@ app.get("/api/boardsearch",(req,res)=>{
     //전달받은 parameter 값.
     const key = req.query.key;
     const querykey = '%'+key+'%';
-    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE title Like ? OR content Like ?";
+    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE title Like ?";
     console.log(sqlQuery);
     db.query(sqlQuery,[querykey,querykey],(err,data)=>{
         

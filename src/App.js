@@ -18,15 +18,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false);
   const [sessionUsername, setSessionUsername] = useState(""); //작성자 등록
+  const [prevPagenation,setPrevpagenation] = useState(1);
   return (
     <>
       <Router>
         <Context.Provider
           value={{
-            isLoggedIn,
-            setIsloggedIn,
-            sessionUsername,
-            setSessionUsername,
+            isLoggedIn,setIsloggedIn,
+            sessionUsername,setSessionUsername,
+            prevPagenation,setPrevpagenation,
           }}
         >
           <Navbar />
@@ -34,7 +34,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/Mypage" element={<Mypage_Main/>}>
-              <Route path="myinfo" element={<Mypage/>} />
+              <Route path="myinfo" element={ <Mypage/>} />
             </Route>
             <Route path="/Bookmark" element={<Bookmark/>} />
             <Route path="/Signup" element={<Signup/>} />

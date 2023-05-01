@@ -1,13 +1,23 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useContext } from 'react';
 import ReactTable from "react-table";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { ReactDOM } from 'react';
+import { Context } from "../../../components/ContextProvider";
+
 import Pagination from 'react-js-pagination';
 import './List.css';
 function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아옴. 
-
-    const [page, setPage] = useState(1); //page-> current page
+    const {prevPagenation,setPrevpagenation} = useContext(Context);
+    const [page, setPage] = useState(prevPagenation); //page-> current page
+    // const location = 0
+    // console.log(location.state.pagenum)
+    // // if(location.state.pagenum===null){
+    // //     setPage(1)
+    // // }else if (location.state.pagenum!==null){
+    // //     setPage(location.state.pagenum)
+    // // }
+    
     const [currentPost, setCurrentPost] = useState([]);
 
     const [BoardData, setBoardData] = useState([]) //reverse해서 저장할 데이터
@@ -73,7 +83,7 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
                                             textDecoration: "none"
                                         }}  
                                         to= {`/Board-view/${item.id}`}
-                                        state = { {select_data: item }}
+                                        state = { {select_data: item ,pagenum: page }}
                                            //selected data로 board_view.js에서 받음 
                                             //성공board_view
                                         className='list'
@@ -93,7 +103,7 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
             </table>
 
             <Pagination
-                // 현제 보고있는 페이지 
+                // 현재 보고있는 페이지 
                 activePage={page}
                 // 한페이지에 출력할 아이템수
                 itemsCountPerPage={itemPerPage}

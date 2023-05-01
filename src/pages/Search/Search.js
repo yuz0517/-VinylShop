@@ -1,13 +1,20 @@
-import React,{ useState , useEffect } from 'react'
-import { Link, Navigate } from 'react-router-dom';
+import React,{ useState , useEffect,  } from 'react'
+import { Link, Navigate, useLocation } from 'react-router-dom';
 
 import Axios from "axios";
 import List from '../Board/Board_List/List';
 function Search() {
+  const location = useLocation();
+  let key = location.state.search;
+  if (key!==null){
+    key = location.state.search;
+  }else key = "key";
+  
+  console.log(key)
   let [dbdata, set_dbdata] = useState([]);
-  let [search,setSearch] = useState('');
+  let [search,setSearch] = useState(' ');
   let [updatesearch,setUpdatesearch] = useState('');
-  let key = '테스트';
+  //let key = '테스트'; //검색 키워드 
   useEffect(() => {
     Axios.get("http://localhost:8000/api/boardsearch", 
     { params: { key: key} })
@@ -26,8 +33,8 @@ function Search() {
   }
   return (
     <>
-    <div>'검색어' 의 검색결과입니다.</div>
-    <div>총 1개의 게시물이 검색되었습니다.</div>
+    <div> {key} 의 검색결과입니다.</div>
+    <div>총 {dbdata.length}개의 게시물이 검색되었습니다.</div>
     
       <div className="div-full">
         <div className="div-board">
@@ -38,7 +45,7 @@ function Search() {
             onChange={onSearchchange}
           />
           <button className="btn" onClick={() => {
-                          setUpdatesearch(search);
+                          //setUpdatesearch(search);
                           set_dbdata('')}}>검색</button>
           
         </div>

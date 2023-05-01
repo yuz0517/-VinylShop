@@ -19,6 +19,8 @@ function Navbar() {
     
     const { isLoggedIn, setIsloggedIn } = useContext(Context);
     const showSidebar = () => setSidebar(!sidebar)
+   
+    
     /*const [User, setUser] = useState({
         email: sessionStorage.key(0) //login, logout 아이콘 띄워주기 전에 먼저 로그인 여부 판별
     });*/
@@ -85,6 +87,7 @@ function Navbar() {
                             </Link>
                         </li>
                         {SidebarData.map((item, index) => {
+                            
                             return (
                                 <li key={index} className={item.cName}>
                                     <Link to={item.path}>

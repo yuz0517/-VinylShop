@@ -1,6 +1,7 @@
-import React, { useEffect, useState, Component } from 'react'
+import React, { useEffect, useState, Component, useContext } from 'react'
 import { useLocation, Link } from 'react-router-dom';
 import { IconContext } from 'react-icons';
+import { Context } from "../../components/ContextProvider";
 import * as RiIcons from "react-icons/ri";
 import * as AiIcons from "react-icons/ai";
 import Axios from 'axios';
@@ -16,6 +17,9 @@ const Board_View = ({  }) => {
   //console.log(location.state); // List.js에서 Props 보낸 값 확인 가능. select_data 로 표시됨.  
   const location = useLocation();
   console.log(location)
+  const pagenum = location.state.pagenum; //목록 페이지 번호 저장
+  const {prevPagenation,setPrevpagenation} = useContext(Context);
+  setPrevpagenation(pagenum)
   const title = location.state.select_data.title; // List.js에서 Link to 로 보낸 값 받아오는 코드. 
   const content = location.state.select_data.content;
   const writer = location.state.select_data.writer;
@@ -95,7 +99,7 @@ const Board_View = ({  }) => {
             <div className='Like'>
               <AiIcons.AiOutlineHeart className='icon_Like' onClick={() => like_click()} />
 
-              <Link to="/Board"><RiIcons.RiArrowGoBackFill className='icon-back' /></Link>
+              <Link to="/Board" ><RiIcons.RiArrowGoBackFill className='icon-back' /></Link>
             </div>
           </IconContext.Provider>
         </div>
