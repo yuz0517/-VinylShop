@@ -58,9 +58,9 @@ function Navbar() {
             <IconContext.Provider value={{ color: '#fff' }}>
 
                 <div className='navbar'>
-                    <Link to="#" className='menu-bars'>
+                    <div className='menu-bars'>
                         <FaIcons.FaBars onClick={showSidebar} />
-                    </Link>
+                    </div>
                     {/*<Loginform />*/}
                     {/*<ioIcons.IoIosLogOut/>*/}
                     {isLoggedIn ? (
@@ -81,10 +81,10 @@ function Navbar() {
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={showSidebar}>
                         <li className="navbar-toggle">
-                            <Link to="#" className='menu-bars'>
+                            <div to="#" className='menu-bars'>
                                 <AiIcons.AiOutlineClose />
                                 
-                            </Link>
+                            </div>
                         </li>
                         {SidebarData.map((item, index) => {
                             

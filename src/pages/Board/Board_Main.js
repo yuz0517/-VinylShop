@@ -26,7 +26,10 @@ function Board_Main({ location }) {
 
   const {prevPagenation,setPrevpagenation} = useContext(Context);
   let [dbdata, set_dbdata] = useState([]);
-  let [search,setSearch] = useState('초기값');
+  //const { state } = useLocation();
+  //const currentCategory = state && state.name;
+  let [search,setSearch] = useState('');
+  let [option, setOption] = useState('title'); 
   let [updatesearch,setUpdatesearch] = useState('');
   let navigate = useNavigate();
   useEffect(() => {
@@ -52,6 +55,12 @@ function Board_Main({ location }) {
   const onSearchchange = (event) => {
     setSearch(event.target.value);
   }
+
+  const onSelectChange = (e) =>{
+    setOption(e.target.value)
+    console.log(e.target.value);
+    
+  }
   console.log(search)
   return (
     <>
@@ -61,14 +70,24 @@ function Board_Main({ location }) {
           <Link to="/Board-write">
             <button className="btn">글쓰기</button>
           </Link>
+          <select className="select-search" onChange={onSelectChange} >
+            <option value="title">title</option>
+            <option value="writer">writer</option>
+            <option value="content">content</option>
+            <option value="titleORcontent">title OR writer</option>
+          </select>
           <input
             type="text" className="input-search"
             onChange={onSearchchange}
           />
           <button className="btn" onClick={() => {
+                        if(search===''){
+                          alert('검색어를 입력 해 주세요')
+                        }else {
                           setPrevpagenation(1)
                           setUpdatesearch(search);
-                          navigate('/search', {state: {search: search}});}}>검색</button>
+                          navigate('/search', {state: {search: search, option:option}});}
+          }}>검색</button>
           <Link to="/Board-mine">
             <button className="btn-mine">나의 글</button>
           </Link>

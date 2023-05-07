@@ -101,7 +101,8 @@ app.get("/api/boardread",(req,res)=>{
 })
 
 
-app.get("/api/boardsearch",(req,res)=>{
+
+app.get("/api/boardsearch/title",(req,res)=>{
     //const sqlQuery = "SELECT id,title,content,date,writer FROM board";
    
     //전달받은 parameter 값.
@@ -122,7 +123,61 @@ app.get("/api/boardsearch",(req,res)=>{
     });
 });
 
+app.get("/api/boardsearch/content",(req,res)=>{
+    const key = req.query.key;
+    const querykey = '%'+key+'%';
+    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE content Like ?";
+    console.log(sqlQuery);
+    db.query(sqlQuery,[querykey,querykey],(err,data)=>{
+        
+        if(!err){ 
+            console.log(data)
+            return res.send(data);
+        } else { 
+           
+            res.send(err);
+   
+        }
+    });
+});
 
+app.get("/api/boardsearch/writer",(req,res)=>{
+    const key = req.query.key;
+    const querykey = '%'+key+'%';
+    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE writer Like ?";
+    console.log(sqlQuery);
+    db.query(sqlQuery,[querykey,querykey],(err,data)=>{
+        
+        if(!err){ 
+            console.log(data)
+            return res.send(data);
+        } else { 
+           
+            res.send(err);
+   
+        }
+    });
+});
+
+
+
+app.get("/api/boardsearch/titleorcontent",(req,res)=>{
+    const key = req.query.key;
+    const querykey = '%'+key+'%';
+    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE title Like ? OR content Like ?";
+    console.log(sqlQuery);
+    db.query(sqlQuery,[querykey,querykey],(err,data)=>{
+        
+        if(!err){ 
+            console.log(data)
+            return res.send(data);
+        } else { 
+           
+            res.send(err);
+   
+        }
+    });
+});
 app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);
 });

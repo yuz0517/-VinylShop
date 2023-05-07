@@ -17,27 +17,32 @@ const Board_View = ({  }) => {
   //console.log(location.state); // List.js에서 Props 보낸 값 확인 가능. select_data 로 표시됨.  
   const location = useLocation();
   console.log(location)
-  const pagenum = location.state.pagenum; //목록 페이지 번호 저장
+  const  { state }  = useLocation();
+ let key = state.pagenum ;
+
+ console.log(state)
+  //const pagenum = location.state.pagenum; //목록 페이지 번호 저장
   const {prevPagenation,setPrevpagenation} = useContext(Context);
-  setPrevpagenation(pagenum)
-  const title = location.state.select_data.title; // List.js에서 Link to 로 보낸 값 받아오는 코드. 
-  const content = location.state.select_data.content;
-  const writer = location.state.select_data.writer;
-  const date = location.state.select_data.date;
-  const writer_email = location.state.select_data.writer_email;
+  setPrevpagenation(key)
+  const title = state.select_data.title; // List.js에서 Link to 로 보낸 값 받아오는 코드. 
+  const content =  state.select_data.content;
+  const writer = state.select_data.writer;
+  const date = state.select_data.date;
+  const writer_email = state.select_data.writer_email;
+  
  // const id = location.state.select_data.u
- console.log(location.state.select_data)
+ //console.log(location.state.select_data)
   /*그냥 date를 출력하면 ust (r국제표준시)로 나옴 
   따라서 이것을 kst로 변환하는 작업이 필요함. */
   var date_parse = Date.parse(date);
-  var date_milli_plus = date_parse + 9 * 60 * 60000;
-  var date_milli = new Date(date_milli_plus);
+  var date_milli_plus =  (date_parse + 9 * 60 * 60000);
+  var date_milli =  new Date(date_milli_plus);
   var date_kst = new Date(date_milli_plus).toISOString(date_milli);
   //console.log(date_kst);
-  const new_date = date_kst.slice(0, 4) + '년 ' +
+  const new_date = (date_kst.slice(0, 4) + '년 ' +
     date_kst.slice(5, 7) + '월 ' +
     date_kst.slice(8, 10) + '일 ' +
-    date_kst.slice(11, 16);
+    date_kst.slice(11, 16));
   //let [mine, setMine]  = useState(false);
   let mine = 0;
   const [loginId,setLoginId] = useState('');
