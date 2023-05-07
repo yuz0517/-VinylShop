@@ -86,7 +86,7 @@ function Board_Main({ location }) {
                         }else {
                           setPrevpagenation(1)
                           setUpdatesearch(search);
-                          navigate('/search', {state: {search: search, option:option}});}
+                          navigate(`/search/${search}`, {state: {search: search, option:option}});}
           }}>검색</button>
           <Link to="/Board-mine">
             <button className="btn-mine">나의 글</button>

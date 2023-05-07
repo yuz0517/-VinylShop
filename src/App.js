@@ -42,7 +42,7 @@ function App() {
             <Route path="/Board-write" element={<Board_write/>} />
             <Route path="/Board-view/:no" element={<Board_View/>} />
             <Route path="/Signin" element={<Signin/>} />
-            <Route path="/Search" element={<Search/>} />
+            <Route path="/Search/:no" element={<Search/>} />
           </Routes>
         </Context.Provider>
       </Router>
