@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { ToastContainer } from "react-toastify";
@@ -24,13 +24,13 @@ function Board_Main({ location }) {
         })
     };*/
 
-  const {prevPagenation,setPrevpagenation} = useContext(Context);
+  const { prevPagenation, setPrevpagenation } = useContext(Context);
   let [dbdata, set_dbdata] = useState([]);
   //const { state } = useLocation();
   //const currentCategory = state && state.name;
-  let [search,setSearch] = useState('');
-  let [option, setOption] = useState('title'); 
-  let [updatesearch,setUpdatesearch] = useState('');
+  let [search, setSearch] = useState("");
+  let [option, setOption] = useState("title");
+  let [updatesearch, setUpdatesearch] = useState("");
   let navigate = useNavigate();
   useEffect(() => {
     Axios.get("http://localhost:8000/api/boardread", encodeURIComponent(""))
@@ -54,14 +54,13 @@ function Board_Main({ location }) {
   }
   const onSearchchange = (event) => {
     setSearch(event.target.value);
-  }
+  };
 
-  const onSelectChange = (e) =>{
-    setOption(e.target.value)
+  const onSelectChange = (e) => {
+    setOption(e.target.value);
     console.log(e.target.value);
-    
-  }
-  console.log(search)
+  };
+  console.log(search);
   return (
     <>
       <div className="div-full">
@@ -70,27 +69,39 @@ function Board_Main({ location }) {
           <Link to="/Board-write">
             <button className="btn">글쓰기</button>
           </Link>
-          <select className="select-search" onChange={onSelectChange} >
+          <select className="select-search" onChange={onSelectChange}>
             <option value="title">title</option>
             <option value="writer">writer</option>
             <option value="content">content</option>
-            <option value="titleORcontent">title OR writer</option>
+            <option value="titleORcontent">title OR content</option>
           </select>
           <input
-            type="text" className="input-search"
+            type="text"
+            className="input-search"
             onChange={onSearchchange}
           />
-          <button className="btn" onClick={() => {
-                        if(search===''){
-                          alert('검색어를 입력 해 주세요')
-                        }else {
-                          setPrevpagenation(1)
-                          setUpdatesearch(search);
-                          navigate(`/search/${search}`, {state: {search: search, option:option}});}
-          }}>검색</button>
-          <Link to="/Board-mine">
-            <button className="btn-mine">나의 글</button>
-          </Link>
+          <button
+            className="btn"
+            onClick={() => {
+              if (search === "") {
+                alert("검색어를 입력 해 주세요");
+              } else {
+                setPrevpagenation(1);
+                setUpdatesearch(search);
+                navigate(`/search/${search}`, {
+                  state: { search: search, option: option },
+                });
+              }
+            }}
+          >
+            검색
+          </button>
+
+          <button className="btn-mine" onClick={() => {
+            navigate(`/search/mine`, {});
+          }}>
+            나의 글
+          </button>
         </div>
 
         <div className="board_list">

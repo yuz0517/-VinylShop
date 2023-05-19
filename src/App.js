@@ -8,6 +8,7 @@ import Bookmark from "./pages/Bookmark";
 import Navbar from "./components/Navbar";
 import Signup from "./pages/Signup";
 import Board_write from "./pages/Board/Board_write";
+import Board_Mine from "./pages/Board/Board_Mine"
 import Board_Main from "./pages/Board/Board_Main";
 import Board_View from "./pages/Board/Board_View";
 import Signin from "./pages/Signin";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/Board-view/:no" element={<Board_View/>} />
             <Route path="/Signin" element={<Signin/>} />
             <Route path="/Search/:no" element={<Search/>} />
+            <Route path="/Search/mine" element={<Board_Mine/>} />
           </Routes>
         </Context.Provider>
       </Router>

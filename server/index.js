@@ -178,6 +178,24 @@ app.get("/api/boardsearch/titleorcontent",(req,res)=>{
         }
     });
 });
+
+app.get("/api/boardsearch/mine",(req,res)=>{
+    const key = req.query.key;
+    const querykey = key;
+    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE writer Like ?";
+    console.log(sqlQuery);
+    db.query(sqlQuery,[querykey,querykey],(err,data)=>{
+        
+        if(!err){ 
+            console.log(data)
+            return res.send(data);
+        } else { 
+           
+            res.send(err);
+   
+        }
+    });
+});
 app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);
 });
