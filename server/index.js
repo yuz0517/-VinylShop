@@ -181,10 +181,9 @@ app.get("/api/boardsearch/titleorcontent",(req,res)=>{
 
 app.get("/api/boardsearch/mine",(req,res)=>{
     const key = req.query.key;
-    const querykey = key;
-    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE writer Like ?";
+    const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE writer_email Like ?";
     console.log(sqlQuery);
-    db.query(sqlQuery,[querykey,querykey],(err,data)=>{
+    db.query(sqlQuery,[key],(err,data)=>{
         
         if(!err){ 
             console.log(data)
@@ -196,6 +195,19 @@ app.get("/api/boardsearch/mine",(req,res)=>{
         }
     });
 });
+
+app.delete("/api/board/delete",(req,res)=>{
+    res.header("")
+    res.header("Access-Control-Allow-Origin", "*");
+    const email = req.body.id;
+    const sqlQuery = `DELETE FROM board WHERE  writer_email = ? ;`;
+    db.query(sqlQuery, [email], (err, result) => {
+        res.send(result);
+        printRes(err, result);
+    });
+});
+
+
 app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);
 });

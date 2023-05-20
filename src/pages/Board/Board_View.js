@@ -89,6 +89,9 @@ const Board_View = ({  }) => {
       <div className='div-title'>
         <h3>{title}</h3>
       </div>
+      <button className='button-boarddelete'>
+        삭제
+      </button>
       <div className='div-content'>
         <div className='div-info'>
           <p className='p-date'> {new_date}</p>

@@ -12,7 +12,7 @@ function Board_Mine() {
 
   //setCurrentPath(location.pathname);
   let key = sessionStorage.key(0)
-  
+  console.log(key)
 
   let [dbdata, set_dbdata] = useState([]);
   
@@ -28,7 +28,7 @@ function Board_Mine() {
       })
         .then((res) => {
           set_dbdata([...dbdata, ...res.data]);
-          //console.log(res.data[0].title);
+          
         })
         .catch((err) => {
           console.log(err);
