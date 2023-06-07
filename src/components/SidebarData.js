@@ -28,8 +28,8 @@ export const SidebarData=[
         cName: 'nav-text'
     },
     {
-        title: 'Bookmark',
-        path: '/bookmark',
+        title: 'VINYL',
+        path: '/vinyl',
         icon:<BsIcons.BsFillBookmarkHeartFill />,
         cName: 'nav-text'
     },

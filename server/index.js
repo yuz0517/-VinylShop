@@ -74,7 +74,7 @@ app.get("/api/userinfo",(req,res)=>{
 });
 
 
-//----board----
+//-----------------board------------------
 app.post("/api/insert", (req,res) => {
     const title = req.body.title;
     const content =  req.body.content;
@@ -165,7 +165,7 @@ app.get("/api/boardsearch/titleorcontent",(req,res)=>{
     const key = req.query.key;
     const querykey = '%'+key+'%';
     const sqlQuery = "SELECT id,title,content,date,writer,writer_email FROM board WHERE title Like ? OR content Like ?";
-    console.log(sqlQuery);
+    console.log(querykey);
     db.query(sqlQuery,[querykey,querykey],(err,data)=>{
         
         if(!err){ 
@@ -196,17 +196,64 @@ app.get("/api/boardsearch/mine",(req,res)=>{
     });
 });
 
-app.delete("/api/board/delete",(req,res)=>{
-    res.header("")
-    res.header("Access-Control-Allow-Origin", "*");
-    const email = req.body.id;
-    const sqlQuery = `DELETE FROM board WHERE  writer_email = ? ;`;
-    db.query(sqlQuery, [email], (err, result) => {
-        res.send(result);
-        printRes(err, result);
+// app.post("/api/board/delete",(req,res)=>{
+//     //res.header("")
+//     //res.header("Access-Control-Allow-Origin", "*");
+//     const key = req.query.key;
+//     const sqlQuery = "DELETE FROM board WHERE id=?";
+    
+//     db.query(sqlQuery, [key], (err, data) => {
+//         if(!err){ 
+            
+//             console.log(data)
+//             return res.send(data);
+//         } else { 
+           
+//             res.send(err);
+   
+//         }
+//     });
+// });
+
+app.post("/api/boarddelete",(req,res)=>{
+        
+    const key = req.query.key;
+    const sqlQuery = "delete from board where id=?";
+    db.query(sqlQuery, key, (err, data) => {
+        if(!err){ 
+            
+            console.log(data)
+            return res.send(data);
+        } else { 
+           
+            res.send(err);
+   
+        }
     });
 });
 
+
+//-----------------vinylshop------------------
+app.get("/api/vinyl/List",(req,res)=>{
+    //const sqlQuery = "SELECT id,title,content,date,writer FROM board";
+   
+    //전달받은 parameter 값.
+    const key = req.query.key;
+    //const querykey = '%'+key+'%';
+    const sqlQuery = "SELECT * FROM VinylList WHERE menuname=?";
+    console.log(sqlQuery); 
+    db.query(sqlQuery,[key],(err,data)=>{
+        console.log(key)
+        if(!err){ 
+            console.log(data)
+            return res.send(data);
+        } else { 
+           console.log(err)
+            res.send(err);
+   
+        }
+    });
+});
 
 app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);

@@ -4,7 +4,7 @@ import "./App.css";
 import Mypage_Main from "./pages/Mypage/Mypage_Main";
 import Mypage from "./pages/Mypage/Mypage";
 import Home from "./pages/Home";
-import Bookmark from "./pages/Bookmark";
+import Vinyl from "./pages/Vinyl";
 import Navbar from "./components/Navbar";
 import Signup from "./pages/Signup";
 import Board_write from "./pages/Board/Board_write";
@@ -37,7 +37,7 @@ function App() {
             <Route path="/Mypage" element={<Mypage_Main/>}>
               <Route path="myinfo" element={ <Mypage/>} />
             </Route>
-            <Route path="/Bookmark" element={<Bookmark/>} />
+            <Route path="/vinyl" element={<Vinyl/>} />
             <Route path="/Signup" element={<Signup/>} />
             <Route path="/Board" element={<Board_Main/>} />
             <Route path="/Board-write" element={<Board_write/>} />
