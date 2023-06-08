@@ -238,9 +238,10 @@ app.get("/api/vinyl/List",(req,res)=>{
     //const sqlQuery = "SELECT id,title,content,date,writer FROM board";
    
     //전달받은 parameter 값.
-    const key = req.query.key;
+    const key =req.query.key;
     //const querykey = '%'+key+'%';
-    const sqlQuery = "SELECT * FROM VinylList WHERE menuname=?";
+    const sqlQuery = "SELECT * FROM VinylList WHERE menuname= ?";
+    //const querykey = 'menuname='+key;
     console.log(sqlQuery); 
     db.query(sqlQuery,[key],(err,data)=>{
         console.log(key)

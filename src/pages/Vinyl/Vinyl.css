@@ -1,0 +1,21 @@
+.div-vinylmenu{
+    width: 90px;
+    float: left;
+    font-size: 14px;
+    margin: 30px;
+    margin-right: 50px;
+    border: solid,3px, black;
+}
+.div-vinylcontainer{
+    font-size: 14px;
+    overflow: auto;
+}
+
+.p-vinylmenu{
+    word-break: break-all;
+    cursor: pointer;
+}
+.p-vinylmenu:hover{
+    color: aqua;
+    background-color: black;
+}   

@@ -15,6 +15,7 @@ import Signin from "./pages/Signin";
 import Search from "./pages/Search/Search";
 import { Context } from "./components/ContextProvider";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Item from "./pages/Vinyl/Item";
 
 function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false);
@@ -37,7 +38,10 @@ function App() {
             <Route path="/Mypage" element={<Mypage_Main/>}>
               <Route path="myinfo" element={ <Mypage/>} />
             </Route>
-            <Route path="/vinyl" element={<Vinyl/>} />
+            <Route path="/vinyl" element={<Vinyl/>} >
+              
+            </Route>
+            <Route path="/vinyl/:id" element={<Item/>}/>
             <Route path="/Signup" element={<Signup/>} />
             <Route path="/Board" element={<Board_Main/>} />
             <Route path="/Board-write" element={<Board_write/>} />

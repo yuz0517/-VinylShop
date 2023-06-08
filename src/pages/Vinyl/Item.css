@@ -1,0 +1,27 @@
+.p-tracklist{
+    white-space: pre-line;
+}
+.vinylItem0{
+    font-size: 14px;
+}
+.vinylItem0-0{
+    position: static;
+}
+.vinylItem0-0-0{
+    width: 40%;
+}
+.vinylItem0-1{
+    position: static;
+}
+
+.vinylItemImgs{
+    float: left;
+}
+
+.vinylItemimg{
+    float:left;
+    width: 25%;
+}
+.vinylItemDscrp{
+    position: static;
+}

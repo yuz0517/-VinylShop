@@ -2,6 +2,7 @@ import React from 'react';
 import * as AiIcons from "react-icons/ai";
 import * as BsIcons from "react-icons/bs";
 import * as VscIcons from "react-icons/vsc";
+import * as FaIcons from "react-icons/fa";
 export const SidebarData=[
     {
         title: 'Home',
@@ -30,7 +31,7 @@ export const SidebarData=[
     {
         title: 'VINYL',
         path: '/vinyl',
-        icon:<BsIcons.BsFillBookmarkHeartFill />,
+        icon:<FaIcons.FaRecordVinyl />,
         cName: 'nav-text'
     },
     

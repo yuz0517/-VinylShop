@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import Axios from "axios";
 import Menu from "./Vinyl/Menu.js";
 import VinylList from "./Vinyl/VinylList";
 import './Vinyl/Vinyl.css'
+import Item from "./Vinyl/Item.js";
+import { useNavigate } from "react-router-dom";
 function Vinyl() {
+  let navigate = useNavigate();
   let [selected, setSelected] = useState("Japanese");
   let [dbdata, setDbdata] = useState([]);
+  let [datalength, setdatalength] = useState([])
   useEffect(() => {
     Axios.get("http://localhost:8000/api/vinyl/List", {
       params: { key: selected },
@@ -16,56 +20,56 @@ function Vinyl() {
       .catch((err) => {
         console.log(err);
       });
-
+      setdatalength(dbdata.length);
     console.log(dbdata, selected);
   }, [selected]);
   return (
     <>
       <div className="div-vinylmenu">
-        <p>ALL</p>
-        <p
+        <p className="p-vinylmenu">ALL</p>
+        <p className="p-vinylmenu"
           onClick={() => {
             setSelected("Jazz");
           }}
         >
           Jazz
         </p>
-        <p
+        <p className="p-vinylmenu"
           onClick={() => {
             setSelected("Korean");
           }}
         >
-          Korean pop
+          Korean
         </p>
-        <p
+        <p className="p-vinylmenu"
           onClick={() => {
             setSelected("Japanese");
           }}
         >
-          Japanese pop
+          Japanese
         </p>
-        <p
+        <p className="p-vinylmenu"
           onClick={() => {
             setSelected("Future");
           }}
         >
           Future jazz/Club jazz/Shibuya-kei/Downtempo
         </p>
-        <p
+        <p className="p-vinylmenu"
           onClick={() => {
             setSelected("Taiwan");
           }}
         >
           Taiwan/Hongkong/China
         </p>
-        <p
+        <p className="p-vinylmenu"
           onClick={() => {
             setSelected("House");
           }}
         >
           House/Techno
         </p>
-        <p
+        <p className="p-vinylmenu"
           onClick={() => {
             setSelected("Soul");
           }}
@@ -75,23 +79,27 @@ function Vinyl() {
       </div>
 
       <div>
+        
         {dbdata.map((item) => {
           return (
-            <div className="vinyl-container" key={item.id}>
+            
+            <div className="div-vinylcontainer" key={item.id}>
               <div className="vinyl-item">
-                <p>{item.title}</p>
-                <p>{item.artist}</p>
-                <img src={item.img0} width="80%" />
+              <VinylList
+                result_num={datalength} item={item}
+                
+                />
+               
               </div>
             </div>
           );
         })}
       </div>
 
-      <div>Vinyl</div>
+      
       <Menu />
 
-      <VinylList />
+     
     </>
   );
 }
