@@ -1,27 +1,48 @@
-.p-tracklist{
+.p-vinyldescription{
     white-space: pre-line;
 }
 .vinylItem0{
     font-size: 14px;
+
+    text-align: center;
 }
 .vinylItem0-0{
-    position: static;
+    
+    display: inline-block;
 }
 .vinylItem0-0-0{
-    width: 40%;
+    width: 60%;
+    float: left;
+}
+.vinylItem0-0-p{
+    font-size: 20px;
+}
+.vinylItem0-0-1{
+   margin-bottom: 30px;
+}
+.p-vinylItem-detail-title{
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.p-vinylItem-detail{
+    margin-bottom: 5px;
 }
 .vinylItem0-1{
-    position: static;
+    
+    display: inline-block;
 }
 
 .vinylItemImgs{
     float: left;
+    text-align: center;
 }
 
 .vinylItemimg{
-    float:left;
+    
     width: 25%;
+    display: inline-block;
 }
 .vinylItemDscrp{
     position: static;
+    white-space: pre-line;
 }
