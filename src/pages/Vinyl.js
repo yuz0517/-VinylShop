@@ -78,7 +78,7 @@ function Vinyl() {
         </p>
       </div>
 
-      <div>
+      <div className="div-vinylitemcontainer">
         
         {dbdata.map((item) => {
           return (

@@ -96,8 +96,8 @@ const Board_View = ({}) => {
       <button className="button-boarddelete" 
           onClick={() => { 
             if (mine === true) {
-              Axios.post("http://localhost:8000/api/boarddelete", {
-                params: { key: id },
+              Axios.delete("http://localhost:8000/api/board/delete", {
+                data: { id: id },
               })
                 .then((res) => {
                   //set_dbdata([...dbdata, ...res.data]);

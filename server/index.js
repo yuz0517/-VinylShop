@@ -215,17 +215,36 @@ app.get("/api/boardsearch/mine",(req,res)=>{
 //     });
 // });
 
-app.post("/api/boarddelete",(req,res)=>{
+// app.post("/api/boarddelete",(req,res)=>{
         
-    const key = req.query.key;
-    const sqlQuery = "delete from board where id=?";
-    db.query(sqlQuery, key, (err, data) => {
+//     const key = req.query.key;
+//     const sqlQuery = "DELETE FROM board WHERE id=?";
+//     db.query(sqlQuery, [key], (err, data) => {
+//         console.log(req.query.key)
+//         if(!err){ 
+//             console.log(key)
+//             console.log(data)
+//             return res.send(data);
+//         } else { 
+//             console.log(key)
+//             res.send(err);
+   
+//         }
+//     });
+// });
+app.delete("/api/board/delete",(req,res)=>{
+        
+    //const key = req.query.key;
+    const key = req.body.id;
+    const sqlQuery = "DELETE FROM board WHERE id=? ;";
+    db.query(sqlQuery, [key], (err, data) => {
+        console.log(req.body.id)
         if(!err){ 
-            
+            console.log(key)
             console.log(data)
             return res.send(data);
         } else { 
-           
+            console.log(key)
             res.send(err);
    
         }

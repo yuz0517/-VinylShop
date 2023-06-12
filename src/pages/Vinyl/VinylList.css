@@ -1,9 +1,23 @@
 .vinyl-img{
     cursor: pointer;
+    width: 30vh;
+    
+    
 }
 .vinyl-title{
     cursor: pointer;
+    font-size: 11 px;
+    
 }
 .vinyl-artist{
     cursor: pointer;
+}
+.vinyl-item{
+    text-align: center;
+    overflow: hidden;
+    
+}
+.vinyl-price{
+    color: rgb(62, 65, 65);
+    font-size:12px
 }

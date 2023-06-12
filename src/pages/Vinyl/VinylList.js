@@ -17,7 +17,7 @@ function VinylList(props) {
           <img
             className="vinyl-img"
             src={props.item.img0}
-            width="200px"
+            
             onClick={() => {
               navigate("/vinyl/:id", { state: props.item });
             }}
@@ -28,16 +28,12 @@ function VinylList(props) {
               navigate("/vinyl/:id", { state: props.item });
             }}
           >
-            {props.item.title}
+            {props.item.artist + "-" +props.item.title}
           </p>
-          <p
-            className="vinyl-artist"
-            onClick={() => {
-              navigate("/vinyl/:id", { state: props.item });
-            }}
-          >
-            {props.item.artist}
+          <p className="vinyl-price">
+            {props.item.price}
           </p>
+          
         </div>
       </div>
     );
