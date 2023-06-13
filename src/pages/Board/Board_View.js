@@ -48,6 +48,7 @@ const Board_View = ({}) => {
     date_kst.slice(11, 16);
   //let [mine, setMine]  = useState(false);
   let mine = 0;
+  //let deletebtn = document.getElementsByClassName('button-boarddelete')
   const [loginId, setLoginId] = useState("");
   const [User, setUser] = useState({
     email: sessionStorage.key(0),
@@ -55,9 +56,7 @@ const Board_View = ({}) => {
   console.log(User.email, writer_email);
   if (User.email === writer_email) {
     mine = true;
-    console.log("내 글입니다.");
   } else if (User.email !== writer_email) {
-    console.log("내 글이 아닙니다.");
     mine = false;
   }
   let userid = "",
@@ -93,25 +92,51 @@ const Board_View = ({}) => {
       <div className="div-title">
         <h3>{title}</h3>
       </div>
-      <button className="button-boarddelete" 
-          onClick={() => { 
-            if (mine === true) {
-              Axios.delete("http://localhost:8000/api/board/delete", {
-                data: { id: id },
-              })
-                .then((res) => {
-                  //set_dbdata([...dbdata, ...res.data]);
-                  //userid = res.data[0].userID;
-                  //setLoginId(userid);
-                  console.log(res);
-                })
-                .catch((err) => {
-                  console.log(err.message);
-                });
-            }
-          }}>
-        삭제
-      </button>
+      {mine === true && (
+        <div>
+          <Link to="/Board">
+            <button
+              className="button-boarddelete"
+              onClick={() => {
+                if (mine === true) {
+                  Axios.delete("http://localhost:8000/api/board/delete", {
+                    data: { id: id },
+                  })
+                    .then((res) => {
+                      console.log(res);
+                    })
+                    .catch((err) => {
+                      console.log(err.message);
+                    });
+                }
+              }}
+            >
+              삭제
+            </button>
+          </Link>
+          <Link to="/Board">
+            <button
+              className="button-boardupdate"
+              onClick={() => {
+                if (mine === true) {
+                  Axios.delete("http://localhost:8000/api/board/delete", {
+                    data: { id: id },
+                  })
+                    .then((res) => {
+
+                      console.log(res);
+                    })
+                    .catch((err) => {
+                      console.log(err.message);
+                    });
+                }
+              }}
+            >
+              수정
+            </button>
+          </Link>
+        </div>
+      )}
       <div className="div-content">
         <div className="div-info">
           <p className="p-date"> {new_date}</p>
