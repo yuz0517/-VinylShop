@@ -11,6 +11,7 @@ import Board_write from "./pages/Board/Board_write";
 import Board_Mine from "./pages/Board/Board_Mine"
 import Board_Main from "./pages/Board/Board_Main";
 import Board_View from "./pages/Board/Board_View";
+import Board_Update from "./pages/Board/Board_Update";
 import Signin from "./pages/Signin";
 import Search from "./pages/Search/Search";
 import { Context } from "./components/ContextProvider";
@@ -19,7 +20,7 @@ import Item from "./pages/Vinyl/Item";
 
 function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false);
-  const [sessionUsername, setSessionUsername] = useState(""); //작성자 등록
+  const [sessionUserid, setSessionUserid] = useState(""); //작성자 등록
   const [prevPagenation,setPrevpagenation] = useState(1);
   return (
     <>
@@ -27,7 +28,7 @@ function App() {
         <Context.Provider
           value={{
             isLoggedIn,setIsloggedIn,
-            sessionUsername,setSessionUsername,
+            sessionUserid,setSessionUserid,
             prevPagenation,setPrevpagenation,
           }}
         >
@@ -46,6 +47,7 @@ function App() {
             <Route path="/Board" element={<Board_Main/>} />
             <Route path="/Board-write" element={<Board_write/>} />
             <Route path="/Board-view/:no" element={<Board_View/>} />
+            <Route path="/Board/update" element={<Board_Update/>}/>
             <Route path="/Signin" element={<Signin/>} />
             <Route path="/Search/:no" element={<Search/>} />
             <Route path="/Search/mine" element={<Board_Mine/>} />

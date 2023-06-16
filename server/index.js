@@ -73,6 +73,21 @@ app.get("/api/userinfo",(req,res)=>{
     });
 });
 
+app.get("/api/userinfo/personid",(req,res)=>{
+    
+    const sqlQuery = "SELECT PersonID FROM Persons WHERE userID LIKE ?";
+    //전달받은 parameter 값.
+    const userID = req.query.user;
+    console.log(req.body.user);
+    db.query(sqlQuery,[userID],(err,data)=>{
+        if(!err){ 
+            return res.send(data);
+        } else { 
+            res.send(err);
+        }
+    });
+});
+
 
 //-----------------board------------------
 app.post("/api/insert", (req,res) => {
@@ -252,6 +267,27 @@ app.delete("/api/board/delete",(req,res)=>{
 });
 
 
+app.put("/api/board/update",(req,res)=>{
+        
+    const id = req.body.id;
+    const title = req.body.title;
+    const content = req.body.content;
+
+    const sqlQuery = "UPDATE board SET title=? , content=? WHERE id=? ;";
+    db.query(sqlQuery, [title, content, id], (err, data) => {
+        console.log(req.body.id)
+        if(!err){ 
+            console.log(id)
+            console.log(data)
+            return res.send(data);
+        } else { 
+        
+            res.send(err);
+   
+        }
+    });
+});
+
 //-----------------vinylshop------------------
 app.get("/api/vinyl/List",(req,res)=>{
     //const sqlQuery = "SELECT id,title,content,date,writer FROM board";
@@ -272,6 +308,22 @@ app.get("/api/vinyl/List",(req,res)=>{
             res.send(err);
    
         }
+    });
+});
+
+//---------------------cart------------------------
+app.post("/api/cart/insert", (req,res) => {
+    const product_id = req.body.product_id;
+    const person_id =  req.body.person_id;
+    const artist = req.body.artist;
+    const title = req.body.title;
+    const price = req.body.price;
+    const sold = req.body.sold;
+    const img0 = req.body.img0;
+    const sqlQuery =  "INSERT INTO cart (product_id,person_id,artist,title,price,sold,img0) VALUES (?,?,?,?)";
+    db.query(sqlQuery,[title,content,writer,writer_email],(err,result)=>{
+        res.send('success'); 
+        //res.send(err); //에러코드를 표시.  
     });
 });
 

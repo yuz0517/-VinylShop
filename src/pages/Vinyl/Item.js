@@ -1,10 +1,14 @@
-import React ,{ useState }from "react";
+import React ,{ useState, useContext }from "react";
 import "./Item.css";
 import { useLocation } from "react-router-dom";
+import { Axios } from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Context, UserContextProvider  } from "../../components/ContextProvider";
 function Item() {
   const { state } = useLocation();
   console.log(state.description);
-  
+  const {sessionUserid} = useContext(Context)
   let countryEmoji = "";
   if(state.country==='Japan'){
     countryEmoji="🇯🇵 ";
@@ -12,7 +16,28 @@ function Item() {
     countryEmoji="🇰🇷 "
   }else if(state.country==='China'){
     countryEmoji="🇨🇳 "
-  }
+  }else{ countryEmoji="🌏"}
+
+  const onCartClick = () => {
+    
+    Axios.post("http://localhost:8000/api/cart/insert",{
+      product_id: state.id,
+      person_id:sessionUserid,
+      artist:state.artist,
+      title: state.title,
+      price: state.price,
+      sold: state.sold,
+      img0: state.img0,
+    }).then(() => {
+      //글이 등록 되면
+      //history({ pathname: "/Board", submit: "done" });
+      toast.success("상품이 장바구니에 추가되었습니다.", {
+        position: toast.POSITION.BOTTOM_CENTER,
+        autoClose: 1000,
+        hideProgressBar: true,
+      });
+    });
+  };
   return (
     <div className="vinylItem0">
         <p className="vinylItem0-0-p">
@@ -37,7 +62,7 @@ function Item() {
 
           <p>✧price✧ {state.price}</p>
           <div className="vinylItem0-0-1-0">
-            <button>장바구니</button>
+            <button onClick={onCartClick}>장바구니</button>
             <button>찜</button>
           </div>
         </div>

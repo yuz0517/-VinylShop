@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Mypage from "./Mypage";
 import { Tab } from "bootstrap";
 import styles from './Mypage_Main.module.css'
+import Board_Mine from "../Board/Board_Mine";
 function Mypage_Main() {
   let [nav, setNav] = useState(0);
   console.log("mypagemain");
@@ -23,7 +24,7 @@ function Mypage_Main() {
         <Nav.Link eventKey="link-2" onClick={() => {setNav(3)}} > ❤️ </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-2" onClick={() => {setNav(4)}} > 작성한 글 </Nav.Link>
+        <Nav.Link eventKey="link-3" onClick={() => {setNav(4)}} > 작성한 글 </Nav.Link>
       </Nav.Item>
       {/* <Nav.Item>
         <Nav.Link eventKey="disabled" disabled>
@@ -42,6 +43,9 @@ function TabContent(props){
     return <Mypage></Mypage>
   }else if(props.nav === 1 ){
     return <div>1</div>
+
+  }else if(props.nav === 4){
+    return <Board_Mine></Board_Mine>
   }
 }
 

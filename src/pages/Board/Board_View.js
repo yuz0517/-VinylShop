@@ -94,7 +94,7 @@ const Board_View = ({}) => {
       </div>
       {mine === true && (
         <div>
-          <Link to="/Board">
+          <Link to="/Board" >
             <button
               className="button-boarddelete"
               onClick={() => {
@@ -114,23 +114,11 @@ const Board_View = ({}) => {
               삭제
             </button>
           </Link>
-          <Link to="/Board">
+          <Link to="/board/update" state={ {select_data: state.select_data, pagenum: key}}>
             <button
               className="button-boardupdate"
               onClick={() => {
-                if (mine === true) {
-                  Axios.delete("http://localhost:8000/api/board/delete", {
-                    data: { id: id },
-                  })
-                    .then((res) => {
-
-                      console.log(res);
-                    })
-                    .catch((err) => {
-                      console.log(err.message);
-                    });
-                }
-              }}
+                }}
             >
               수정
             </button>
