@@ -320,7 +320,7 @@ app.post("/api/cart/insert", (req,res) => {
     const price = req.body.price;
     const sold = req.body.sold;
     const img0 = req.body.img0;
-    const sqlQuery =  "INSERT INTO cart (product_id,person_id,artist,title,price,sold,img0) VALUES (?,?,?,?)";
+    const sqlQuery =  "INSERT INTO cart (product_id,person_id,artist,title,price,sold,img0) VALUES (?,?,?,?,?,?,?)";
     db.query(sqlQuery,[title,content,writer,writer_email],(err,result)=>{
         res.send('success'); 
         //res.send(err); //에러코드를 표시.  

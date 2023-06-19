@@ -1,7 +1,7 @@
 import React ,{ useState, useContext }from "react";
 import "./Item.css";
 import { useLocation } from "react-router-dom";
-import { Axios } from "axios";
+import  Axios  from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Context, UserContextProvider  } from "../../components/ContextProvider";
