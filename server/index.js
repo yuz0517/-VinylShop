@@ -311,6 +311,25 @@ app.get("/api/vinyl/List",(req,res)=>{
     });
 });
 
+app.get("/api/vinyl/isitsold",(req,res)=>{
+    //const sqlQuery = "SELECT id,title,content,date,writer FROM board";
+   
+    //전달받은 parameter 값.
+    const key =req.query.key;
+    const sqlQuery = "SELECT sold FROM VinylList WHERE id= ?";
+    console.log(sqlQuery); 
+    db.query(sqlQuery,[key],(err,data)=>{
+        console.log(key)
+        if(!err){ 
+            console.log(data)
+            return res.send(data);
+        } else { 
+           console.log(err)
+            res.send(err);
+   
+        }
+    });
+});
 //---------------------cart------------------------
 app.post("/api/cart/insert", (req,res) => {
     const product_id = req.body.product_id;

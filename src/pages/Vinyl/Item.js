@@ -20,6 +20,15 @@ function Item() {
 
   const onCartClick = () => {
     
+    Axios.get("http://localhost:8000/api/vinyl/isitsold",{
+      params: { key : state.id},
+    })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
     Axios.post("http://localhost:8000/api/cart/insert",{
       product_id: state.id,
       person_id:sessionUserid,
