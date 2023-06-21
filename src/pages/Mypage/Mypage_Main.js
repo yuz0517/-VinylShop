@@ -5,6 +5,7 @@ import Mypage from "./Mypage";
 import { Tab } from "bootstrap";
 import styles from './Mypage_Main.module.css'
 import Board_Mine from "../Board/Board_Mine";
+import Cart from "../Cart/Cart";
 function Mypage_Main() {
   let [nav, setNav] = useState(0);
   console.log("mypagemain");
@@ -18,10 +19,10 @@ function Mypage_Main() {
         <Nav.Link eventKey="link-0"onClick={() => {setNav(0)}} > 기본 정보 수정</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-1" onClick={() => {setNav(1)}} >주문 내역</Nav.Link>
+        <Nav.Link eventKey="link-1" onClick={() => {setNav(1)}} >장바구니</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-2" onClick={() => {setNav(3)}} > ❤️ </Nav.Link>
+        <Nav.Link eventKey="link-2" onClick={() => {setNav(3)}} > 주문내역 </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="link-3" onClick={() => {setNav(4)}} > 작성한 글 </Nav.Link>
@@ -42,7 +43,7 @@ function TabContent(props){
   if(props.nav === 0){
     return <Mypage></Mypage>
   }else if(props.nav === 1 ){
-    return <div>1</div>
+    return <Cart></Cart>
 
   }else if(props.nav === 4){
     return <Board_Mine></Board_Mine>

@@ -1,59 +1,67 @@
-import React ,{ useState, useContext }from "react";
+import React, { useState, useContext } from "react";
 import "./Item.css";
 import { useLocation } from "react-router-dom";
-import  Axios  from "axios";
+import Axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Context, UserContextProvider  } from "../../components/ContextProvider";
+import { Context, UserContextProvider } from "../../components/ContextProvider";
 function Item() {
   const { state } = useLocation();
-  console.log(state.description);
-  const {sessionUserid} = useContext(Context)
+  //console.log(state.description);
+  const { sessionUserid } = useContext(Context);
   let countryEmoji = "";
-  if(state.country==='Japan'){
-    countryEmoji="🇯🇵 ";
-  }else if(state.country==='South Korea'){
-    countryEmoji="🇰🇷 "
-  }else if(state.country==='China'){
-    countryEmoji="🇨🇳 "
-  }else{ countryEmoji="🌏"}
+  let isitsold = undefined;
+  if (state.country === "Japan") {
+    countryEmoji = "🇯🇵 ";
+  } else if (state.country === "South Korea") {
+    countryEmoji = "🇰🇷 ";
+  } else if (state.country === "China") {
+    countryEmoji = "🇨🇳 ";
+  } else {
+    countryEmoji = "🌏";
+  }
 
   const onCartClick = () => {
-    
-    Axios.get("http://localhost:8000/api/vinyl/isitsold",{
-      params: { key : state.id},
+    Axios.get("http://localhost:8000/api/vinyl/isitsold", {
+      params: { key: state.id },
     })
       .then((res) => {
-        console.log(res.data)
+        isitsold = res.data[0].sold;
+        if (isitsold === 0) {
+          alert(isitsold + "장바구니에 추가되었습니다.");
+          Axios.post("http://localhost:8000/api/cart/insert", {
+            product_id: state.id,
+            person_id: sessionUserid,
+            artist: state.artist,
+            title: state.title,
+            price: state.price,
+            sold: state.sold,
+            img0: state.img0,
+          }).then(() => {
+            //글이 등록 되면
+            //history({ pathname: "/Board", submit: "done" });
+            toast.success("상품이 장바구니에 추가되었습니다.", {
+              position: toast.POSITION.BOTTOM_CENTER,
+              autoClose: 1000,
+              hideProgressBar: true,
+            });
+          });
+        } else if (isitsold === 1) {
+          alert(isitsold + "품절된 상품입니다.");
+        } else {
+          alert(isitsold + "관리자에게 문의하세요.");
+        }
       })
       .catch((err) => {
-        console.log(err.message)
-      })
-    Axios.post("http://localhost:8000/api/cart/insert",{
-      product_id: state.id,
-      person_id:sessionUserid,
-      artist:state.artist,
-      title: state.title,
-      price: state.price,
-      sold: state.sold,
-      img0: state.img0,
-    }).then(() => {
-      //글이 등록 되면
-      //history({ pathname: "/Board", submit: "done" });
-      toast.success("상품이 장바구니에 추가되었습니다.", {
-        position: toast.POSITION.BOTTOM_CENTER,
-        autoClose: 1000,
-        hideProgressBar: true,
+        console.log(err.message);
       });
-    });
   };
   return (
     <div className="vinylItem0">
-        <p className="vinylItem0-0-p">
-          {state.artist} ✯ {state.title}
-        </p>
+      <p className="vinylItem0-0-p">
+        {state.artist} ✯ {state.title}
+      </p>
       <div className="vinylItem0-0">
-        
         <img className="vinylItem0-0-0" src={state.img0} />
 
         <div className="vinylItem0-0-1">
@@ -61,7 +69,10 @@ function Item() {
           <p className="p-vinylItem-detail">✧artist✧ {state.artist}</p>
           <p className="p-vinylItem-detail">✧label✧ {state.label}</p>
           <p className="p-vinylItem-detail">✧format✧ {state.format}</p>
-          <p className="p-vinylItem-detail">✧country✧ {countryEmoji}{state.country}</p>
+          <p className="p-vinylItem-detail">
+            ✧country✧ {countryEmoji}
+            {state.country}
+          </p>
           <p className="p-vinylItem-detail">✧year✧ {state.year}</p>
           <p className="p-vinylItem-detail">
             ✧genre✧ {state.genre1} {state.genre2}
