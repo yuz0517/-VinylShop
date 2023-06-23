@@ -86,7 +86,7 @@ function Board_write() {
       writer_email: BoardContent.writer_email,
     }).then(() => {
       //글이 등록 되면
-      history({ pathname: "/Board", submit: "done" });
+      history({ pathname: url, submit: "done" });
       toast.success("작성하신 글이 등록되었습니다.", {
         position: toast.POSITION.BOTTOM_CENTER,
         autoClose: 1000,

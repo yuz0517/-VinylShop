@@ -331,6 +331,21 @@ app.get("/api/vinyl/isitsold",(req,res)=>{
     });
 });
 //---------------------cart------------------------
+app.get("/api/cart/getcart",(req,res)=>{
+    const key = req.query.key;
+    const sqlQuery = "SELECT * FROM cart WHERE person_id = ?"
+    console.log(sqlQuery);
+    db.query(sqlQuery,[key],(err,data)=>{
+        console.log(key)
+        if(!err){
+            console.log(data);
+            return res.send(data);
+        }else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
 app.post("/api/cart/insert", (req,res) => {
     const product_id = req.body.product_id;
     const person_id =  req.body.person_id;
