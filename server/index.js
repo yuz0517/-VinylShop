@@ -333,17 +333,15 @@ app.get("/api/vinyl/isitsold",(req,res)=>{
 //---------------------cart------------------------
 app.delete("/api/cart/initdelete",(req,res)=>{
         
-    //const key = req.query.key;
-    const key = req.body.id;
+
     const sqlQuery = "DELETE from cart WHERE product_id in (SELECT VinylList.id FROM (SELECT * FROM VinylList WHERE sold=1) AS VinylList);";
-    db.query(sqlQuery, [key], (err, data) => {
+    db.query(sqlQuery, (err, data) => {
         console.log(req.body.id)
         if(!err){ 
             console.log(req.body.id,"삭제완료")
             console.log(data)
             return res.send(data);
         } else { 
-            console.log(key)
             res.send(err);
    
         }
