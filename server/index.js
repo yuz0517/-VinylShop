@@ -339,7 +339,7 @@ app.delete("/api/cart/initdelete",(req,res)=>{
     db.query(sqlQuery, [key], (err, data) => {
         console.log(req.body.id)
         if(!err){ 
-            console.log(key,"삭제완료")
+            console.log(req.body.id,"삭제완료")
             console.log(data)
             return res.send(data);
         } else { 
@@ -349,6 +349,20 @@ app.delete("/api/cart/initdelete",(req,res)=>{
         }
     });
 });
+app.get("/api/cart/getcartall",(req,res)=>{
+    const sqlQuery = "SELECT title FROM VinylList where sold = 1;"
+    console.log(sqlQuery);
+    db.query(sqlQuery,(err,data)=>{
+       
+        if(!err){
+            console.log(data);
+            return res.send(data);
+        }else {
+            console.log(err);
+            res.send(err);
+        }
+    })
+})
 app.get("/api/cart/getcart",(req,res)=>{
     const key = req.query.key;
     const sqlQuery = "SELECT * FROM cart WHERE person_id = ?"

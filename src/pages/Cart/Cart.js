@@ -7,6 +7,7 @@ function Cart() {
   const { sessionUserid, setIsloggedIn } = useContext(Context);
   const [cartdata, setCartdata] = useState([]);
   const [tempcartdata, setTempcartdata] = useState([]);
+  let mycartArr = [];
   const logout = async () => {
     await signOut(auth);
     sessionStorage.clear();
@@ -27,65 +28,121 @@ function Cart() {
     } else {
       console.log("삭제", sessionUserid);
     }
-
-    Axios.get("http://localhost:8000/api/cart/getcart", {
-      params: { key: sessionUserid },
-    })
-      .then((res) => {
-        console.log(res.data);
-        setTempcartdata([...res.data]);
+    new Promise(function (resolve, reject) {
+      Axios.delete("http://localhost:8000/api/cart/initdelete", {
+        data: { id: 1 },
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
-
-      {
-        tempcartdata.map((item, index) => {
-          let key = item.itemid;
-          console.log("delete 실행", index);
-          Axios.delete("http://localhost:8000/api/cart/initdelete", {
-            data: { id: key },
-          })
-            .then((res) => {
-              console.log(res);
-              console.log("삭제완료");
-            })
-            .catch((err) => {
-              console.log(err.message);
-              console.log(err);
-            });
-  
-          return <div key={index}></div>;
+      
+        .then((res) => {
+            if(res){
+                resolve(res);
+                console.log(res);
+            }
+            reject(new Error("Request is failed"));
+        })
+        .catch((err) => {
+          console.log(err.message);
+          console.log(err);
         });
-      }
-    Axios.get("http://localhost:8000/api/cart/getcart", {
-      params: { key: sessionUserid },
+        
     })
-      .then((res) => {
-        console.log(res.data);
-        setCartdata([...res.data]);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      
+      .then(function () {
+        //new Promise(function (resolve, reject) {
+        //cartdata.map((item, index) => {
+        //let key = item.itemid;
+        //console.log("delete 실행", index);
 
-    //return( <div key={item.itemid}></div>);
-  }, [sessionUserid]);
-  console.log(cartdata);
+        Axios.get("http://localhost:8000/api/cart/getcart", {
+          params: { key: sessionUserid },
+        })
+
+          .then((res) => {
+            console.log("axios.get getcart", res.data);
+            console.log("1.get: ", mycartArr);
+            setCartdata([...res.data]);
+            //testFunc();
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+        //});
+        return cartdata
+      }).then(function (cartdata) {
+        console.log("3.", cartdata);
+        setCartdata(cartdata);
+        return cartdata;
+      });;
+      
+
+    //   .then(function (cartdata) {
+    //     console.log("3.", cartdata);
+    //     setCartdata(cartdata);
+    //     return cartdata;
+    //   });
+  }, []);
+
+  //   const testFunc = async() => {
+  //     await Promise.all(
+  //       cartdata.map((item,index) => {
+  //         let key = item.itemid;
+  //         console.log("delete 실행");
+  //         Axios.delete("http://localhost:8000/api/cart/initdelete", {
+  //           data: { id: key },
+  //         })
+  //           .then((res) => {
+  //             console.log(res);
+  //             console.log("삭제완료");
+  //           })
+  //           .catch((err) => {
+  //             console.log(err.message);
+  //             console.log(err);
+  //           });
+
+  //       })
+  //     ).then(() => {
+
+  //     });
+
+  //   const fetchData = async() => {
+  //     cartarray = await Promise.all(
+  //         cartdata.map((item, index) => {
+  //             let key = item.itemid;
+  //             console.log("delete 실행", index);
+  //             Axios.delete("http://localhost:8000/api/cart/initdelete", {
+  //               data: { id: key },
+  //             })
+  //               .then((res) => {
+  //                 console.log(res);
+  //                 console.log("삭제완료");
+  //               })
+  //               .catch((err) => {
+  //                 console.log(err.message);
+  //                 console.log(err);
+  //               });
+
+  //             return <div key={index}></div>;
+  //           })
+  //     )
+
+  //   }
 
   return (
     <>
-      <div>Shopping cart</div>
-      <p></p>
-      <div>
-        {cartdata.map((item) => {
-          return (
-            <div key={item.itemid}>
-              <p key={item.itemid}>{item.title}</p>
-            </div>
-          );
-        })}
-      </div>
+      <>
+        <div>Shopping cart</div>
+        <p></p>
+        <div>
+          {cartdata&&cartdata.map((item) => {
+            console.log("화면에띄움");
+            return (
+              <div key={item.itemid}>
+                <p key={item.itemid}>{item.title}</p>
+              </div>
+            );
+          })}
+        </div>
+      </>
     </>
   );
 }
