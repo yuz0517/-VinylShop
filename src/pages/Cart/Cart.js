@@ -32,100 +32,35 @@ function Cart() {
       Axios.delete("http://localhost:8000/api/cart/initdelete", {
         data: { id: 1 },
       })
-      
+
         .then((res) => {
-            if(res){
-                resolve(res);
-                console.log(res);
-            }
-            reject(new Error("Request is failed"));
+          if (res) {
+            resolve(res);
+            console.log("1. 장바구니 불러오기 전 sold 상태 체크 후 삭제", res);
+          }
+          reject(new Error("Request is failed"));
         })
         .catch((err) => {
           console.log(err.message);
           console.log(err);
         });
-        
-    })
-      
-      .then(function () {
-        //new Promise(function (resolve, reject) {
-        //cartdata.map((item, index) => {
-        //let key = item.itemid;
-        //console.log("delete 실행", index);
+    }).then(function () {
+      Axios.get("http://localhost:8000/api/cart/getcart", {
+        params: { key: sessionUserid },
+      })
 
-        Axios.get("http://localhost:8000/api/cart/getcart", {
-          params: { key: sessionUserid },
+        .then((res) => {
+          console.log("2. 장바구니 불러오기");
+          setCartdata([...res.data]);
+          //testFunc();
         })
-
-          .then((res) => {
-            console.log("axios.get getcart", res.data);
-            console.log("1.get: ", mycartArr);
-            setCartdata([...res.data]);
-            //testFunc();
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-        //});
-        return cartdata
-      }).then(function (cartdata) {
-        console.log("3.", cartdata);
-        setCartdata(cartdata);
-        return cartdata;
-      });;
-      
-
-    //   .then(function (cartdata) {
-    //     console.log("3.", cartdata);
-    //     setCartdata(cartdata);
-    //     return cartdata;
-    //   });
+        .catch((err) => {
+          console.log(err.message);
+        });
+      //});
+      return cartdata;
+    });
   }, []);
-
-  //   const testFunc = async() => {
-  //     await Promise.all(
-  //       cartdata.map((item,index) => {
-  //         let key = item.itemid;
-  //         console.log("delete 실행");
-  //         Axios.delete("http://localhost:8000/api/cart/initdelete", {
-  //           data: { id: key },
-  //         })
-  //           .then((res) => {
-  //             console.log(res);
-  //             console.log("삭제완료");
-  //           })
-  //           .catch((err) => {
-  //             console.log(err.message);
-  //             console.log(err);
-  //           });
-
-  //       })
-  //     ).then(() => {
-
-  //     });
-
-  //   const fetchData = async() => {
-  //     cartarray = await Promise.all(
-  //         cartdata.map((item, index) => {
-  //             let key = item.itemid;
-  //             console.log("delete 실행", index);
-  //             Axios.delete("http://localhost:8000/api/cart/initdelete", {
-  //               data: { id: key },
-  //             })
-  //               .then((res) => {
-  //                 console.log(res);
-  //                 console.log("삭제완료");
-  //               })
-  //               .catch((err) => {
-  //                 console.log(err.message);
-  //                 console.log(err);
-  //               });
-
-  //             return <div key={index}></div>;
-  //           })
-  //     )
-
-  //   }
 
   return (
     <>
@@ -133,7 +68,28 @@ function Cart() {
         <div>Shopping cart</div>
         <p></p>
         <div>
-          {cartdata&&cartdata.map((item) => {
+          <List cartdata={cartdata} />
+          {/* {cartdata &&
+            cartdata.map((item) => {
+              console.log("화면에띄움");
+              return (
+                <div key={item.itemid}>
+                  <p key={item.itemid}>{item.title}</p>
+                </div>
+              );
+            })} */}
+        </div>
+      </>
+    </>
+  );
+}
+function List(props) {
+  console.log("func: list");
+  return (
+    <>
+      <div>
+        {props.cartdata &&
+          props.cartdata.map((item) => {
             console.log("화면에띄움");
             return (
               <div key={item.itemid}>
@@ -141,8 +97,7 @@ function Cart() {
               </div>
             );
           })}
-        </div>
-      </>
+      </div>
     </>
   );
 }

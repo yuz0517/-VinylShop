@@ -338,7 +338,7 @@ app.delete("/api/cart/initdelete",(req,res)=>{
     db.query(sqlQuery, (err, data) => {
         console.log(req.body.id)
         if(!err){ 
-            console.log(req.body.id,"삭제완료")
+            console.log(req.body.id,"db삭제완료")
             console.log(data)
             return res.send(data);
         } else { 
