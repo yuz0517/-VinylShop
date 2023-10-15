@@ -19,13 +19,14 @@ function VinylList(props) {
             src={props.item.img0}
             
             onClick={() => {
-              navigate("/vinyl/:id", { state: props.item });
+              console.log(props.item.id)
+              navigate(`/vinyl/${props.item.id}`, { state: props.item });
             }}
           />
           <p
             className="vinyl-title"
             onClick={() => {
-              navigate("/vinyl/:id", { state: props.item });
+              navigate(`/vinyl/${props.item.id}`, { state: props.item });
             }}
           >
             {props.item.artist + "-" +props.item.title}

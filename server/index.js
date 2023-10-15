@@ -59,7 +59,7 @@ app.post("/api/userinfoupdate", (req,res) => {
 });
 app.get("/api/userinfo",(req,res)=>{
     
-    const sqlQuery = "SELECT userID, Nickname, PersonID, Address, Address1 FROM Persons WHERE userID LIKE ?";
+    const sqlQuery = "SELECT userID, Nickname, PersonID, Address, Address1, reward_points FROM Persons WHERE userID LIKE ?";
     //전달받은 parameter 값.
     const Firebase_ID = req.query.user;
     console.log(req.body.user);

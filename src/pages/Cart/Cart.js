@@ -1,12 +1,65 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import Axios from "axios";
 import { Context, UserContextProvider } from "../../components/ContextProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase"; //파베
+import { TiDeleteOutline } from "react-icons/ti";
+import styled from "styled-components";
+import { icons } from "react-icons";
+import { on } from "process";
+const CartFrame = styled.div``;
+const Frame = styled.div`
+  width: auto;
+  height: auto;
+  display: felx;
+  justify-content: space-around;
+`;
+const DivTable = styled.div`
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+const VinylImg = styled.img`
+  width: 90px;
+`;
+const Table = styled.table`
+  border-left: none;
+  border-botton: none;
+  border-right: none;
+  border-top: 1.5px solid #000000;
+
+  cellpadding: 2px;
+`;
+const DivTotal = styled.div`
+  border: 2px solid #d4d4d4;
+
+  height: auto;
+  margin-left: 10px;
+  margin-right: 40px;
+
+  padding: 10px;
+`;
+const DivPtag = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Td = styled.td`
+  
+
+  .deleteIcon {
+    size
+  }
+  `;
+
 function Cart() {
   const { sessionUserid, setIsloggedIn } = useContext(Context);
   const [cartdata, setCartdata] = useState([]);
-  const [tempcartdata, setTempcartdata] = useState([]);
+
+  const [User, setUser] = useState({
+    email: sessionStorage.key(0),
+  });
   let mycartArr = [];
   const logout = async () => {
     await signOut(auth);
@@ -15,6 +68,9 @@ function Cart() {
   };
   //let cartdata = "";
 
+  let [userData, setUserdata] = useState([]);
+  let [rewardPoints, setRewardPoints] = useState(0);
+  let temp_reward_points = null;
   useEffect(() => {
     if (
       sessionUserid === undefined ||
@@ -28,6 +84,20 @@ function Cart() {
     } else {
       console.log("삭제", sessionUserid);
     }
+    Axios.get("http://localhost:8000/api/userinfo", {
+      params: { user: User.email },
+    })
+
+      .then((res) => {
+        setUserdata([...userData, ...res.data]);
+        temp_reward_points = res.data[0].reward_points;
+        setRewardPoints(temp_reward_points);
+        console.log("db로 가져온 reward points: ", temp_reward_points);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    //});
     new Promise(function (resolve, reject) {
       Axios.delete("http://localhost:8000/api/cart/initdelete", {
         data: { id: 1 },
@@ -63,12 +133,10 @@ function Cart() {
   }, []);
 
   return (
-    <>
-      <>
-        <div>Shopping cart</div>
-        <p></p>
-        <div>
-          <List cartdata={cartdata} />
+    <CartFrame>
+      <Frame>
+        <DivTable>
+          <List cartdata={cartdata} reward_points={rewardPoints} />
           {/* {cartdata &&
             cartdata.map((item) => {
               console.log("화면에띄움");
@@ -78,25 +146,147 @@ function Cart() {
                 </div>
               );
             })} */}
-        </div>
-      </>
-    </>
+          <button>삭제</button>
+        </DivTable>
+      </Frame>
+    </CartFrame>
   );
 }
 function List(props) {
-  console.log("func: list");
+  const [tempcartdata, setTempcartdata] = useState([]);
+  const [checkedEach, setCheckedEach] = useState([]); //개별체크
+  const [checkedAll, setCheckedAll] = useState([]); //전체체크
+  const [isAllChecked, setIsAllChecked] = useState(false);
+  //const initEachChecked = new Array(props.cartdata.length).fill(false);
+  const [isEachChecked, setIsEachChecked] = useState([]);
+
+  const [checkList, setCheckList] = useState([]); //상품에 대한 모든 정보가 들어있음
+  const [totalPrice, setTotalPrice] = useState(0);
+  const test_points = 0;
+
+  console.log(props.reward_points);
+  useEffect(() => {
+    //setIsEachChecked(initEachChecked);
+    const tempTotalPrice = checkList.reduce(
+      (total, item) => total + item.price,
+      0
+    );
+    setTotalPrice(tempTotalPrice);
+  }, [checkList]); //checkList값이 변할 때 마다 price값의 합을 업데이트
+  const checkboxRef = useRef([]);
+
+  //const [checkCount, setCheckCount] = useState();
+  console.log();
+  const onAllChecked = (e) => {
+    //setCheckedAll(e.target.checked ? checkedAll : []);
+    const tempEachCheck = new Array(props.cartdata.length).fill(
+      e.target.checked
+    );
+    const tempCheckList = new Array(props.cartdata.length);
+    if (e.target.checked) {
+      setCheckList(props.cartdata);
+    } else if (!e.target.checked) {
+      setCheckList([]);
+    }
+
+    //(e.target.checked ?
+    // tempEachCheck.fill(true) : tempEachCheck.fill(false))
+    //setIsAllChecked(e.target.checked ? true : false);
+    setIsEachChecked(tempEachCheck);
+    console.log("Allcheck", isEachChecked);
+  };
+
+  const onCheckedEach = (e, index, item) => {
+    console.log("iseachchecked", isEachChecked[index], index);
+    setCheckedEach(e.target.checked);
+    console.log(checkedEach);
+    const tempisCheck = [...isEachChecked];
+    tempisCheck[index] = e.target.checked ? true : false;
+    console.log("tempischeck", index, tempisCheck[index]);
+    setIsEachChecked(tempisCheck);
+
+    const tempCheckList = [...checkList];
+    if (!checkList.includes(item) & e.target.checked) {
+      setCheckList(tempCheckList);
+      tempCheckList.push(item);
+
+      console.log("temptotalchecklist", checkList);
+    } else if (tempCheckList.includes(item) & !e.target.checked) {
+      setCheckList(tempCheckList.filter((element) => element !== item));
+
+      console.log("값 배열 삭제", checkList);
+    }
+  };
+
+  //   const checked = (e, id) => {
+  //     if (e.target.checked) {
+  //       setCheckedList([...checkedList, id]);
+  //     } else {
+  //       setCheckedList(checkedList);
+  //     }
+  //   };
   return (
     <>
       <div>
-        {props.cartdata &&
-          props.cartdata.map((item) => {
-            console.log("화면에띄움");
-            return (
-              <div key={item.itemid}>
-                <p key={item.itemid}>{item.title}</p>
-              </div>
-            );
-          })}
+        <input
+          type="checkbox"
+          //checked={isAllChecked}
+          onChange={onAllChecked}
+        ></input>
+        <p>전체선택</p>
+
+        <Table>
+          {props.cartdata &&
+            props.cartdata.map((item, index) => {
+              return (
+                <tbody key={index}>
+                  <tr>
+                    <Td>
+                      <input
+                        onChange={(e) => onCheckedEach(e, index, item)}
+                        checked={isEachChecked[index]}
+                        type="checkbox"
+                      />
+                    </Td>
+                    <Td>
+                      <VinylImg className="vinylItemimg" src={item.img0} />
+                    </Td>
+                    <Td key={item.itemid}>
+                      {item.artist + " - " + item.title}
+                    </Td>
+                    <Td key={item.itemid}>{item.price}</Td>
+                    <Td>
+                      <TiDeleteOutline className="deleteIcon" />
+                    </Td>
+                  </tr>
+                </tbody>
+              );
+            })}
+        </Table>
+        <DivTotal>
+          <p>총 {checkList.length}개의 상품</p>
+          <DivPtag>
+            <p>상품 가격</p>
+            <p>{totalPrice}</p>
+          </DivPtag>
+
+          <DivPtag>
+            <p>보유 적립금</p>
+            <p>{props.reward_points}원</p>
+          </DivPtag>
+          <DivPtag>
+            <p>사용 적립금</p>
+            <input></input>
+            <p>원</p>
+            <button>적용</button>
+          </DivPtag>
+
+          <br />
+          <DivPtag>
+            <p>결제 예상 금액</p>
+            <p>0000원</p>
+          </DivPtag>
+        </DivTotal>
       </div>
     </>
   );

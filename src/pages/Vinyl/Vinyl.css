@@ -25,3 +25,7 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 4fr));
   grid-template-rows: repeat(auo-fit, minmax(200px, 4fr));
 }
+
+.test{
+    border-top: none;
+}
