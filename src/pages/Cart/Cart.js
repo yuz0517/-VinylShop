@@ -146,7 +146,7 @@ function Cart() {
                 </div>
               );
             })} */}
-          <button>삭제</button>
+        <button>주문하기</button>
         </DivTable>
       </Frame>
     </CartFrame>
@@ -162,7 +162,8 @@ function List(props) {
 
   const [checkList, setCheckList] = useState([]); //상품에 대한 모든 정보가 들어있음
   const [totalPrice, setTotalPrice] = useState(0);
-  const test_points = 0;
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [usedPoints, setUsedPoints] = useState(0);
 
   console.log(props.reward_points);
   useEffect(() => {
@@ -172,7 +173,23 @@ function List(props) {
       0
     );
     setTotalPrice(tempTotalPrice);
+    if(tempTotalPrice-usedPoints<0){
+      setFinalPrice(0)
+    }else{
+      setFinalPrice(tempTotalPrice - usedPoints);
+    }
+   
+
+    //const fianlTotalPrice = tempTotalPrice
   }, [checkList]); //checkList값이 변할 때 마다 price값의 합을 업데이트
+  useEffect(() => {
+    if(totalPrice-usedPoints<0){
+      setFinalPrice(0);
+    }else{
+      setFinalPrice(totalPrice - usedPoints);
+    }
+
+  }, [usedPoints])
   const checkboxRef = useRef([]);
 
   //const [checkCount, setCheckCount] = useState();
@@ -195,7 +212,39 @@ function List(props) {
     setIsEachChecked(tempEachCheck);
     console.log("Allcheck", isEachChecked);
   };
+  // const onPointClick = (e) => {
+  //   if (totalPrice == 0) {
+  //     alert("상품이 선택되지 않았습니다. 한 개 이상의 상품을 선택해주세요.");
+  //   } else if (usedPoints < 0) {
+  //     alert("0 이상의 값을 입력해주세요.");
+  //   } else if (props.reward_points < usedPoints) {
+  //     alert("보유하고 계신 포인트보다 더 큰 값을 입력하셨습니다.");
+  //   } else if (usedPoints == null || usedPoints == undefined) {
+  //     alert("사용하실 포인트를 입력해주세요.");
+  //   } else {
+  //     setFinalPrice(totalPrice - usedPoints);
+  //   }
+  // };
+  // const onPointresetClick = (e) => {
+  //   setFinalPrice(0);
+  // };
+  const onPointChange = (e) => {
+    if(props.reward_points < e.target.value){
+      console.log("value가 더 커요... 포인트")
+      alert("보유하고 계신 포인트보다 더 큰 값을 입력하셨습니다.")
+      e.target.value = 0;
+      setUsedPoints(0);
+    }else if (e.target.value < 0) {
+      alert("0 이상의 값을 입력하세요.");
+      e.target.value = 0;
+      setUsedPoints(0);
+    }else if (e.target.value >= 0 || props.reward_points >= e.target.value) {
+      setUsedPoints(e.target.value);
+      setFinalPrice(totalPrice - usedPoints);
+    }
 
+    console.log(usedPoints);
+  };
   const onCheckedEach = (e, index, item) => {
     console.log("iseachchecked", isEachChecked[index], index);
     setCheckedEach(e.target.checked);
@@ -276,15 +325,15 @@ function List(props) {
           </DivPtag>
           <DivPtag>
             <p>사용 적립금</p>
-            <input></input>
+            <input onChange={(e) => onPointChange(e)} />
             <p>원</p>
-            <button>적용</button>
+           
           </DivPtag>
 
           <br />
           <DivPtag>
             <p>결제 예상 금액</p>
-            <p>0000원</p>
+            <p>{finalPrice}원</p>
           </DivPtag>
         </DivTotal>
       </div>
