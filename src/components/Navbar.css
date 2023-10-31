@@ -2,24 +2,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Source+Code+Pro:wght@500&display=swap');
 
 .navbar{
-    background-color: rgb(34, 33, 35);
+    background-color: rgb(245, 245, 245);
     height: 80px;
-    display: flex;
-    justify-content: flex-start;
+   
+    
     align-items:center;
 }
 
 .menu-bars{
     margin-left: 2rem;
-    font-size: 2rem;
+    font-size: 2.0rem;
     background: none;
+    display: flex;
 }
+.navbar-right{
 
+    margin-right:2rem;
+    font-size: 1.6rem;
+    width: 130px;
+    justify-content: space-between;
+    align-items: flex-end;
+    display: flex;
+}
 .nav-menu{
     background-color:rgb(34, 33, 35);
     width: 250px;
     height: 100vh;
     display: flex;
+    justify-content: space-between;
     position:fixed;
     top: 8px;
     left:-100%;
