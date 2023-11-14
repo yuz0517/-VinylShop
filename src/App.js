@@ -54,8 +54,8 @@ function App() {
             <Route path="/Signin" element={<Signin />} />
             <Route path="/Search/:no" element={<Search />} />
             <Route path="/Search/mine" element={<Board_Mine />} />
-            <Route path="/cart" element={<Cart/>}/>
-            <Route path="/orderdetail" element={<Orderdetail/>}/>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/orderdetail" element={<Orderdetail />} />
           </Routes>
         </Context.Provider>
       </Router>

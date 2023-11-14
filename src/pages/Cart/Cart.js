@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { Context, UserContextProvider } from "../../components/ContextProvider";
 import { signOut } from "firebase/auth";
@@ -146,14 +147,14 @@ function Cart() {
                 </div>
               );
             })} */}
-        <button>주문하기</button>
+        
         </DivTable>
       </Frame>
     </CartFrame>
   );
 }
 function List(props) {
-  const [tempcartdata, setTempcartdata] = useState([]);
+  //const [tempcartdata, setTempcartdata] = useState([]);
   const [checkedEach, setCheckedEach] = useState([]); //개별체크
   const [checkedAll, setCheckedAll] = useState([]); //전체체크
   const [isAllChecked, setIsAllChecked] = useState(false);
@@ -164,7 +165,7 @@ function List(props) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [finalPrice, setFinalPrice] = useState(0);
   const [usedPoints, setUsedPoints] = useState(0);
-
+  let navigate = useNavigate();
   console.log(props.reward_points);
   useEffect(() => {
     //setIsEachChecked(initEachChecked);
@@ -245,6 +246,15 @@ function List(props) {
 
     console.log(usedPoints);
   };
+  const onSubmitBtnClick = () => {
+    console.log("submitbtnclick됨")
+    if(checkList.length==0){
+      alert("선택된 상품이 없습니다.")
+    }else{
+      navigate('')
+    }
+  }
+
   const onCheckedEach = (e, index, item) => {
     console.log("iseachchecked", isEachChecked[index], index);
     setCheckedEach(e.target.checked);
@@ -336,6 +346,7 @@ function List(props) {
             <p>{finalPrice}원</p>
           </DivPtag>
         </DivTotal>
+        <button onClick={onSubmitBtnClick}>주문하기</button>
       </div>
     </>
   );
