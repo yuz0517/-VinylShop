@@ -1,23 +1,7 @@
-import React, {useState} from "react";
-function Paypal() {
+import React from "react";
+function Nhn() {
   const { IMP } = window;
-  const [isBtnOver,setBtnOver] = useState(false)
-  const [mouseLoacation, setMouseLocation] = useState({
-    x: 0,
-    y: 0
-  });
-  const handleMouseMove=(e)=>{
-    setMouseLocation({x:e.clientX,y:e.clientY})
-  }
-  const handleMouseOver=()=>{
-    setBtnOver(true);
-    console.log(isBtnOver);
-  }
-  const handleMouseOut=()=>{
-    setBtnOver(false);
-    console.log(isBtnOver)
-  }
-  function normal() {
+ 
     /* 1. 가맹점 식별하기 */
     if (!window.IMP) return;
     /* 1. 가맹점 식별하기 */
@@ -40,7 +24,7 @@ function Paypal() {
 
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
-  }
+  
 
   /* 3. 콜백 함수 정의하기 */
   function callback(response) {
@@ -53,22 +37,6 @@ function Paypal() {
     }
   }
   
-
-  return (
-    <>
-      <button
-        onClick={normal}
-        onMouseMove={handleMouseMove}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}>일반 결제</button>
-        {isBtnOver&&( 
-            <div style={{ position: 'absolute', top: (mouseLoacation.y)+10, left: (mouseLoacation.x)+10 }}>
-                카드결제,카카오페이, 네이버페이, 토스 등의 일반결제. 
-            </div>
-
-        )}
-    </>
-  );
 }
 
-export default Paypal;
+export { Nhn };
