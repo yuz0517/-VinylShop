@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Font17px_bold, Font14px,Cylinder_Gray } from "../../styled-component/style"
 import styled from "styled-components";
 import * as AiIcons from "react-icons/ai";
 //import Paypal from "../../components/Payment/Paypal";
@@ -7,10 +8,7 @@ import "./Orderdetail.css";
 import { Paypal } from "../../components/Payment/Paypal.js";
 import { Nhn } from "../../components/Payment/Nhn.js";
 //import { IfSettled } from "react-async";
-const Title = styled.div`
-  font-size: 17px;
-  font-weight: bold;
-`;
+
 const Section = styled.div`
   background-color: white;
   width: auto;
@@ -29,27 +27,17 @@ const DivTable = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
-const Btn = styled.div`
-  cursor: pointer;
-  border: 1px solid #dcdcdc;
-  width: 30vh;
-  height: 43px;
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 5px;
-  margin-left: 5px;
-  border-radius: 20px;
-`;
+
 const Div_spacearound = styled.div`
   display: flex;
   justify-content: space-around;
 `;
 const Div_flex_column = styled.div`
-    display: flex;
-    flex-direction: column;
-`
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+`;
+
 function Orderdetail() {
   const [paypalVisible, setPaypalVisible] = useState(false);
   const [normalVisible, setNormalVisible] = useState(false);
@@ -107,7 +95,7 @@ function Orderdetail() {
     <div className="orderdetail-frame0">
       <div className="frame1">
         <Section>
-          <Title className="ordertitle">주문상품</Title>{" "}
+          <Font17px_bold className="ordertitle">주문상품</Font17px_bold>{" "}
           <AiIcons.AiOutlineDown
             className="orderlisticon"
             onClick={onListdownClick}
@@ -115,22 +103,22 @@ function Orderdetail() {
         </Section>
 
         <Section>
-          <Title>배송지</Title>
-          <Title>배송지 목록</Title>
+          <Font17px_bold>배송지</Font17px_bold>
+          <Font17px_bold>배송지 목록</Font17px_bold>
         </Section>
         <Section>
-          <Title>배송 요청사항</Title>
+          <Font17px_bold>배송 요청사항</Font17px_bold>
           <input type="text" />
         </Section>
 
         <Section>
-          <Title>결제동의</Title>
+          <Font17px_bold>결제동의</Font17px_bold>
         </Section>
         <Section>
-          <Title>결제하기</Title>
+          <Font17px_bold>결제하기</Font17px_bold>
           <Div_spacearound>
             {payItems.map((item, index) => (
-              <Btn
+              <Cylinder_Gray
                 key={index}
                 onClick={() => onPaymentClick(item.type)} // type 받아 set함수에 넣어준다
                 className={`${
@@ -138,22 +126,22 @@ function Orderdetail() {
                 }`} // 클릭하면 select클래스가 추가
               >
                 {item.title}
-              </Btn>
+              </Cylinder_Gray>
             ))}
           </Div_spacearound>
-          <div></div>
-        </Section>
-        {depositVisible && (
+          {depositVisible && (
             <Div_flex_column>
-              <div>- 입금 유의사항 -</div>
-              <div>주문 후 12시간 내 미입금시 자동으로 주문이 취소됩니다. </div>
+              <Font14px>- 입금 유의사항 -</Font14px>
+              <Font14px>주문 후 12시간 내 미입금시 자동으로 주문이 취소됩니다. </Font14px>
               <div>
-                <p>입금자명</p> <input />
-                <p>은행</p>
-                <select ></select>
+                <div><Font14px>입금자명</Font14px> <input className="입금자명" /></div>
+                <Font14px>은행</Font14px>
+                <select></select>
               </div>
             </Div_flex_column>
           )}
+        </Section>
+
         <div className="orderdetail-frame2">
           {paypalVisible ? (
             <div className="orderdetail-paypal-container">
@@ -171,7 +159,6 @@ function Orderdetail() {
               {price}원 결제하기
             </div>
           )}
-          
         </div>
       </div>
     </div>
