@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from 'react-router-dom';
 import {
   Font15px_bold,
   Font14px,
@@ -6,7 +7,6 @@ import {
   Font14px_gray,
   Input_Rect_transparent,
   Select_Rect_transparent,
-
 } from "../../styled-component/style";
 import styled from "styled-components";
 import * as AiIcons from "react-icons/ai";
@@ -47,6 +47,10 @@ const Div_flex_column = styled.div`
 `;
 
 function Orderdetail() {
+  const location = useLocation();
+  const data = location.state;
+  console.log("받아온 데이터",data)
+
   const [paypalVisible, setPaypalVisible] = useState(false);
   const [normalVisible, setNormalVisible] = useState(false);
   const [depositVisible, setDepositVisible] = useState(false);
@@ -104,10 +108,14 @@ function Orderdetail() {
       <div className="frame1">
         <Section>
           <Font15px_bold className="ordertitle">주문상품</Font15px_bold>{" "}
-          <AiIcons.AiOutlineDown
-            className="AiIcon_orderDown"
-            onClick={onListdownClick}
-          />
+          {listdrop ? (
+            <AiIcons.AiOutlineDown
+              className="AiIcon_orderUpDown"
+              onClick={onListdownClick}
+            />
+          ) : (
+            <AiIcons.AiOutlineUp className="AiIcon_orderUpDown" onClick={onListdownClick}/>
+          )}
         </Section>
 
         <Section>
@@ -140,16 +148,25 @@ function Orderdetail() {
           {depositVisible && (
             <Div_flex_column>
               <Font14px>🎧 무통장 입금 유의사항</Font14px>
-              <Font14px_gray>✔️ 주문 후 12시간 내 미입금시 자동으로 주문이 취소됩니다.{" "}</Font14px_gray>
-              <Font14px_gray>✔️ 입금 확인은 수동으로 이루어집니다.</Font14px_gray>
+              <Font14px_gray>
+                ✔️ 주문 후 12시간 내 미입금시 자동으로 주문이 취소됩니다.{" "}
+              </Font14px_gray>
+              <Font14px_gray>
+                ✔️ 입금 확인은 수동으로 이루어집니다.
+              </Font14px_gray>
               <div>
                 <div>
-                  <Font14px>입금자명</Font14px> <Input_Rect_transparent className="입금자명" />
+                  <Font14px>입금자명</Font14px>{" "}
+                  <Input_Rect_transparent className="입금자명" />
                 </div>
                 <Font14px>은행</Font14px>
                 <Select_Rect_transparent>
-                  <option value="option1">농협은행: xxxx-xx-xxxx (예금주: 이유정)</option>
-                  <option value="option2">신한은행: xxxx-xx-xxxx (예금주: 이유정)</option>
+                  <option value="option1">
+                    농협은행: xxxx-xx-xxxx (예금주: 이유정)
+                  </option>
+                  <option value="option2">
+                    신한은행: xxxx-xx-xxxx (예금주: 이유정)
+                  </option>
                 </Select_Rect_transparent>
               </div>
             </Div_flex_column>
