@@ -57,7 +57,7 @@ const Td = styled.td`
 function Cart() {
   const { sessionUserid, setIsloggedIn } = useContext(Context);
   const [cartdata, setCartdata] = useState([]);
-
+  console.log("sessionuserid",sessionUserid)
   const [User, setUser] = useState({
     email: sessionStorage.key(0),
   });
@@ -251,7 +251,10 @@ function List(props) {
     if(checkList.length==0){
       alert("선택된 상품이 없습니다.")
     }else{
-      navigate('')
+      const data={
+        totalPrice,finalPrice,usedPoints,checkList
+      }
+      navigate('/orderdetail', {state: data})
     }
   }
 
