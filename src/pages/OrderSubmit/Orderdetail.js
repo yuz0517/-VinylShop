@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Font17px_bold, Font14px,Cylinder_Gray } from "../../styled-component/style"
+import {
+  Font15px_bold,
+  Font14px,
+  Cylinder_Gray,
+  Font14px_gray,
+  Input_Rect_transparent,
+  Select_Rect_transparent,
+
+} from "../../styled-component/style";
 import styled from "styled-components";
 import * as AiIcons from "react-icons/ai";
 //import Paypal from "../../components/Payment/Paypal";
@@ -51,7 +59,7 @@ function Orderdetail() {
   const [selectedPayment, setSelectedPayment] = useState();
   const [listdrop, setListdrop] = useState(false);
   const onListdownClick = (e) => {
-    setListdrop(listdrop);
+    setListdrop(!listdrop);
   };
   const onPaymentClick = (e) => {
     //결제수단선택에 따른 state 상태 변경
@@ -95,27 +103,27 @@ function Orderdetail() {
     <div className="orderdetail-frame0">
       <div className="frame1">
         <Section>
-          <Font17px_bold className="ordertitle">주문상품</Font17px_bold>{" "}
+          <Font15px_bold className="ordertitle">주문상품</Font15px_bold>{" "}
           <AiIcons.AiOutlineDown
-            className="orderlisticon"
+            className="AiIcon_orderDown"
             onClick={onListdownClick}
           />
         </Section>
 
         <Section>
-          <Font17px_bold>배송지</Font17px_bold>
-          <Font17px_bold>배송지 목록</Font17px_bold>
+          <Font15px_bold>배송지</Font15px_bold>
+          <Font15px_bold>배송지 목록</Font15px_bold>
         </Section>
         <Section>
-          <Font17px_bold>배송 요청사항</Font17px_bold>
-          <input type="text" />
+          <Font15px_bold>배송 요청사항</Font15px_bold>
+          <Input_Rect_transparent type="text" />
         </Section>
 
         <Section>
-          <Font17px_bold>결제동의</Font17px_bold>
+          <Font15px_bold>결제동의</Font15px_bold>
         </Section>
         <Section>
-          <Font17px_bold>결제하기</Font17px_bold>
+          <Font15px_bold>결제하기</Font15px_bold>
           <Div_spacearound>
             {payItems.map((item, index) => (
               <Cylinder_Gray
@@ -131,12 +139,18 @@ function Orderdetail() {
           </Div_spacearound>
           {depositVisible && (
             <Div_flex_column>
-              <Font14px>- 입금 유의사항 -</Font14px>
-              <Font14px>주문 후 12시간 내 미입금시 자동으로 주문이 취소됩니다. </Font14px>
+              <Font14px>🎧 무통장 입금 유의사항</Font14px>
+              <Font14px_gray>✔️ 주문 후 12시간 내 미입금시 자동으로 주문이 취소됩니다.{" "}</Font14px_gray>
+              <Font14px_gray>✔️ 입금 확인은 수동으로 이루어집니다.</Font14px_gray>
               <div>
-                <div><Font14px>입금자명</Font14px> <input className="입금자명" /></div>
+                <div>
+                  <Font14px>입금자명</Font14px> <Input_Rect_transparent className="입금자명" />
+                </div>
                 <Font14px>은행</Font14px>
-                <select></select>
+                <Select_Rect_transparent>
+                  <option value="option1">농협은행: xxxx-xx-xxxx (예금주: 이유정)</option>
+                  <option value="option2">신한은행: xxxx-xx-xxxx (예금주: 이유정)</option>
+                </Select_Rect_transparent>
               </div>
             </Div_flex_column>
           )}
