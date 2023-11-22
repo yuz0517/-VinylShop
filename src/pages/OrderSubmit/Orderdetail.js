@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import {
+  Div_flex_column,
+  Div_flex,
   Font15px_bold,
-  Font14px,
   Cylinder_Gray,
   Font14px_gray,
+  Font_bold,
   Input_Rect_transparent,
   Select_Rect_transparent,
+  Image,
+  Font_plain,
+  Div_all,
 } from "../../styled-component/style";
 import styled from "styled-components";
 import * as AiIcons from "react-icons/ai";
@@ -36,20 +41,11 @@ const DivTable = styled.div`
   margin-bottom: 20px;
 `;
 
-const Div_spacearound = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
-const Div_flex_column = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 5px;
-`;
 
 function Orderdetail() {
   const location = useLocation();
   const data = location.state;
-  console.log("받아온 데이터",data)
+  console.log("받아온 데이터", data.checkList[0]);
 
   const [paypalVisible, setPaypalVisible] = useState(false);
   const [normalVisible, setNormalVisible] = useState(false);
@@ -104,17 +100,45 @@ function Orderdetail() {
     setPaypalVisible(!paypalVisible);
   };
   return (
-    <div className="orderdetail-frame0">
+    <div>
       <div className="frame1">
         <Section>
           <Font15px_bold className="ordertitle">주문상품</Font15px_bold>{" "}
           {listdrop ? (
-            <AiIcons.AiOutlineDown
-              className="AiIcon_orderUpDown"
-              onClick={onListdownClick}
-            />
+            <>
+              <AiIcons.AiOutlineDown
+                className="AiIcon_orderUpDown"
+                onClick={onListdownClick}
+              />
+            </>
           ) : (
-            <AiIcons.AiOutlineUp className="AiIcon_orderUpDown" onClick={onListdownClick}/>
+            <>
+              <AiIcons.AiOutlineUp
+                className="AiIcon_orderUpDown"
+                onClick={onListdownClick}
+              />
+              <Div_flex_column>
+                {data.checkList.map((item, index) => {
+                  return (
+                    <Div_flex className="orderdetail_dropdown" >
+                      <Image width="60px" src={data.checkList[index].img0} margin_right='20px'/>
+                      <div>
+                        <Font_bold fontsize="12px" color="#5B5B5B">
+                          {data.checkList[index].title}
+                        </Font_bold>
+                        <Font_bold fontsize="12px" color="#979797">
+                          {data.checkList[index].artist}
+                        </Font_bold>
+                        <Font_plain fontsize="11px" color="#5B5B5B">
+                          {data.checkList[index].price}
+                        </Font_plain>
+                      </div>
+                      </Div_flex>
+                    
+                  );
+                })}
+              </Div_flex_column>
+            </>
           )}
         </Section>
 
@@ -132,7 +156,7 @@ function Orderdetail() {
         </Section>
         <Section>
           <Font15px_bold>결제하기</Font15px_bold>
-          <Div_spacearound>
+          <Div_flex justifycontent="space-around">
             {payItems.map((item, index) => (
               <Cylinder_Gray
                 key={index}
@@ -144,10 +168,12 @@ function Orderdetail() {
                 {item.title}
               </Cylinder_Gray>
             ))}
-          </Div_spacearound>
+          </Div_flex>
           {depositVisible && (
             <Div_flex_column>
-              <Font14px>🎧 무통장 입금 유의사항</Font14px>
+              <Font_plain fontsize="12px" color="#5B5B5B">
+                🎧 무통장 입금 유의사항
+              </Font_plain>
               <Font14px_gray>
                 ✔️ 주문 후 12시간 내 미입금시 자동으로 주문이 취소됩니다.{" "}
               </Font14px_gray>
@@ -156,10 +182,14 @@ function Orderdetail() {
               </Font14px_gray>
               <div>
                 <div>
-                  <Font14px>입금자명</Font14px>{" "}
+                  <Font_plain fontsize="12px" color="#5B5B5B">
+                    입금자명
+                  </Font_plain>{" "}
                   <Input_Rect_transparent className="입금자명" />
                 </div>
-                <Font14px>은행</Font14px>
+                <Font_plain fontsize="12px" color="#5B5B5B">
+                  은행
+                </Font_plain>
                 <Select_Rect_transparent>
                   <option value="option1">
                     농협은행: xxxx-xx-xxxx (예금주: 이유정)
