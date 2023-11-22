@@ -7,6 +7,11 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Axios from 'axios';
 import { useDaumPostcodePopup } from 'react-daum-postcode';
+import {
+    Div_all,
+  } from "../styled-component/style";
+
+
 //import {useNavigate} from "useNavigate";
 const Signup = () => {
 
@@ -147,7 +152,7 @@ const Signup = () => {
     return (
         <>
 
-            <div className='div-all'>
+            <Div_all>
 
                 <div className='div-title'>
 
@@ -254,7 +259,7 @@ const Signup = () => {
                 </div>
                 <ToastContainer />
 
-            </div>
+            </Div_all>
         </>
     );
 }

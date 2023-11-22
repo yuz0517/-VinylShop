@@ -7,6 +7,9 @@ import { getAuth } from "firebase/auth";
 import { Link } from "react-router-dom";
 import Axios from 'axios';
 import * as Navbar from "../components/Navbar.js";
+import {
+  Div_all,
+} from "../styled-component/style";
 import "./Signin.css";
 
 //sign in
@@ -42,7 +45,7 @@ const Signin = () => {
 
   return (
     <>
-      <div className="div-all">
+      <Div_all>
         <div className="div-title">
           <p className="p-login">로그인</p>
         </div>
@@ -74,7 +77,7 @@ const Signin = () => {
             <button className="button-signup">Sign Up</button>
           </Link>
         </div>
-      </div>
+      </Div_all>
     </>
   );
 };
