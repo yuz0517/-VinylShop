@@ -1,4 +1,11 @@
-
+.div-all{
+    background-color: #ffffff;
+    width:80%;
+    place-content:center;
+    flex-direction: column;
+    margin: auto;
+    display: grid;
+}
 .div-title{
     margin-top: 50px;
     margin-bottom: 50px;
