@@ -1,17 +1,35 @@
 import styled from "styled-components";
 /* 정렬,레이아웃 */
+export const Section = styled.div`
+  background-color: white;
+  width: auto
+  margin-bottom: 10px;
+`;
 export const Div_all=styled.div`
-    background-color: #ffffff;
-    width:80%;
-    place-content:center;
-    flex-direction: column;
-    margin: auto;
-    display: grid;
+background-color: #ffffff;
+width:quto;
+place-content:center;
+flex-direction: column;
+margin: auto;
+display: grid;
+
+`
+export const Div_all_flex=styled.div`
+background-color: #ffffff;
+width:100%;
+place-content:center;
+
+
+display: flex;
+
 `
 export const Div_flex_column = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 5px;
+  width: ${(props)=>props.width};
+  margin-right: ${(props)=>props.margin_right};
+  margin-left: ${(props)=>props.margin_left};
 `;
 export const Div_flex = styled.div`
   display: flex;
