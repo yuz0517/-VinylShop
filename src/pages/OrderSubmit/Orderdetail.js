@@ -11,7 +11,8 @@ import {
   Select_Rect_transparent,
   Image,
   Font_plain,
-  Div_all,
+  Div_all_flex,
+  Section
 } from "../../styled-component/style";
 import styled from "styled-components";
 import * as AiIcons from "react-icons/ai";
@@ -22,11 +23,7 @@ import { Paypal } from "../../components/Payment/Paypal.js";
 import { Nhn } from "../../components/Payment/Nhn.js";
 //import { IfSettled } from "react-async";
 
-const Section = styled.div`
-  background-color: white;
-  width: auto;
-  margin-bottom: 10px;
-`;
+
 const Frame = styled.div`
   background-color: #dcdcdc
   width: auto;
@@ -100,7 +97,8 @@ function Orderdetail() {
     setPaypalVisible(!paypalVisible);
   };
   return (
-    <div>
+    <Div_all_flex>
+  
       <div className="frame1">
         <Section>
           <Font15px_bold className="ordertitle">주문상품</Font15px_bold>{" "}
@@ -117,7 +115,7 @@ function Orderdetail() {
                 className="AiIcon_orderUpDown"
                 onClick={onListdownClick}
               />
-              <Div_flex_column>
+              <Div_flex_column width="80%" margin_right="10px" margin_left="-100px">
                 {data.checkList.map((item, index) => {
                   return (
                     <Div_flex className="orderdetail_dropdown" >
@@ -201,7 +199,7 @@ function Orderdetail() {
               </div>
             </Div_flex_column>
           )}
-        </Section>
+        
 
         <div className="orderdetail-frame2">
           {paypalVisible ? (
@@ -216,14 +214,17 @@ function Orderdetail() {
               </div>
             </div>
           ) : (
+           
             <div className="detailPaymentBtn" onClick={onTestClick}>
               {price}원 결제하기
             </div>
+          
           )}
         </div>
+        </Section>
       </div>
-    </div>
+    </Div_all_flex>
   );
-}
+} 
 
 export default Orderdetail;
