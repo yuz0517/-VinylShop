@@ -26,7 +26,7 @@ display: flex;
 export const Div_flex_column = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 5px;
+  
   width: ${(props)=>props.width};
   margin-right: ${(props)=>props.margin_right};
   margin-left: ${(props)=>props.margin_left};
@@ -34,6 +34,7 @@ export const Div_flex_column = styled.div`
 export const Div_flex = styled.div`
   display: flex;
   justify-content: ${(props)=>props.justifycontent};
+  margin-bottom: ${(props)=>props.marginbottom};
 `;
 export const Image = styled.img`
   width: ${(props)=>props.width};
@@ -72,6 +73,7 @@ export const B = styled.div`
 export const Input_Rect_transparent = styled.input`
   width: 80%;
   height: 43px;
+  margin-bottom: ${(props)=>props.marginbottom};
 `;
 /* select*/
 export const Select_Rect_transparent = styled.select`
