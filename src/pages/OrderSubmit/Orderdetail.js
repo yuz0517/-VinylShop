@@ -154,7 +154,7 @@ function Orderdetail() {
         </Section>
         <Section>
           <Font15px_bold>결제하기</Font15px_bold>
-          <Div_flex justifycontent="space-around">
+          <Div_flex justifycontent="space-around" marginbottom="5px">
             {payItems.map((item, index) => (
               <Cylinder_Gray
                 key={index}
@@ -178,7 +178,7 @@ function Orderdetail() {
               <Font14px_gray>
                 ✔️ 입금 확인은 수동으로 이루어집니다.
               </Font14px_gray>
-              <div>
+              
                 <div>
                   <Font_plain fontsize="12px" color="#5B5B5B">
                     입금자명
@@ -196,7 +196,7 @@ function Orderdetail() {
                     신한은행: xxxx-xx-xxxx (예금주: 이유정)
                   </option>
                 </Select_Rect_transparent>
-              </div>
+              
             </Div_flex_column>
           )}
         
