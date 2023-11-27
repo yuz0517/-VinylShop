@@ -15,9 +15,9 @@ function Nhn (orderdata) {
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
       amount: orderdata.finalPrice, // 결제금액
       name: `${orderdata.checkList[0].title}`+"외"+`${orderdata.checkList.length-1}`+"건", // 주문명
-      buyer_name: "이유정", // 구매자 이름
-      buyer_tel: "01012341234", // 구매자 전화번호
-      buyer_email: "example@example", // 구매자 이메일
+      buyer_name: {}, // 구매자 이름
+      buyer_tel: {}, // 구매자 전화번호
+      buyer_email: {}, // 구매자 이메일
       buyer_addr: "신사동 661-16", // 구매자 주소
       buyer_postcode: "06018", // 구매자 우편번호
     };
