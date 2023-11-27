@@ -1,7 +1,7 @@
 import React from "react";
-function Nhn() {
+function Nhn (orderdata) {
   const { IMP } = window;
- 
+    console.log(orderdata)
     /* 1. 가맹점 식별하기 */
     if (!window.IMP) return;
     /* 1. 가맹점 식별하기 */
@@ -13,9 +13,9 @@ function Nhn() {
       pg: "kcp", // PG사
       pay_method: "card", // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-      amount: 1000, // 결제금액
-      name: "아임포트 결제 데이터 분석", // 주문명
-      buyer_name: "홍길동", // 구매자 이름
+      amount: orderdata.finalPrice, // 결제금액
+      name: `${orderdata.checkList[0].title}`+"외"+`${orderdata.checkList.length-1}`+"건", // 주문명
+      buyer_name: "이유정", // 구매자 이름
       buyer_tel: "01012341234", // 구매자 전화번호
       buyer_email: "example@example", // 구매자 이메일
       buyer_addr: "신사동 661-16", // 구매자 주소
