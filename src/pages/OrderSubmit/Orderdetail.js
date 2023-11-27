@@ -12,7 +12,7 @@ import {
   Image,
   Font_plain,
   Div_all_flex,
-  Section
+  Section,
 } from "../../styled-component/style";
 import styled from "styled-components";
 import * as AiIcons from "react-icons/ai";
@@ -22,7 +22,6 @@ import "./Orderdetail.css";
 import { Paypal } from "../../components/Payment/Paypal.js";
 import { Nhn } from "../../components/Payment/Nhn.js";
 //import { IfSettled } from "react-async";
-
 
 const Frame = styled.div`
   background-color: #dcdcdc
@@ -38,11 +37,10 @@ const DivTable = styled.div`
   margin-bottom: 20px;
 `;
 
-
 function Orderdetail() {
   const location = useLocation();
   const data = location.state;
-  console.log("받아온 데이터", data.checkList[0]);
+  console.log("받아온 데이터", data.finalPrice);
 
   const [paypalVisible, setPaypalVisible] = useState(false);
   const [normalVisible, setNormalVisible] = useState(false);
@@ -89,7 +87,7 @@ function Orderdetail() {
     if (selectedPayment == "paypal") {
       Paypal();
     } else if (selectedPayment == "normal") {
-      Nhn();
+      Nhn(data);
     } else if (selectedPayment == "deposit") {
     }
   };
@@ -98,7 +96,6 @@ function Orderdetail() {
   };
   return (
     <Div_all_flex>
-  
       <div className="frame1">
         <Section>
           <Font15px_bold className="ordertitle">주문상품</Font15px_bold>{" "}
@@ -115,11 +112,19 @@ function Orderdetail() {
                 className="AiIcon_orderUpDown"
                 onClick={onListdownClick}
               />
-              <Div_flex_column width="80%" margin_right="10px" margin_left="-100px">
+              <Div_flex_column
+                width="80%"
+                margin_right="10px"
+                margin_left="-100px"
+              >
                 {data.checkList.map((item, index) => {
                   return (
-                    <Div_flex className="orderdetail_dropdown" >
-                      <Image width="60px" src={data.checkList[index].img0} margin_right='20px'/>
+                    <Div_flex className="orderdetail_dropdown">
+                      <Image
+                        width="60px"
+                        src={data.checkList[index].img0}
+                        margin_right="20px"
+                      />
                       <div>
                         <Font_bold fontsize="12px" color="#5B5B5B">
                           {data.checkList[index].title}
@@ -131,22 +136,32 @@ function Orderdetail() {
                           {data.checkList[index].price}
                         </Font_plain>
                       </div>
-                      </Div_flex>
-                    
+                    </Div_flex>
                   );
                 })}
               </Div_flex_column>
             </>
           )}
         </Section>
-
+        <Section>
+          <Font15px_bold>주문자 정보</Font15px_bold>
+        </Section>
+        <Div_flex>
+          <Font14px_gray>이름</Font14px_gray> <Input_Rect_transparent width="50%" marginbottom="7px"/>
+        </Div_flex>
+        <Div_flex>
+          <Font14px_gray>전화번호</Font14px_gray>
+          <Input_Rect_transparent width="10%" />-<Input_Rect_transparent width="10%"  />-
+          <Input_Rect_transparent width="10%" />
+        </Div_flex>
         <Section>
           <Font15px_bold>배송지</Font15px_bold>
           <Font15px_bold>배송지 목록</Font15px_bold>
         </Section>
+
         <Section>
           <Font15px_bold>배송 요청사항</Font15px_bold>
-          <Input_Rect_transparent type="text" />
+          <Input_Rect_transparent type="text" width="70%" />
         </Section>
 
         <Section>
@@ -178,53 +193,49 @@ function Orderdetail() {
               <Font14px_gray>
                 ✔️ 입금 확인은 수동으로 이루어집니다.
               </Font14px_gray>
-              
-                <div>
-                  <Font_plain fontsize="12px" color="#5B5B5B">
-                    입금자명
-                  </Font_plain>{" "}
-                  <Input_Rect_transparent className="입금자명" />
-                </div>
+
+              <div>
                 <Font_plain fontsize="12px" color="#5B5B5B">
-                  은행
-                </Font_plain>
-                <Select_Rect_transparent>
-                  <option value="option1">
-                    농협은행: xxxx-xx-xxxx (예금주: 이유정)
-                  </option>
-                  <option value="option2">
-                    신한은행: xxxx-xx-xxxx (예금주: 이유정)
-                  </option>
-                </Select_Rect_transparent>
-              
+                  입금자명
+                </Font_plain>{" "}
+                <Input_Rect_transparent className="입금자명" />
+              </div>
+              <Font_plain fontsize="12px" color="#5B5B5B">
+                은행
+              </Font_plain>
+              <Select_Rect_transparent>
+                <option value="option1">
+                  농협은행: xxxx-xx-xxxx (예금주: 이유정)
+                </option>
+                <option value="option2">
+                  신한은행: xxxx-xx-xxxx (예금주: 이유정)
+                </option>
+              </Select_Rect_transparent>
             </Div_flex_column>
           )}
-        
 
-        <div className="orderdetail-frame2">
-          {paypalVisible ? (
-            <div className="orderdetail-paypal-container">
-              <div
-                className="portone-ui-container"
-                data-portone-ui-type="paypal-spb"
-              >
-                <div className="detailPaymentBtn" onClick={onTestClick}>
-                  {price}원 결제하기
+          <div className="orderdetail-frame2">
+            {paypalVisible ? (
+              <div className="orderdetail-paypal-container">
+                <div
+                  className="portone-ui-container"
+                  data-portone-ui-type="paypal-spb"
+                >
+                  <div className="detailPaymentBtn" onClick={onTestClick}>
+                    {data.finalPrice}원 결제하기
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : (
-           
-            <div className="detailPaymentBtn" onClick={onTestClick}>
-              {price}원 결제하기
-            </div>
-          
-          )}
-        </div>
+            ) : (
+              <div className="detailPaymentBtn" onClick={onTestClick}>
+                {data.finalPrice}원 결제하기
+              </div>
+            )}
+          </div>
         </Section>
       </div>
     </Div_all_flex>
   );
-} 
+}
 
 export default Orderdetail;
