@@ -57,6 +57,7 @@ export const Font14px_gray = styled.div`
   color: #979797; 
   margin-bottom: 5px;
   margin-top: 5px;
+  margin-right: 5px;
 `;
 
 export const Font_bold = styled.div`
@@ -71,7 +72,7 @@ export const B = styled.div`
 `;
 /* input */
 export const Input_Rect_transparent = styled.input`
-  width: 80%;
+  width: ${(props)=>props.width};
   height: 43px;
   margin-bottom: ${(props)=>props.marginbottom};
 `;
