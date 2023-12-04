@@ -21,6 +21,7 @@ import * as AiIcons from "react-icons/ai";
 import "./Orderdetail.css";
 import { Paypal } from "../../components/Payment/Paypal.js";
 import { Nhn } from "../../components/Payment/Nhn.js";
+import DeliveryADD from "./DeliveryADD";
 //import { IfSettled } from "react-async";
 
 const Frame = styled.div`
@@ -156,7 +157,8 @@ function Orderdetail() {
         </Div_flex>
         <Section>
           <Font15px_bold>배송지</Font15px_bold>
-          <Font15px_bold>배송지 목록</Font15px_bold>
+          <Font14px_gray>배송지 목록</Font14px_gray>
+          <DeliveryADD></DeliveryADD>
         </Section>
 
         <Section>
