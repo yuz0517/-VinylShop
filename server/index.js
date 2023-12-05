@@ -398,7 +398,23 @@ app.post("/api/cart/insert", (req,res) => {
         }
     });
 });
-
+/* -----------Address------------ */
+app.get("/api/address/getallinfo",(req,res)=>{
+    const key = req.query.key;
+    const sqlQuery = "SELECT * FROM board WHERE user_id Like ?";
+    console.log(sqlQuery,key);
+    db.query(sqlQuery,[key],(err,data)=>{
+        
+        if(!err){ 
+            console.log(data)
+            return res.send(data);
+        } else { 
+           
+            res.send(err);
+   
+        }
+    });
+});
 app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);
 });
