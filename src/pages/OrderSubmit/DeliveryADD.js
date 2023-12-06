@@ -4,6 +4,9 @@ import { Context } from "../../components/ContextProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase"; //파베
 import Modal from "react-modal";
+import { IoMdArrowRoundBack } from "react-icons/io";
+
+import AddressAdd from "./AddressAdd";
 const customStyles = {
   content: {
     top: "50%",
@@ -18,6 +21,7 @@ export default function DeliveryADD() {
   const [ADDcnt, setADDcnt] = useState(0);
   const { sessionUserid, setIsloggedIn } = useContext(Context);
   const [modalOpen, setModalOpen] = useState(false);
+  const [addBtn, setAddBtn] = useState(false);
   const [addressdata, setAddressData] = useState([]);
 
   console.log(sessionUserid);
@@ -28,7 +32,6 @@ export default function DeliveryADD() {
     setIsloggedIn(false);
   };
 
-  
   const onAddrClick = () => {};
   useEffect(() => {
     if (
@@ -57,8 +60,6 @@ export default function DeliveryADD() {
       .catch((err) => {
         console.log(err.message);
       });
-
-
   });
 
   function openModal() {
@@ -67,6 +68,7 @@ export default function DeliveryADD() {
   }
   function closeModal() {
     setModalOpen(false);
+    setAddBtn(false);
   }
 
   return (
@@ -82,8 +84,14 @@ export default function DeliveryADD() {
           onRequestClose={closeModal}
           shouldCloseOnOverlayClick={true}
         >
-          <h2>모달 오픈</h2>
-          <button onClick={() => setModalOpen(false)}>close</button>
+          {addBtn == true ? <h2>배송지 추가</h2> : <h2>배송지 목록</h2>}
+          {addBtn == true ? (
+            <IoMdArrowRoundBack onClick={() => setAddBtn(false)} />
+          ) : (
+            <button onClick={() => setAddBtn(true)}>배송지 추가</button>
+          )}
+          <div>{addBtn == true ? <AddressAdd /> : <div>배송지선택</div>}</div>
+          <button onClick={closeModal}>close</button>
         </Modal>
       </div>
       <div></div>
