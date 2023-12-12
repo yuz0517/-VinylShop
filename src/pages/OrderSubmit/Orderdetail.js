@@ -38,7 +38,7 @@ const DivTable = styled.div`
   margin-bottom: 20px;
 `;
 
-function Orderdetail() {
+export default function Orderdetail() {
   const location = useLocation();
   const data = location.state;
   console.log("받아온 데이터", data.finalPrice);
@@ -240,4 +240,3 @@ function Orderdetail() {
   );
 }
 
-export default Orderdetail;
