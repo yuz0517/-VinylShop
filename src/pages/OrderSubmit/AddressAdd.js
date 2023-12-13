@@ -13,7 +13,7 @@ export default function AddressAdd() {
   useEffect(() => {
     //const
     //var stringWithoutSpaces = stringWithSpaces.replace(/\s/g, "");
-    console.log("phone:", phone);
+    console.log("입력된 값:", phone);
   }, [phone]);
   const [isComposing, setIsComposing] = useState(false);
 
@@ -42,52 +42,53 @@ export default function AddressAdd() {
     setIsDefault(e.target.value);
   };
 
-  const onNumKeyUp = (e) => {
-    var forbiddenChars = /[,'";:\/?{}[\]\\\s\n\r]/g;
-    var korean = /[\ㄱ-ㅎㅏ-ㅣ|가-힣]/gi;
+   const onNumKeyUp = (e) => {
+     var forbiddenChars = /[,'";:\/?{}[\]\\\s\n\r]/g;
+     var korean = /[\ㄱ-ㅎㅏ-ㅣ|가-힣]/gi;
+     
 
-    if (e.nativeEvent.isComposing) {
-      e.target.value = e.target.value.replace(korean, "");
-      e.target.value = e.target.value.replace(forbiddenChars, "");
-      return;
-    } else {
-      e.target.value = e.target.value.replace(korean, "");
-      e.target.value = e.target.value.replace(forbiddenChars, "");
-      console.log("한글입력");
-    }
-    if (korean.test(e.key)) {
-      e.target.value = e.target.value.replace(korean, "");
-      e.target.value = e.target.value.replace(forbiddenChars, "");
-    }
-  };
+  //   if (e.nativeEvent.isComposing) {
+  //     e.target.value = e.target.value.replace(korean, "");
+  //     e.target.value = e.target.value.replace(forbiddenChars, "");
+  //     return;
+  //   } else {
+  //     e.target.value = e.target.value.replace(korean, "");
+  //     e.target.value = e.target.value.replace(forbiddenChars, "");
+  //     console.log("한글입력");
+  //   }
+     if (korean.test(e.key)) {
+       e.target.value = e.target.value.replace(korean, "");
+       e.target.value = e.target.value.replace(forbiddenChars, "");
+     }
+   };
 
   const onNumKeyDown = (e) => {
     
-    console.log(e.keyCode);
+    console.log(e);
 
-    var forbiddenChars = /[,'";:\/?{}[\]\\\s\n\r]/g;
-    var korean = /[\ㄱ-ㅎㅏ-ㅣ|가-힣]/gi;
+     var forbiddenChars = /[,'"<>.;:\/?{}[\]\\\s\n\r]/g;
+     var korean = /[\ㄱ-ㅎㅏ-ㅣ|가-힣]/gi;
 
-    const isitanumber = Number(e.key);
-    console.log("e.key",e.key)
-    console.log(isitanumber,e.key);
-    if (e.keyCode >= 48 && e.keyCode <= 57) {
-      if (isNaN(isitanumber) === true) {
-        console.log("it is not a number ->", e.key, isitanumber);
+    // const isitanumber = Number(e.key);
+    // console.log("e.key",e.key)
+    // console.log(isitanumber,e.key);
+    // if (e.keyCode >= 48 && e.keyCode <= 57) {
+    //   if (isNaN(isitanumber) === true) {
+    //     console.log("it is not a number ->", e.key, isitanumber);
 
-        e.preventDefault();
-      }
-    }
+    //     e.preventDefault();
+    //   }
+    // }
 
-    if (e.nativeEvent.isComposing) {
-      e.target.value = e.target.value.replace(korean, "");
-      e.target.value = e.target.value.replace(forbiddenChars, "");
-      return;
-    } else {
-      e.target.value = e.target.value.replace(/[\ㄱ-ㅎㅏ-ㅣ|가-힣]/gi, "");
-      e.target.value = e.target.value.replace(forbiddenChars, "");
-      console.log("한글입력");
-    }
+    // if (e.nativeEvent.isComposing) {
+    //   e.target.value = e.target.value.replace(korean, "");
+    //   e.target.value = e.target.value.replace(forbiddenChars, "");
+    //   return;
+    // } else {
+    //   e.target.value = e.target.value.replace(/[\ㄱ-ㅎㅏ-ㅣ|가-힣]/gi, "");
+    //   e.target.value = e.target.value.replace(forbiddenChars, "");
+    //   console.log("한글입력");
+    // }
 
     const invalidKeys =
       e.keyCode == 9 ||
@@ -105,18 +106,17 @@ export default function AddressAdd() {
       (e.keyCode >= 123 && e.keyCode <= 126) || //기호
       (e.keyCode >= 186 && e.keyCode <= 222) || //기호
       (e.keyCode >= 12593 && e.keyCode <= 12687); //기호
-
+    console.log("눌린 키의 keyCode:",e.keyCode)
     if (invalidKeys) {
       e.preventDefault();
     }
 
-    // if (korean.test(e.key)) {
-    //   e.target.value = e.target.value.replace(korean,'');
-    //   e.target.value = e.target.value.replace(/[,'";:\/?{}[\]\\\s\n\r]/g, "");
-    //   console.log("한글입력");
-    // }
+    if (korean.test(e.key)) {
+      e.target.value = e.target.value.replace(korean,'');
+      e.target.value = e.target.value.replace(forbiddenChars, "");
+    }
   };
-
+  //e.target.value = e.target.value.replace(forbiddenChars, "");
   return (
     <>
       <div>AddressAdd</div>
