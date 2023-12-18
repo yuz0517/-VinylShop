@@ -11,7 +11,7 @@ import styles from './Mypage.module.css'
 import { IfFulfilled } from 'react-async';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { scriptUrl } from '../../components/DaumMap';
 function Mypage({ history }) {
 
 
@@ -64,7 +64,7 @@ function Mypage({ history }) {
   //const [text_nickname, setText_nickname] = useState([dbdata]);
   //--------address----------
   /* ----- react-daum-postcode api 적용 */
-  const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+  //const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
   const open = useDaumPostcodePopup(scriptUrl);
 
   const handleComplete = (data) => {
