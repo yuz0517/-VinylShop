@@ -172,7 +172,7 @@ function Mypage({ history }) {
   };
 
 
-  //https://codingapple.com/unit/react-if-else-patterns-enum-switch-case/
+  
   if (User.email === null) {
     //history.push("/signin"); //render 안에서 history를 사용하면 안 된다.
     console.log("logout상태입니다.");
