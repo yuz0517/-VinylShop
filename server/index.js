@@ -415,6 +415,25 @@ app.get("/api/address/getallinfo",(req,res)=>{
         }
     });
 });
+
+app.post("/api/address/postaddress", (req,res) => {
+    const user_id = req.body.user_id;
+    const postal_code =  req.body.postal_code;
+    const address1 = req.body.address1;
+    const address2 = req.body.address2;
+    const phone = req.body.phone;
+    const country = req.body.country;
+    const is_default = req.body.is_default;
+    const address_name = req.body.address_name;
+    const sqlQuery =  "INSERT INTO address (user_id,postal_code,address1,address2,phone,country,is_default,address_name) VALUES (?,?,?,?,?,?,?,?)";
+    db.query(sqlQuery,[user_id,postal_code,address1,address2,phone,country,is_default,address_name],(err,result)=>{
+        //res.send('success'); 
+        //console.log(user_id,postal_code,address1,address2,phone,country,is_default,address_name,)
+        console.log(address2)
+        res.send(err); //에러코드를 표시.  
+    });
+});
+
 app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);
 });
