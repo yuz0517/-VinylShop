@@ -1,36 +1,55 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { country } from "../../assets/countryList";
 import { useState } from "react";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import { scriptUrl } from "../../components/DaumMap";
+import { IoMdRadioButtonOff, IoMdRadioButtonOn } from "react-icons/io";
 export default function AddressAdd() {
-  const [addressName, setAddressName] = useState();
-  const [postalCode, setPostalCode] = useState();
-  const [address1, setAddress1] = useState();
-  const [address2, setAddress2] = useState();
+  const [isAddressNameN, setIsAddressNameN] = useState(true);
+  const [isReciptientN, setIsRecipientN] = useState(true);
+  const [isPostalCodeN, setIsPostalCodeN] = useState(false);
+  const [isAddress1N, setIsAddress1N] = useState(false);
+  const [isPhoneN, setIsPhoneN] = useState(true);
+  const [isCountryNameN, setIsCountryNameN] = useState(false);
+
+  const [addressName, setAddressName] = useState("");
+  const [recipient, setRecipient] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
   const [phone, setPhone] = useState("");
-  const [countryName, setCountryName] = useState();
-  const [isDefault, setIsDefault] = useState();
+  const [countryName, setCountryName] = useState("");
+  const [isDefault, setIsDefault] = useState(false);
   //const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-  
+
   const [isComposing, setIsComposing] = useState(false);
 
   const onAddressNameChange = (e) => {
-    setAddressName(e.target.value);
+    var value = e.target.value;
+    setAddressName(value);
+    if (value.length >= 1 && value.length <= 30) {
+      setIsAddressNameN(true);
+    } else setIsAddressNameN(false);
   };
   const onPhoneChange = (e) => {
-    //  setTimeout(() => {
-    //     setPhone(e.target.value);
-    //   }, 0);
-    setPhone(e.target.value);
+    var value = e.target.value;
+    setPhone(value);
+    if (value.length >= 1 && value.length <= 15) {
+      setIsPhoneN(true);
+    } else {
+      setIsPhoneN(false);
+    }
   };
   const onPostalCodeChange = (e) => {
-    setPostalCode(e.target.value);
+    var value = e.target.value;
+    setPostalCode(value);
+    if (value.length >= 1 && value.length <= 10) {
+      setIsPostalCodeN(true);
+    } else setIsPostalCodeN(false);
   };
   const onAddress1Change = (e) => {
     setAddress1(e.target.value);
-   
   };
   const onAddress2Change = (e) => {
     setAddress2(e.target.value);
@@ -41,7 +60,13 @@ export default function AddressAdd() {
   const onDefaultChange = (e) => {
     setIsDefault(e.target.value);
   };
-  
+  const onRecipientChange = (e) => {
+    var value = e.target.value;
+    setRecipient(e.target.value);
+    if (value.length >= 1 && value.length <= 30) {
+      setIsRecipientN(true);
+    } else setIsRecipientN(false);
+  };
 
   const onNumKeyUp = (e) => {
     var forbiddenChars = /[,'";:\/?{}[\]\\\s\n\r]/g;
@@ -108,39 +133,54 @@ export default function AddressAdd() {
   const open = useDaumPostcodePopup(scriptUrl);
 
   const handleComplete = (data) => {
-   
     let fullAddress = data.address;
     let postcode = data.zonecode;
-    let extraAddress = '';
+    let extraAddress = "";
 
-    if (data.addressType === 'R') {
-      if (data.bname !== '') {
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
         extraAddress += data.bname;
       }
-      if (data.buildingName !== '') {
-        extraAddress += extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
       }
-      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
     //setText_Address(fullAddress);
-    setAddress1(fullAddress)
-    setPostalCode(postcode)
+    setAddress1(fullAddress);
+    setPostalCode(postcode);
     //setPerson_db.address(fullAddress);
-    
   };
   const handleClick = () => {
     open({ onComplete: handleComplete });
-
   };
-  const onSaveClick = () => {
-
+  /* ------- */
+  const onDefaultOnClick = ()=>{
+    setIsDefault(false);
   }
+  const onDefaultOffClick = ()=>{
+    setIsDefault(true);
+  }
+  const onSaveClick = () => {
+    console.log("");
+    if (
+      addressName === null ||
+      phone === null ||
+      postalCode === null ||
+      address1 == null ||
+      countryName == null
+    ) {
+      alert("");
+    }
+  };
 
   return (
     <>
       <div>AddressAdd</div>
       <div>배송지 이름</div>
       <input onChange={onAddressNameChange} />
+      <div>{isAddressNameN ? <></> : <p>필수 입력 정보입니다. </p>}</div>
       <p>국가</p>
       <p></p>
       <select onChange={onCountryChange}>
@@ -148,21 +188,77 @@ export default function AddressAdd() {
           return <option value={name}>{name}</option>;
         })}
       </select>
+      <p>수령인</p>
+      <input onChange={onRecipientChange} maxlength={30} />
+      <div>
+        {isReciptientN ? (
+          recipient.length == 1 ? (
+            <p>2글자 이상 입력해주세요.</p>
+          ) : (
+            <></>
+          )
+        ) : (
+          <p>필수 입력 정보입니다. </p>
+        )}
+      </div>
       <p>핸드폰 번호</p>
       <input
+        maxlength={15}
         onChange={onPhoneChange}
         onKeyDown={onNumKeyDown}
         onKeyUp={onNumKeyUp}
       />
+      <div>
+        {isPhoneN ? (
+          phone.length > 0 && phone.length <= 5 ? (
+            <p>전화번호를 정확히 입력해주세요.</p>
+          ) : null
+        ) : (
+          <p>필수 입력 정보입니다. </p>
+        )}
+      </div>
+
       <p>우편번호</p>
-      <input defaultValue={postalCode} onChange={onPostalCodeChange} />
-      <p>주소 1</p> 
-      <input defaultValue={address1} onChange={onAddress1Change}/>
+      <input
+        defaultValue={postalCode}
+        onChange={onPostalCodeChange}
+        maxlength={10}
+      />
+      {isPostalCodeN ? (
+        postalCode.length == 1 ? (
+          <p>우편번호를 정확히 입력해주세요..</p>
+        ) : (
+          <></>
+        )
+      ) : (
+        <p>필수 입력 정보입니다. </p>
+      )}
+      <button onClick={handleClick}>우편번호 찾기</button>
+      <p>주소지</p>
+      <input
+        defaultValue={address1}
+        onChange={onAddress1Change}
+        maxlength={80}
+      />
+      {isPostalCodeN ? (
+        address1.length == 4 ? (
+          <p>주소를 정확히 입력해주세요..</p>
+        ) : (
+          <></>
+        )
+      ) : (
+        <p>필수 입력 정보입니다. </p>
+      )}
+
       
-      <button onClick={handleClick} >주소 검색</button>
-      <p>주소 2</p>
-      <input onChange={onAddress2Change} />
+      <p>상세주소</p>
+      <input onChange={onAddress2Change} maxlength={80} />
       <button onClick={onSaveClick}>저장</button>
+      <div>
+        { isDefault ?  <IoMdRadioButtonOn onClick={onDefaultOnClick}/>  : <IoMdRadioButtonOff onClick={onDefaultOffClick}/> }
+           기본 배송지로 설정
+      </div>
+      <button>저장하기</button>
     </>
   );
 }
