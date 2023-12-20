@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import Axios from "axios";
 import { country } from "../../assets/countryList";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useDaumPostcodePopup } from "react-daum-postcode";
 import { scriptUrl } from "../../components/DaumMap";
 import { IoMdRadioButtonOff, IoMdRadioButtonOn } from "react-icons/io";
+import { Context } from "../../components/ContextProvider";
 export default function AddressAdd() {
+  const { sessionUserid, setIsloggedIn } = useContext(Context);
+
   const [isAddressNameN, setIsAddressNameN] = useState(true);
   const [isReciptientN, setIsRecipientN] = useState(true);
   const [isPostalCodeN, setIsPostalCodeN] = useState(false);
@@ -52,9 +58,11 @@ export default function AddressAdd() {
     setAddress1(e.target.value);
   };
   const onAddress2Change = (e) => {
+    //console.log(e.target.value)
     setAddress2(e.target.value);
   };
   const onCountryChange = (e) => {
+    console.log(e.target.value)
     setCountryName(e.target.value);
   };
   const onDefaultChange = (e) => {
@@ -156,14 +164,19 @@ export default function AddressAdd() {
     open({ onComplete: handleComplete });
   };
   /* ------- */
-  const onDefaultOnClick = ()=>{
+  const onDefaultOnClick = () => {
     setIsDefault(false);
-  }
-  const onDefaultOffClick = ()=>{
+  };
+  const onDefaultOffClick = () => {
     setIsDefault(true);
-  }
+  };
   const onSaveClick = () => {
-    console.log("");
+    console.log("주소명", addressName);
+    console.log("phone", phone);
+    console.log("주소1", address1);
+    console.log("주소2", address2);
+    //cnon
+
     if (
       addressName === null ||
       phone === null ||
@@ -171,7 +184,26 @@ export default function AddressAdd() {
       address1 == null ||
       countryName == null
     ) {
-      alert("");
+      alert("입력해주세요");
+    } else {
+      Axios.post("http://localhost:8000/api/address/postaddress", {
+        user_id: sessionUserid,
+        postal_code: postalCode,
+        address1: address1,
+        address2: address2,
+        phone: phone,
+        country: countryName,
+        is_default: isDefault,
+        address_name: addressName,
+      }).then(() => {
+        //글이 등록 되면
+        //history({ pathname: url, submit: "done" });
+        toast.success("배송지 추가 완료", {
+          position: toast.POSITION.BOTTOM_CENTER,
+          autoClose: 1000,
+          hideProgressBar: true,
+        });
+      });
     }
   };
 
@@ -228,7 +260,7 @@ export default function AddressAdd() {
         postalCode.length == 1 ? (
           <p>우편번호를 정확히 입력해주세요..</p>
         ) : (
-          <></>
+          <p>필수입력란입니다.</p>
         )
       ) : (
         <p>필수 입력 정보입니다. </p>
@@ -250,15 +282,17 @@ export default function AddressAdd() {
         <p>필수 입력 정보입니다. </p>
       )}
 
-      
       <p>상세주소</p>
       <input onChange={onAddress2Change} maxlength={80} />
-      <button onClick={onSaveClick}>저장</button>
       <div>
-        { isDefault ?  <IoMdRadioButtonOn onClick={onDefaultOnClick}/>  : <IoMdRadioButtonOff onClick={onDefaultOffClick}/> }
-           기본 배송지로 설정
+        {isDefault ? (
+          <IoMdRadioButtonOn onClick={onDefaultOnClick} />
+        ) : (
+          <IoMdRadioButtonOff onClick={onDefaultOffClick} />
+        )}
+        기본 배송지로 설정
       </div>
-      <button>저장하기</button>
+      <button onClick={onSaveClick}>저장하기</button>
     </>
   );
 }
