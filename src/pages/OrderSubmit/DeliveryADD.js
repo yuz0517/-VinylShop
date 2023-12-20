@@ -84,7 +84,7 @@ export default function DeliveryADD() {
           onRequestClose={closeModal}
           shouldCloseOnOverlayClick={true}
         >
-          {addBtn == true ? <h2>배송지 추가</h2> : <h2>배송지 목록</h2>}
+          {addBtn == true ? <p>배송지 추가</p> : <p>배송지 목록</p>}
           {addBtn == true ? (
             <IoMdArrowRoundBack onClick={() => setAddBtn(false)} />
           ) : (
