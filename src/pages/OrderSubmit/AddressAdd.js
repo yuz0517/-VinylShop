@@ -10,6 +10,7 @@ import { scriptUrl } from "../../components/DaumMap";
 import { IoMdRadioButtonOff, IoMdRadioButtonOn } from "react-icons/io";
 import { Context } from "../../components/ContextProvider";
 export default function AddressAdd() {
+  
   const { sessionUserid, setIsloggedIn } = useContext(Context);
 
   const [isAddressNameN, setIsAddressNameN] = useState(true);
@@ -221,7 +222,7 @@ export default function AddressAdd() {
         })}
       </select>
       <p>수령인</p>
-      <input onChange={onRecipientChange} maxlength={30} />
+      <input onChange={onRecipientChange} maxLength={30} />
       <div>
         {isReciptientN ? (
           recipient.length == 1 ? (
@@ -235,7 +236,7 @@ export default function AddressAdd() {
       </div>
       <p>핸드폰 번호</p>
       <input
-        maxlength={15}
+        maxLength={15}
         onChange={onPhoneChange}
         onKeyDown={onNumKeyDown}
         onKeyUp={onNumKeyUp}
@@ -254,7 +255,7 @@ export default function AddressAdd() {
       <input
         defaultValue={postalCode}
         onChange={onPostalCodeChange}
-        maxlength={10}
+        maxLength={10}
       />
       {isPostalCodeN ? (
         postalCode.length == 1 ? (
@@ -270,7 +271,7 @@ export default function AddressAdd() {
       <input
         defaultValue={address1}
         onChange={onAddress1Change}
-        maxlength={80}
+        maxLength={80}
       />
       {isPostalCodeN ? (
         address1.length == 4 ? (
@@ -283,7 +284,7 @@ export default function AddressAdd() {
       )}
 
       <p>상세주소</p>
-      <input onChange={onAddress2Change} maxlength={80} />
+      <input onChange={onAddress2Change} maxLength={80} />
       <div>
         {isDefault ? (
           <IoMdRadioButtonOn onClick={onDefaultOnClick} />
