@@ -7,6 +7,7 @@ import Modal from "react-modal";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 import AddressAdd from "./AddressAdd";
+import AddressList from "./AddressList";
 const customStyles = {
   content: {
     top: "50%",
@@ -44,32 +45,59 @@ export default function DeliveryADD() {
       alert("재로그인 해 주세요");
       logout();
     } else {
-      console.log("삭제", sessionUserid);
+      //console.log("삭제", sessionUserid);
     }
+  }, []);
+  function getAddressdata(){
+    // Axios.get("http://localhost:8000/api/address/getallinfo", {
+    //   params: { key: sessionUserid },
+    // })
 
-    Axios.get("/api/address/getallinfo", {
-      params: { user: sessionUserid },
-    })
+    //   .then((res) => {
+    //     setAddressData([...addressdata, ...res.data]);
+    //     //setAddressData(res.data)
+    //     //temp_reward_points = res.data[0].reward_points;
+    //     //setRewardPoints(temp_reward_points);
+    //     console.log("getnewdata",res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //   });
+  }
+  function backModal(){
+    console.log("backmodal");
+    getAddressdata();
+    setAddBtn(true);
+    // Axios.get("http://localhost:8000/api/address/getallinfo", {
+    //   params: { key: sessionUserid },
+    // })
 
-      .then((res) => {
-        setAddressData([...addressdata, ...res.data]);
-        //temp_reward_points = res.data[0].reward_points;
-        //setRewardPoints(temp_reward_points);
-        console.log("addressdata from db ", addressdata);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  });
+    //   .then((res) => {
+    //     setAddressData([...addressdata, ...res.data]);
+    //     
+    //     //setAddressData(res.data)
+    //     //temp_reward_points = res.data[0].reward_points;
+    //     //setRewardPoints(temp_reward_points);
+    //     console.log("getnewdata",res.data);
+
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //   });
+  }
 
   function openModal() {
     console.log(modalOpen);
     setModalOpen(true);
+    getAddressdata();
+
+    
   }
   function closeModal() {
     setModalOpen(false);
     setAddBtn(false);
   }
+  console.log(addressdata);
 
   return (
     <div>
@@ -77,6 +105,7 @@ export default function DeliveryADD() {
       <div> 배송지를 등록하시면 더욱 더 편리하게 선택하실 수 있습니다. </div>
       <div>
         <button onClick={openModal}>배송지 목록</button>
+
         <Modal
           contentLabel="Pop up Message"
           style={customStyles}
@@ -84,11 +113,18 @@ export default function DeliveryADD() {
           onRequestClose={closeModal}
           shouldCloseOnOverlayClick={true}
         >
-          {addBtn == true ? <p>배송지 추가</p> : <p>배송지 목록</p>}
+          {addBtn == true ? (
+            <p>배송지 추가</p>
+          ) : (
+            <>
+              <AddressList/>
+              <p>배송지 목록</p>
+            </>
+          )}
           {addBtn == true ? (
             <IoMdArrowRoundBack onClick={() => setAddBtn(false)} />
           ) : (
-            <button onClick={() => setAddBtn(true)}>배송지 추가</button>
+            <button onClick={backModal}>배송지 추가</button>
           )}
           <div>{addBtn == true ? <AddressAdd /> : <div>배송지선택</div>}</div>
           <button onClick={closeModal}>close</button>
