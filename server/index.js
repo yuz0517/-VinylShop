@@ -426,11 +426,11 @@ app.post("/api/address/postaddress", (req,res) => {
     const country = req.body.country;
     const is_default = req.body.is_default;
     const address_name = req.body.address_name;
-    const sqlQuery =  "INSERT INTO address (user_id,postal_code,address1,address2,phone,country,is_default,address_name) VALUES (?,?,?,?,?,?,?,?)";
-    db.query(sqlQuery,[user_id,postal_code,address1,address2,phone,country,is_default,address_name],(err,result)=>{
+    const recipient = req.body.recipient;
+    const sqlQuery =  "INSERT INTO address (user_id,postal_code,address1,address2,phone,country,is_default,address_name,recipient) VALUES (?,?,?,?,?,?,?,?,?)";
+    db.query(sqlQuery,[user_id,postal_code,address1,address2,phone,country,is_default,address_name,recipient],(err,result)=>{
         //res.send('success'); 
         //console.log(user_id,postal_code,address1,address2,phone,country,is_default,address_name,)
-        console.log(address2)
         res.send(err); //에러코드를 표시.  
     });
 });
