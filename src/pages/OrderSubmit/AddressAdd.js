@@ -172,12 +172,6 @@ export default function AddressAdd() {
     setIsDefault(true);
   };
   const onSaveClick = () => {
-    console.log("주소명", addressName);
-    console.log("phone", phone);
-    console.log("주소1", address1);
-    console.log("주소2", address2);
-    //cnon
-
     if (
       addressName === null ||
       phone === null ||
@@ -196,6 +190,7 @@ export default function AddressAdd() {
         country: countryName,
         is_default: isDefault,
         address_name: addressName,
+        recipient:recipient
       }).then(() => {
         //글이 등록 되면
         //history({ pathname: url, submit: "done" });
