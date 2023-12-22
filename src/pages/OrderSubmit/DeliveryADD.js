@@ -118,7 +118,6 @@ export default function DeliveryADD() {
           ) : (
             <>
               <AddressList/>
-              <p>배송지 목록</p>
             </>
           )}
           {addBtn == true ? (
