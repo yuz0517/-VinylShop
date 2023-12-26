@@ -24,8 +24,9 @@ export default function DeliveryADD() {
   const [modalOpen, setModalOpen] = useState(false);
   const [addBtn, setAddBtn] = useState(false);
   const [addressdata, setAddressData] = useState([]);
-
-  console.log(sessionUserid);
+  const [isSelect, setIsSelect] = useState(false);
+  const [dataFromList, setDataFromList] = useState([]);
+  console.log(dataFromList);
 
   const logout = async () => {
     await signOut(auth);
@@ -48,11 +49,10 @@ export default function DeliveryADD() {
       //console.log("삭제", sessionUserid);
     }
   }, []);
-  function getAddressdata(){
+  function getAddressdata() {
     // Axios.get("http://localhost:8000/api/address/getallinfo", {
     //   params: { key: sessionUserid },
     // })
-
     //   .then((res) => {
     //     setAddressData([...addressdata, ...res.data]);
     //     //setAddressData(res.data)
@@ -64,7 +64,11 @@ export default function DeliveryADD() {
     //     console.log(err.message);
     //   });
   }
-  function backModal(){
+  const handleDataFromList = (data) => {
+    setDataFromList({ ...data });
+    console.log("ADD로전달", dataFromList.length);
+  };
+  function backModal() {
     console.log("backmodal");
     getAddressdata();
     setAddBtn(true);
@@ -74,7 +78,7 @@ export default function DeliveryADD() {
 
     //   .then((res) => {
     //     setAddressData([...addressdata, ...res.data]);
-    //     
+    //
     //     //setAddressData(res.data)
     //     //temp_reward_points = res.data[0].reward_points;
     //     //setRewardPoints(temp_reward_points);
@@ -90,19 +94,36 @@ export default function DeliveryADD() {
     console.log(modalOpen);
     setModalOpen(true);
     getAddressdata();
-
-    
   }
   function closeModal() {
+    console.log("closeModal");
+    if (!(dataFromList == undefined)) {
+      setIsSelect(true);
+      console.log(isSelect);
+    } else {
+      setIsSelect(false);
+      console.log(isSelect);
+    }
     setModalOpen(false);
     setAddBtn(false);
   }
-  console.log(addressdata);
+  console.log(dataFromList.address_name);
 
   return (
     <div>
-      <div>배송지를 추가해주세요.</div>
-      <div> 배송지를 등록하시면 더욱 더 편리하게 선택하실 수 있습니다. </div>
+      {/* <div>{address_name}</div> */}
+      {isSelect === true ? (
+        <div>
+          <div>{dataFromList.address_name}</div>
+          <div>{dataFromList.recipient}</div>
+          <div>{dataFromList.phone}</div>
+          <div>{dataFromList.address1 + " " + dataFromList.address2 + "[" + dataFromList.postal_code + "]"}</div>
+        </div>
+      ) : (
+        <div>배송지를 선택해주세요.</div>
+      )}
+
+      
       <div>
         <button onClick={openModal}>배송지 목록</button>
 
@@ -117,7 +138,7 @@ export default function DeliveryADD() {
             <p>배송지 추가</p>
           ) : (
             <>
-              <AddressList/>
+              <AddressList sendDataToADD={handleDataFromList} />
             </>
           )}
           {addBtn == true ? (
@@ -125,7 +146,7 @@ export default function DeliveryADD() {
           ) : (
             <button onClick={backModal}>배송지 추가</button>
           )}
-          <div>{addBtn == true ? <AddressAdd /> : <div>배송지선택</div>}</div>
+          <div>{addBtn == true ? <AddressAdd /> : <div>배송지 변경</div>}</div>
           <button onClick={closeModal}>close</button>
         </Modal>
       </div>
