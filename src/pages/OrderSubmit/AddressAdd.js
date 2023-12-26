@@ -56,6 +56,7 @@ export default function AddressAdd() {
     } else setIsPostalCodeN(false);
   };
   const onAddress1Change = (e) => {
+    console.log(e.target.value)
     setAddress1(e.target.value);
   };
   const onAddress2Change = (e) => {
@@ -172,6 +173,7 @@ export default function AddressAdd() {
     setIsDefault(true);
   };
   const onSaveClick = () => {
+    console.log("클릭")
     if (
       addressName === null ||
       phone === null ||
@@ -181,6 +183,7 @@ export default function AddressAdd() {
     ) {
       alert("입력해주세요");
     } else {
+      console.log("클릭:가능")
       Axios.post("http://localhost:8000/api/address/postaddress", {
         user_id: sessionUserid,
         postal_code: postalCode,
