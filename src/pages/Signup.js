@@ -11,8 +11,6 @@ import {
     Div_all,
   } from "../styled-component/style";
 
-
-//import {useNavigate} from "useNavigate";
 const Signup = () => {
 
     const [Persons_db, setPerson_db] = useState({
@@ -36,10 +34,9 @@ const Signup = () => {
             id: Persons_db.id,
             address: Address,
             address1: Persons_db.address1,
-            //date: Persons_db.date,
+
         }).then(() => {
-            console.log();
-            //여기서 firebase에 올라가지 않아도 여기서 db에는 값이 저장됨... 
+            
         })
     };
     const getValue = e => {// 이벤트가 발생하면 그 이벤트의 name과 value를 가지고 오는 함수. input의 내용이 변할 때 마다 그 값을 state에 업데이트 해줌.
@@ -48,7 +45,6 @@ const Signup = () => {
             ...Persons_db,
             [name]: value
         })
-        console.log(Persons_db);
     };
 
 
@@ -64,7 +60,6 @@ const Signup = () => {
         } else setIsEmail(false);
     })
     const onChangePassword = useCallback(e => {
-        //setRegisterPassword(e.target.value);  
         const regispw = e.target.value;
         setRegisterPassword(regispw);
         console.log("registerpassword", registerPassword)
