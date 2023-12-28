@@ -9,7 +9,7 @@ import { useDaumPostcodePopup } from "react-daum-postcode";
 import { scriptUrl } from "../../components/DaumMap";
 import { IoMdRadioButtonOff, IoMdRadioButtonOn } from "react-icons/io";
 import { Context } from "../../components/ContextProvider";
-export default function AddressAdd() {
+export default function AddressAdd({ sendDataToAADD }) {
   
   const { sessionUserid, setIsloggedIn } = useContext(Context);
 
@@ -196,14 +196,17 @@ export default function AddressAdd() {
         recipient:recipient
       }).then(() => {
         //글이 등록 되면
-        //history({ pathname: url, submit: "done" });
         toast.success("배송지 추가 완료", {
           position: toast.POSITION.BOTTOM_CENTER,
           autoClose: 1000,
           hideProgressBar: true,
+          
         });
+        
       });
     }
+    sendDataToAADD(1);
+    
   };
 
   return (
