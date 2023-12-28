@@ -5,15 +5,9 @@ import AddressItem from "./AddressItem";
 export default function AddressList({ sendDataToADD }) {
   const { sessionUserid, setIsloggedIn } = useContext(Context);
   const [addressdata, setAddressData] = useState([]);
-  const [dataFromItem, setDataFromItem] = useState([]);
-  const onSelectClick = () => {
-    //sendDataToADD(dataFromItem)
-  };
-  const handleDataFromItem = (data) => {
-    //setDataFromItem({ ...data });
-    sendDataToADD(data);
-    console.log("list으로전달", data);
-    
+
+  const handleDataFromItem = (data) => {//AddressItem.js으로부터 데이터를 받으면
+    sendDataToADD(data);//AddressAdd.js로 그 데이터를 보낸다. 
   };
 
   useEffect(() => {
@@ -28,9 +22,6 @@ export default function AddressList({ sendDataToADD }) {
         console.log(err.message);
       });
   }, []);
-  useEffect(() => {
-    
-  }, [dataFromItem]);
 
   return (
     <div>
@@ -38,7 +29,7 @@ export default function AddressList({ sendDataToADD }) {
       {addressdata &&
         addressdata.map((item, idx) => {
           return (
-            <div key={idx}>
+            <div key={item.address_id}>
               <AddressItem
                 sendDataToItem={handleDataFromItem}
                 address_id={item.address_id}
