@@ -35,6 +35,7 @@ app.post("/api/signup", (req,res) => {
             return res.send(result);
         } else { 
             res.send(err);
+            console.log(err)
    
         }
     });
