@@ -103,18 +103,14 @@ export default function DeliveryADD() {
   }
 
   function closeModal() {
-    console.log("closeModal");
-    if (!(dataFromList == undefined)) {
+    if (!(dataFromList.length == 0)) {
       setIsSelect(true);
-      console.log(isSelect);
-    } else {
+    } else if (dataFromList.length == 0) {
       setIsSelect(false);
-      console.log(isSelect);
     }
     setModalOpen(false);
     setAddBtn(false);
   }
-  console.log(dataFromList.address_name);
 
 
   return (
