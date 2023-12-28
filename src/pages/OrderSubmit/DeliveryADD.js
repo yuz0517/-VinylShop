@@ -8,6 +8,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 
 import AddressAdd from "./AddressAdd";
 import AddressList from "./AddressList";
+import "./DeliveryADD.css";
 const customStyles = {
   content: {
     top: "50%",
@@ -26,12 +27,18 @@ export default function DeliveryADD() {
   const [addressdata, setAddressData] = useState([]);
   const [isSelect, setIsSelect] = useState(false);
   const [dataFromList, setDataFromList] = useState([]);
-  console.log(dataFromList);
+  const [dataFromAAdd, setDataFromAAdd] = useState(null);
 
   const logout = async () => {
     await signOut(auth);
     sessionStorage.clear();
     setIsloggedIn(false);
+  };
+  const handleDataFromAAdd = (data) => {
+    setDataFromAAdd(data);
+    if (data === 1) {
+      setAddBtn(false);
+    }
   };
 
   const onAddrClick = () => {};
@@ -66,10 +73,10 @@ export default function DeliveryADD() {
   }
   const handleDataFromList = (data) => {
     setDataFromList({ ...data });
-    console.log("ADD로전달", dataFromList.length);
+    setModalOpen(false);
+    setIsSelect(true);
   };
   function backModal() {
-    console.log("backmodal");
     getAddressdata();
     setAddBtn(true);
     // Axios.get("http://localhost:8000/api/address/getallinfo", {
@@ -91,10 +98,10 @@ export default function DeliveryADD() {
   }
 
   function openModal() {
-    console.log(modalOpen);
     setModalOpen(true);
     getAddressdata();
   }
+
   function closeModal() {
     console.log("closeModal");
     if (!(dataFromList == undefined)) {
@@ -109,21 +116,32 @@ export default function DeliveryADD() {
   }
   console.log(dataFromList.address_name);
 
+
   return (
     <div>
       {/* <div>{address_name}</div> */}
       {isSelect === true ? (
-        <div>
-          <div>{dataFromList.address_name}</div>
-          <div>{dataFromList.recipient}</div>
-          <div>{dataFromList.phone}</div>
-          <div>{dataFromList.address1 + " " + dataFromList.address2 + "[" + dataFromList.postal_code + "]"}</div>
-        </div>
+        dataFromList !== undefined ? (
+          <div>
+            <div>{dataFromList.address_name}</div>
+            <div>{dataFromList.recipient}</div>
+            <div>{dataFromList.phone}</div>
+            <div>
+              {dataFromList.address1 +
+                " " +
+                dataFromList.address2 +
+                "[" +
+                dataFromList.postal_code +
+                "]"}
+            </div>
+          </div>
+        ) : (
+          <> 배송지선택요망</>
+        )
       ) : (
         <div>배송지를 선택해주세요.</div>
       )}
 
-      
       <div>
         <button onClick={openModal}>배송지 목록</button>
 
@@ -146,7 +164,13 @@ export default function DeliveryADD() {
           ) : (
             <button onClick={backModal}>배송지 추가</button>
           )}
-          <div>{addBtn == true ? <AddressAdd /> : <div>배송지 변경</div>}</div>
+          <div>
+            {addBtn == true ? (
+              <AddressAdd sendDataToAADD={handleDataFromAAdd} />
+            ) : (
+              <div></div>
+            )}
+          </div>
           <button onClick={closeModal}>close</button>
         </Modal>
       </div>
