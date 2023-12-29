@@ -1,3 +1,10 @@
 .modal-scroll {
-    overflow-y: auto; /* 모달 자체에 스크롤을 가능하게 하는 스타일 */
+    max-height: 80vh;
+    overflow-y: auto;
   }
+.address-scroll{
+  overflow-y:auto;
+}
+.address-fixed{
+  position: fixed;
+}
