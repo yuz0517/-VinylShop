@@ -36,6 +36,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    padding: "20px  0px 20px 0px",
   },
 };
 export default function DeliveryADD() {
