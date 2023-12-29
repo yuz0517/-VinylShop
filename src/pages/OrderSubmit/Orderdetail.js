@@ -4,6 +4,7 @@ import {
   Div_flex_column,
   Div_flex,
   Font15px_bold,
+  Font14px_darkgray,
   Cylinder_Gray,
   Font14px_gray,
   Font_bold,
@@ -148,16 +149,15 @@ export default function Orderdetail() {
           <Font15px_bold>주문자 정보</Font15px_bold>
         </Section>
         <Div_flex>
-          <Font14px_gray>이름</Font14px_gray> <Input_Rect_transparent width="50%" marginbottom="7px"/>
+          <Font14px_darkgray>이름</Font14px_darkgray> <Input_Rect_transparent width="50%" marginbottom="7px"/>
         </Div_flex>
         <Div_flex>
-          <Font14px_gray>전화번호</Font14px_gray>
-          <Input_Rect_transparent width="10%" />-<Input_Rect_transparent width="10%"  />-
-          <Input_Rect_transparent width="10%" />
+          <Font14px_darkgray>전화번호</Font14px_darkgray>
+          <Input_Rect_transparent width="50%"/>
         </Div_flex>
         <Section>
           <Font15px_bold>배송지</Font15px_bold>
-          <Font14px_gray>배송지 목록</Font14px_gray>
+          
           <DeliveryADD></DeliveryADD>
         </Section>
 
