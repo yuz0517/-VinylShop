@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Axios from "axios";
 import { Context } from "../../components/ContextProvider";
 import AddressItem from "./AddressItem";
-import { Font_bold, Font15px_bold,Scroll } from "../../styled-component/style";
+import { Font_bold, Font15px_bold,Scroll,Font14px_gray, Font_bold_center } from "../../styled-component/style";
 export default function AddressList({ sendDataToADD }) {
   const { sessionUserid, setIsloggedIn } = useContext(Context);
   const [addressdata, setAddressData] = useState([]);
@@ -26,7 +26,9 @@ export default function AddressList({ sendDataToADD }) {
 
   return (
     <>
-      <Font15px_bold>배송지 목록</Font15px_bold>
+    <div>
+      <Font_bold_center font_size="17px" font_weight="700" >배송지 목록</Font_bold_center>
+      </div>
       <Scroll>
       {addressdata &&
         addressdata.map((item, idx) => {
