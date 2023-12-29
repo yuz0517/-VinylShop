@@ -8,3 +8,22 @@
 .address-fixed{
   position: fixed;
 }
+.DADD-centered-center{
+  text-align: center; /* 텍스트를 수평 가운데 정렬합니다. */
+  transform: translate(-50%, -50%);
+  position: relative;
+  top: 50%;
+  left: 50%;
+}
+.DADD-aligned-right{
+  align-items: end;
+  margin-right: 10px;
+  
+
+}
+.DADD-flex-box{
+  display: flex;
+  justify-content: space-between; 
+  margin-bottom: 10px;
+
+} 
