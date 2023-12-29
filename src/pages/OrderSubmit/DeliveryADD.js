@@ -12,7 +12,7 @@ import "./DeliveryADD.css";
 import {
   Fixed,
   Scroll,
-  Div_flex_column,
+  Center,
   Div_flex,
   Font15px_bold,
   Font15px_gray,
@@ -146,7 +146,9 @@ export default function DeliveryADD() {
         dataFromList !== undefined ? (
           <div>
             <Font15px_darkgray>{dataFromList.address_name}</Font15px_darkgray>
-            <Font15px_darkgray>{dataFromList.recipient + " ・ " + dataFromList.phone}</Font15px_darkgray>
+            <Font15px_darkgray>
+              {dataFromList.recipient + " ・ " + dataFromList.phone}
+            </Font15px_darkgray>
             <Font14px_gray>
               {dataFromList.address1 +
                 ", " +
@@ -170,31 +172,33 @@ export default function DeliveryADD() {
           isOpen={modalOpen}
           onRequestClose={closeModal}
           shouldCloseOnOverlayClick={true}
-          
         >
           <div>
-
-          {addBtn == true ? (
-            <Fixed>배송지 추가</Fixed>
-          ) : (
-            <>
-              <AddressList sendDataToADD={handleDataFromList} />
-            </>
-          )}
-          {addBtn == true ? (
-            <IoMdArrowRoundBack onClick={() => setAddBtn(false)} />
-          ) : (
-            <Cylinder_Gray onClick={backModal}>배송지 추가</Cylinder_Gray>
-          )}
-          <div>
             {addBtn == true ? (
-              <AddressAdd sendDataToAADD={handleDataFromAAdd} />
+              <Fixed>배송지 추가</Fixed>
             ) : (
-              <div></div>
+              <>
+                <AddressList sendDataToADD={handleDataFromList} />
+              </>
             )}
+            {addBtn == true ? (
+              <IoMdArrowRoundBack onClick={() => setAddBtn(false)} />
+            ) : (
+              <Center>
+                <Cylinder_Gray onClick={backModal} margin_top="13px" width="100%">
+                  배송지 추가
+                </Cylinder_Gray>
+              </Center>
+            )}
+            <div>
+              {addBtn == true ? (
+                <AddressAdd sendDataToAADD={handleDataFromAAdd} />
+              ) : (
+                <div></div>
+              )}
+            </div>
+            <button onClick={closeModal}>close</button>
           </div>
-          <button onClick={closeModal}>close</button>
-        </div>
         </Modal>
       </div>
       <div></div>
