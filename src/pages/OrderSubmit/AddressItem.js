@@ -77,6 +77,7 @@ export default function AddressItem(props) {
                     onClick={onDeleteClick}
                     font_size="12.5px"
                     font_color="#cdcdcd"
+                    margin_top="7px"
                   >
                     삭제
                   </Transparent_btn>
