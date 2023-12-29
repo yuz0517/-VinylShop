@@ -7,6 +7,7 @@ import {
   Radius_btn,
   Div_flex,
   Font15px_bold,
+  Font14px_gray,
   Fixed,
   Scroll,
 } from "../../styled-component/style";
@@ -42,44 +43,48 @@ export default function AddressItem(props) {
         <></>
       ) : (
         <div>
-          <Div_flex className="AddressItem-container"justifycontent="space-between">
-            <Font15px_bold>{props.address_name}</Font15px_bold>
-            <Radius_btn
-              onClick={onSelectClick}
-              font_size="13px"
-              background="#f3f3f3"
-              height="30px"
+          <div className="AddressItem-margin-bottom">
+            <Div_flex
+              className="AddressItem-container"
+              justifycontent="space-between"
             >
-              선택
-            </Radius_btn>
-          </Div_flex>
-          
-          <div>
-            <Font14px_black>
-              {props.recipient + " ・ " + slicedPhone}
-            </Font14px_black>
-            <Div_flex justifycontent="space-between">
-            <Font14px_darkgray>
-              {props.address1 +
-                " " +
-                props.address2 +
-                "[" +
-                props.postal_code +
-                "]"}
-            </Font14px_darkgray>
-            <Transparent_btn
-              onClick={onDeleteClick}
-              font_size="12px"
-              font_color="gray"
-            >
-              삭제
-            </Transparent_btn>
-            </Div_flex>  
-           
+              <Font15px_bold>{props.address_name}</Font15px_bold>
+              <Radius_btn
+                onClick={onSelectClick}
+                font_size="13px"
+                background="#f3f3f3"
+                height="30px"
+              >
+                선택
+              </Radius_btn>
+            </Div_flex>
+
+            <div>
+              <div className="AddressItem-container">
+                <Font14px_black>
+                  {props.recipient + " ・ " + slicedPhone}
+                </Font14px_black>
+                <Div_flex justifycontent="space-between" marginbottom="20px">
+                  <Font14px_gray>
+                    {props.address1 +
+                      " " +
+                      props.address2 +
+                      "[" +
+                      props.postal_code +
+                      "]"}
+                  </Font14px_gray>
+                  <Transparent_btn
+                    onClick={onDeleteClick}
+                    font_size="12.5px"
+                    font_color="#cdcdcd"
+                  >
+                    삭제
+                  </Transparent_btn>
+                </Div_flex>
+              </div>
+            </div>
             <div className="AddressItem-dividebox"></div>
-                
           </div>
-          
         </div>
       )}
     </div>
