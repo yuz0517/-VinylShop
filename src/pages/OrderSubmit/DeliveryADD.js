@@ -9,6 +9,25 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import AddressAdd from "./AddressAdd";
 import AddressList from "./AddressList";
 import "./DeliveryADD.css";
+import {
+  Fixed,
+  Scroll,
+  Div_flex_column,
+  Div_flex,
+  Font15px_bold,
+  Font15px_gray,
+  Font15px_darkgray,
+  Radius_btn,
+  Font14px_gray,
+  Cylinder_Gray,
+  Input_Rect_transparent,
+  Select_Rect_transparent,
+  Image,
+  Font_plain,
+  Div_all_flex,
+  Section,
+} from "../../styled-component/style";
+import styled from "styled-components";
 const customStyles = {
   content: {
     top: "50%",
@@ -112,44 +131,50 @@ export default function DeliveryADD() {
     setAddBtn(false);
   }
 
-
   return (
     <div>
+      <Div_flex justifycontent="space-between">
+        <Font14px_gray>배송지 추가 및 변경</Font14px_gray>
+        <Radius_btn onClick={openModal} font_size="13px" background="#F3F3F3">
+          배송지목록
+        </Radius_btn>
+      </Div_flex>
+      <hr />
       {/* <div>{address_name}</div> */}
       {isSelect === true ? (
         dataFromList !== undefined ? (
           <div>
-            <div>{dataFromList.address_name}</div>
-            <div>{dataFromList.recipient}</div>
-            <div>{dataFromList.phone}</div>
-            <div>
+            <Font15px_darkgray>{dataFromList.address_name}</Font15px_darkgray>
+            <Font15px_darkgray>{dataFromList.recipient + " ・ " + dataFromList.phone}</Font15px_darkgray>
+            <Font14px_gray>
               {dataFromList.address1 +
-                " " +
+                ", " +
                 dataFromList.address2 +
                 "[" +
                 dataFromList.postal_code +
                 "]"}
-            </div>
+            </Font14px_gray>
           </div>
         ) : (
           <> 배송지선택요망</>
         )
       ) : (
-        <div>배송지를 선택해주세요.</div>
+        <Font15px_darkgray>배송지를 선택해주세요.</Font15px_darkgray>
       )}
 
       <div>
-        <button onClick={openModal}>배송지 목록</button>
-
         <Modal
           contentLabel="Pop up Message"
           style={customStyles}
           isOpen={modalOpen}
           onRequestClose={closeModal}
           shouldCloseOnOverlayClick={true}
+          
         >
+          <div>
+
           {addBtn == true ? (
-            <p>배송지 추가</p>
+            <Fixed>배송지 추가</Fixed>
           ) : (
             <>
               <AddressList sendDataToADD={handleDataFromList} />
@@ -158,7 +183,7 @@ export default function DeliveryADD() {
           {addBtn == true ? (
             <IoMdArrowRoundBack onClick={() => setAddBtn(false)} />
           ) : (
-            <button onClick={backModal}>배송지 추가</button>
+            <Cylinder_Gray onClick={backModal}>배송지 추가</Cylinder_Gray>
           )}
           <div>
             {addBtn == true ? (
@@ -168,6 +193,7 @@ export default function DeliveryADD() {
             )}
           </div>
           <button onClick={closeModal}>close</button>
+        </div>
         </Modal>
       </div>
       <div></div>
