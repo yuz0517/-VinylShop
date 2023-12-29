@@ -1,6 +1,11 @@
 import styled from "styled-components";
 /* hr */
 /* 정렬,레이아웃 */
+export const Center = styled.div`
+
+  display: flex;
+  justify-content-center;
+`
 export const Fixed = styled.div`
   position: fixed;
  
@@ -131,7 +136,7 @@ export const Select_Rect_transparent = styled.select`
 export const Cylinder_Gray = styled.div`
   cursor: pointer;
   border: 1px solid #dcdcdc;
-  width: 30vh;
+  width: ${(props)=>props.width};
   height: 43px;
   font-size: 14px;
   display: flex;
@@ -141,6 +146,7 @@ export const Cylinder_Gray = styled.div`
   margin-left: 5px;
   border-radius: 20px;
   margin-bottom: 5px;
+  margin-top: ${(props)=>props.margin_top};
 `;
 
 export const Radius_btn = styled.div`
