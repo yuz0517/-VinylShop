@@ -1,4 +1,5 @@
 import styled from "styled-components";
+/* hr */
 /* 정렬,레이아웃 */
 export const Fixed = styled.div`
   position: fixed;
@@ -170,6 +171,7 @@ export const Transparent_btn = styled.div`
   color:${(props)=>props.font_color};
   display: flex;
   float:right;
+
   margin-left: 5px;
   margin-right: 5px;
   background: none;
