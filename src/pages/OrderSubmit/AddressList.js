@@ -27,7 +27,7 @@ export default function AddressList({ sendDataToADD }) {
   return (
     <>
     <div>
-      <Font_bold_center font_size="17px" font_weight="700" >배송지 목록</Font_bold_center>
+      
       </div>
       <Scroll>
       {addressdata &&
