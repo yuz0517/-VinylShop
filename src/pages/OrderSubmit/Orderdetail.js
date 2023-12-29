@@ -175,6 +175,7 @@ export default function Orderdetail() {
             {payItems.map((item, index) => (
               <Cylinder_Gray
                 key={index}
+                width="30vh"
                 onClick={() => onPaymentClick(item.type)} // type 받아 set함수에 넣어준다
                 className={`${
                   selectedPayment === item.type ? "selectedPayment" : ""
