@@ -97,6 +97,14 @@ export const Font_bold = styled.div`
     margin-top: 5px;
     color: ${(props)=>props.color};
 `;
+export const Font_bold_center = styled.div`
+    font-size: ${(props)=>props.font_size};
+    font-weight:${(props)=>props.font_weight};;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    color: ${(props)=>props.color};
+    text-align: center;
+`;
 export const B = styled.div`
   padding-left: 1.2em;
 `;
@@ -169,5 +177,3 @@ export const Transparent_btn = styled.div`
   font-weight: 500;
   
 `;
-
-
