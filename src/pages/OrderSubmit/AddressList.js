@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Axios from "axios";
 import { Context } from "../../components/ContextProvider";
 import AddressItem from "./AddressItem";
+import { Font_bold, Font15px_bold,Scroll } from "../../styled-component/style";
 export default function AddressList({ sendDataToADD }) {
   const { sessionUserid, setIsloggedIn } = useContext(Context);
   const [addressdata, setAddressData] = useState([]);
@@ -24,8 +25,9 @@ export default function AddressList({ sendDataToADD }) {
   }, []);
 
   return (
-    <div>
-      <div>배송지 목록</div>
+    <>
+      <Font15px_bold>배송지 목록</Font15px_bold>
+      <Scroll>
       {addressdata &&
         addressdata.map((item, idx) => {
           return (
@@ -44,6 +46,7 @@ export default function AddressList({ sendDataToADD }) {
             </div>
           );
         })}
-    </div>
+    </Scroll>
+    </>
   );
 }
