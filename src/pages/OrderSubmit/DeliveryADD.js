@@ -20,7 +20,7 @@ import {
   Radius_btn,
   Font14px_gray,
   Cylinder_Gray,
-  Input_Rect_transparent,
+  Font_bold_center,
   Select_Rect_transparent,
   Image,
   Font_plain,
@@ -174,6 +174,14 @@ export default function DeliveryADD() {
           shouldCloseOnOverlayClick={true}
         >
           <div>
+            <div className="DADD-flex-box" >
+            
+              <Font_bold_center font_size="17px" font_weight="700" className="DADD-centered-center">
+                배송지 목록
+              </Font_bold_center>
+              <button onClick={closeModal} className="DADD-aligned-right">close</button>
+            </div>
+            
             {addBtn == true ? (
               <Fixed>배송지 추가</Fixed>
             ) : (
@@ -185,7 +193,11 @@ export default function DeliveryADD() {
               <IoMdArrowRoundBack onClick={() => setAddBtn(false)} />
             ) : (
               <Center>
-                <Cylinder_Gray onClick={backModal} margin_top="13px" width="100%">
+                <Cylinder_Gray
+                  onClick={backModal}
+                  margin_top="13px"
+                  width="100%"
+                >
                   배송지 추가
                 </Cylinder_Gray>
               </Center>
@@ -197,7 +209,6 @@ export default function DeliveryADD() {
                 <div></div>
               )}
             </div>
-            <button onClick={closeModal}>close</button>
           </div>
         </Modal>
       </div>
