@@ -171,7 +171,7 @@ export const Transparent_btn = styled.div`
   color:${(props)=>props.font_color};
   display: flex;
   float:right;
-
+  margin-top: ${(props)=>props.margin_top};
   margin-left: 5px;
   margin-right: 5px;
   background: none;
