@@ -1,7 +1,25 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import {
+  Font14px_black,
+  Font14px_darkgray,
+
+  Transparent_btn,
+  Radius_btn,
+  Div_flex,
+  Font15px_bold,
+  Fixed,
+  Scroll,
+ 
+} from "../../styled-component/style";
+import styled from "styled-components";
 export default function AddressItem(props) {
   const [visible, setVisible] = useState(true);
+  const slicedPhone = `${props.phone.slice(0, 3)}-${props.phone.slice(
+    3,
+    7
+  )}-${props.phone.slice(7)}`;
+
   const onSelectClick = () => {
     console.log("선택 클릭");
     props.sendDataToItem(props);
@@ -21,24 +39,39 @@ export default function AddressItem(props) {
   };
   return (
     <div>
-      {visible ===false? (
+      {visible === false ? (
         <></>
       ) : (
-        <>
-          <div>{props.address_name}</div>
-          <button onClick={onSelectClick}>선택</button>
-          <div>{props.recipient}</div>
-          <div>{props.phone}</div>
-          <div>
+        <div>
+          <Div_flex justifycontent="space-between">
+            <Font15px_bold>{props.address_name}</Font15px_bold>
+            <Radius_btn
+              onClick={onSelectClick}
+              font_size="13px"
+              background="#f3f3f3"
+              height="30px"
+            >
+              선택
+            </Radius_btn>
+          </Div_flex>
+
+          <Font14px_black>
+            {props.recipient + " ・ " + slicedPhone}
+          </Font14px_black>
+          <Font14px_darkgray>
             {props.address1 +
               " " +
               props.address2 +
               "[" +
               props.postal_code +
               "]"}
-          </div>
-          <button onClick={onDeleteClick}>삭제</button>
-        </>
+          </Font14px_darkgray>
+          <div>
+          <Transparent_btn onClick={onDeleteClick}
+            font_size="12px" font_color="gray" >삭제</Transparent_btn>
+            </div>
+          <hr/>
+        </div>
       )}
     </div>
   );
