@@ -9,8 +9,8 @@ import { useDaumPostcodePopup } from "react-daum-postcode";
 import { scriptUrl } from "../../components/DaumMap";
 import { IoMdRadioButtonOff, IoMdRadioButtonOn } from "react-icons/io";
 import { Context } from "../../components/ContextProvider";
+import { Scroll } from "../../styled-component/style";
 export default function AddressAdd({ sendDataToAADD }) {
-  
   const { sessionUserid, setIsloggedIn } = useContext(Context);
 
   const [isAddressNameN, setIsAddressNameN] = useState(true);
@@ -56,7 +56,7 @@ export default function AddressAdd({ sendDataToAADD }) {
     } else setIsPostalCodeN(false);
   };
   const onAddress1Change = (e) => {
-    console.log(e.target.value)
+    console.log(e.target.value);
     setAddress1(e.target.value);
   };
   const onAddress2Change = (e) => {
@@ -64,7 +64,7 @@ export default function AddressAdd({ sendDataToAADD }) {
     setAddress2(e.target.value);
   };
   const onCountryChange = (e) => {
-    console.log(e.target.value)
+    console.log(e.target.value);
     setCountryName(e.target.value);
   };
   const onDefaultChange = (e) => {
@@ -173,7 +173,7 @@ export default function AddressAdd({ sendDataToAADD }) {
     setIsDefault(true);
   };
   const onSaveClick = () => {
-    console.log("클릭")
+    console.log("클릭");
     if (
       addressName === null ||
       phone === null ||
@@ -183,7 +183,7 @@ export default function AddressAdd({ sendDataToAADD }) {
     ) {
       alert("입력해주세요");
     } else {
-      console.log("클릭:가능")
+      console.log("클릭:가능");
       Axios.post("http://localhost:8000/api/address/postaddress", {
         user_id: sessionUserid,
         postal_code: postalCode,
@@ -193,25 +193,22 @@ export default function AddressAdd({ sendDataToAADD }) {
         country: countryName,
         is_default: isDefault,
         address_name: addressName,
-        recipient:recipient
+        recipient: recipient,
       }).then(() => {
         //글이 등록 되면
         toast.success("배송지 추가 완료", {
           position: toast.POSITION.BOTTOM_CENTER,
           autoClose: 1000,
           hideProgressBar: true,
-          
         });
-        
       });
     }
     sendDataToAADD(1);
-    
   };
 
   return (
-    <>
-      <div>AddressAdd</div>
+    <Scroll>
+      
       <div>배송지 이름</div>
       <input onChange={onAddressNameChange} />
       <div>{isAddressNameN ? <></> : <p>필수 입력 정보입니다. </p>}</div>
@@ -295,6 +292,6 @@ export default function AddressAdd({ sendDataToAADD }) {
         기본 배송지로 설정
       </div>
       <button onClick={onSaveClick}>저장하기</button>
-    </>
+    </Scroll>
   );
 }
