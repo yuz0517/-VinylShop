@@ -100,24 +100,35 @@ export default function Orderdetail() {
     <Div_all_flex>
       <div className="frame1">
         <Section>
-          <Font15px_bold className="ordertitle">주문상품</Font15px_bold>{" "}
+          <Div_flex>
+          <Font15px_bold className="ordertitle">주문상품</Font15px_bold>
+
+          {""}
           {listdrop ? (
-            <>
+
               <AiIcons.AiOutlineDown
                 className="AiIcon_orderUpDown"
                 onClick={onListdownClick}
               />
-            </>
+
           ) : (
-            <>
+          
               <AiIcons.AiOutlineUp
                 className="AiIcon_orderUpDown"
                 onClick={onListdownClick}
               />
+        
+          )}
+          </Div_flex>
+          
+          {listdrop ? (
+            <></>
+          ) : (
+            
               <Div_flex_column
-                width="80%"
+                width="auto"
                 margin_right="10px"
-                margin_left="-100px"
+                margin_left="0px"
               >
                 {data.checkList.map((item, index) => {
                   return (
@@ -142,22 +153,25 @@ export default function Orderdetail() {
                   );
                 })}
               </Div_flex_column>
-            </>
+            
           )}
+        
+          
         </Section>
         <Section>
           <Font15px_bold>주문자 정보</Font15px_bold>
         </Section>
         <Div_flex>
-          <Font14px_darkgray>이름</Font14px_darkgray> <Input_Rect_transparent width="50%" marginbottom="7px"/>
+          <Font14px_darkgray>이름</Font14px_darkgray>{" "}
+          <Input_Rect_transparent width="50%" marginbottom="7px" />
         </Div_flex>
         <Div_flex>
           <Font14px_darkgray>전화번호</Font14px_darkgray>
-          <Input_Rect_transparent width="50%"/>
+          <Input_Rect_transparent width="50%" />
         </Div_flex>
         <Section>
           <Font15px_bold>배송지</Font15px_bold>
-          
+
           <DeliveryADD></DeliveryADD>
         </Section>
 
@@ -240,4 +254,3 @@ export default function Orderdetail() {
     </Div_all_flex>
   );
 }
-
