@@ -18,6 +18,7 @@
 .DADD-aligned-right{
   align-items: end;
   margin-right: 10px;
+
   
 
 }
@@ -25,5 +26,9 @@
   display: flex;
   justify-content: space-between; 
   margin-bottom: 10px;
+  width: auto;
 
 } 
+.DADD-modal-container{
+  width: 70vh;
+}
