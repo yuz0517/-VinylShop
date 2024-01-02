@@ -4,7 +4,8 @@ import { Context } from "../../components/ContextProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase"; //파베
 import Modal from "react-modal";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundBack,IoMdClose } from "react-icons/io";
+
 
 import AddressAdd from "./AddressAdd";
 import AddressList from "./AddressList";
@@ -173,17 +174,24 @@ export default function DeliveryADD() {
           onRequestClose={closeModal}
           shouldCloseOnOverlayClick={true}
         >
-          <div>
+          <div className ="DADD-modal-container">
             <div className="DADD-flex-box" >
-            
+            {addBtn == true? (
               <Font_bold_center font_size="17px" font_weight="700" className="DADD-centered-center">
-                배송지 목록
-              </Font_bold_center>
-              <button onClick={closeModal} className="DADD-aligned-right">close</button>
+              배송지 추가
+            </Font_bold_center>
+            ) : (
+              <Font_bold_center font_size="17px" font_weight="700" className="DADD-centered-center">
+              배송지 목록
+            </Font_bold_center>
+
+            )}
+              
+              <IoMdClose onClick={closeModal} className="DADD-aligned-right">close</IoMdClose>
             </div>
             
             {addBtn == true ? (
-              <Fixed>배송지 추가</Fixed>
+              <></>
             ) : (
               <>
                 <AddressList sendDataToADD={handleDataFromList} />
