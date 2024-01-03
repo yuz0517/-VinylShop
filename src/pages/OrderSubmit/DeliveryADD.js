@@ -74,23 +74,11 @@ export default function DeliveryADD() {
       alert("재로그인 해 주세요");
       logout();
     } else {
-      //console.log("삭제", sessionUserid);
+     
     }
   }, []);
   function getAddressdata() {
-    // Axios.get("http://localhost:8000/api/address/getallinfo", {
-    //   params: { key: sessionUserid },
-    // })
-    //   .then((res) => {
-    //     setAddressData([...addressdata, ...res.data]);
-    //     //setAddressData(res.data)
-    //     //temp_reward_points = res.data[0].reward_points;
-    //     //setRewardPoints(temp_reward_points);
-    //     console.log("getnewdata",res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
+
   }
   const handleDataFromList = (data) => {
     setDataFromList({ ...data });
