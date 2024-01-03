@@ -37,13 +37,13 @@
 }
 
 .input-password, .input-nickname, .input-signup-address1 {
-    width: 400px;
+    width: 360px;
     height: 50px;
     margin-bottom: 35px;
     
 }
 .input-signup-address {
-    width: 350px;
+    width: 310px;
     height: 50px;
     margin-bottom: 6px;
     border-radius: 0%;
@@ -52,7 +52,7 @@
     
 }
 .input-password-check, .input-id{
-    width: 400px;
+    width: 360px;
     height: 50px;
     margin-bottom: 5px;
     
@@ -68,10 +68,12 @@
 .button-signup-address::before{
     font-size:10px ;
     content: "🔍 ";
+
 }
 .button-signup-address:hover::before{
     font-size:10px ;
     content: "click";
+
 }
 
 .button-register{
