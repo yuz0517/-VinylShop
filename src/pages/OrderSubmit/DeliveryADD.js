@@ -135,13 +135,13 @@ export default function DeliveryADD() {
 
   return (
     <div>
-      <Div_flex justifycontent="space-between">
+      <Div_flex justifycontent="flex-start">
         <Font14px_gray>배송지 추가 및 변경</Font14px_gray>
         <Radius_btn onClick={openModal} font_size="13px" background="#F3F3F3">
           배송지목록
         </Radius_btn>
       </Div_flex>
-      <hr />
+      
       {/* <div>{address_name}</div> */}
       {isSelect === true ? (
         dataFromList !== undefined ? (
