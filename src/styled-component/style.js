@@ -15,39 +15,73 @@ export const Scroll = styled.div`
 `;
 export const Section = styled.div`
   background-color: white;
-  width: auto
+  width: auto;
   margin-bottom: 10px;
 `;
 export const Div_all = styled.div`
   background-color: #ffffff;
-  width: quto;
+  width: auto;
   place-content: center;
   flex-direction: column;
   margin: auto;
   display: grid;
+
+  @media (min-width: 250px) {
+    width: 270px;
+  }
+  @media (min-width: 300px) {
+    width: 300px;
+  }
+  @media (min-width: 412px){
+    width: 370px;
+  }
+  @media (min-width: 768px) {
+    width: 500px;
+  }
 `;
 export const Div_all_flex = styled.div`
   background-color: #ffffff;
 
-  place-content: center;
-  
   display: flex;
 
   @media (min-width: 768px) {
-    
   }
 
   @media (min-width: 992px) {
-    
   }
 `;
 export const Div_flex_column = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: ${(props) => props.width};
+
   margin-right: ${(props) => props.margin_right};
   margin-left: ${(props) => props.margin_left};
+`;
+export const Div_flex_dropdown = styled.div`
+  display: flex;
+  justify-content: ${(props) => props.justifycontent};
+  margin-bottom: ${(props) => props.marginbottom};
+  width: 300px;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+
+  @media (min-width: 250px) {
+    width: 230px;
+  }
+
+  @media (min-width: 300px) {
+    width: 270px;
+  }
+  @media (min-width: 412px){
+    width: 370px;
+  }
+  @media (min-width: 768px) {
+    width: 500px;
+  }
 `;
 export const Div_flex = styled.div`
   display: flex;
@@ -74,9 +108,8 @@ export const Font_plain = styled.div`
 export const Font14px_gray = styled.div`
   font-size: 14px;
   color: #979797;
-  margin-bottom: 5px;
-  margin-top: 5px;
   margin-right: 5px;
+  font-weight: ${(props) => props.font_weight};
 `;
 export const Font14px_darkgray = styled.div`
   font-size: 15px;
@@ -85,6 +118,15 @@ export const Font14px_darkgray = styled.div`
   margin-top: 5px;
   margin-right: 5px;
   font-weight: 400;
+`;
+export const Font14px_darkgray_600 = styled.div`
+  font-size: 14px;
+  color: #545454;
+  margin-bottom: 5px;
+
+  margin-right: 5px;
+  margin-left: 5px;
+  font-weight: 600;
 `;
 export const Font14px_black = styled.div`
   font-size: 15px;
@@ -121,7 +163,7 @@ export const B = styled.div`
 `;
 /* input */
 export const Input_Rect_transparent = styled.input`
-  width: ${(props) => props.width};
+
   height: 43px;
   margin-bottom: ${(props) => props.marginbottom};
   border: 1px solid #dcdcdc;
@@ -129,7 +171,24 @@ export const Input_Rect_transparent = styled.input`
   padding: 7px;
   padding-left: 10px;
   padding-right: 10px;
-  font-size: 15px;
+  font-siz: 15px;
+  &:focus {
+    border-color: #00efff; /* 포커스를 받았을 때의 색상으로 변경 */
+    border: 2px solid #00efff;
+    outline: none; /* 포커스 효과 제거 */
+  }
+
+  @media (min-width: 300px) {
+    width: 270px;
+  }
+  @media (min-width: 412px){
+    width: 370px;
+  }
+  @media (min-width: 768px) {
+    width: 500px;
+  }
+
+ 
 `;
 /* select*/
 export const Select_Rect_transparent = styled.select`
@@ -141,7 +200,7 @@ export const Select_Rect_transparent = styled.select`
 export const Cylinder_Gray = styled.div`
   cursor: pointer;
   border: 1px solid #dcdcdc;
-  width: ${(props) => props.width};
+
   height: 43px;
   font-size: 14px;
   display: flex;
@@ -152,6 +211,17 @@ export const Cylinder_Gray = styled.div`
   border-radius: 20px;
   margin-bottom: 5px;
   margin-top: ${(props) => props.margin_top};
+
+  @media (min-width: 300px){
+    width: 80px;
+  }
+  @media (min-width: 412px){
+    width: 110px;
+  }
+  @media (min-width: 768px) {
+    width: 139px; 
+  }
+
 `;
 
 export const Radius_btn = styled.div`
@@ -187,4 +257,19 @@ export const Transparent_btn = styled.div`
   background: none;
   padding-top: 1px;
   font-weight: 500;
+`;
+export const Background_Gray = styled.div`
+  background-color: #e8e8e8;
+  border-radius: 10px;
+  font-size: 12px;
+  overflow-y: auto;
+  max-height: 20vh;
+  color: #8e8e8e;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  margin-right: 10px;
+  margin-left: 13px;
+  width: 30vh;
 `;
