@@ -1,13 +1,3 @@
-.modal-scroll {
-    
-    overflow-y: auto;
-  }
-.address-scroll{
-  overflow-y:auto;
-}
-.address-fixed{
-  position: fixed;
-}
 .DADD-centered-center{
   text-align: center; /* 텍스트를 수평 가운데 정렬합니다. */
   transform: translate(-50%, -50%);
@@ -18,16 +8,13 @@
 .DADD-aligned-right{
   align-items: end;
   margin-right: 10px;
-
-  
-
+  max-height: 80;
 }
 .DADD-flex-box{
   display: flex;
   justify-content: space-between; 
   margin-bottom: 10px;
   width: auto;
-
 } 
 .DADD-modal-container{
   width: 70vh;
