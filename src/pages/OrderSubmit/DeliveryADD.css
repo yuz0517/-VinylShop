@@ -1,5 +1,5 @@
 .modal-scroll {
-    max-height: 80vh;
+    
     overflow-y: auto;
   }
 .address-scroll{
@@ -12,7 +12,7 @@
   text-align: center; /* 텍스트를 수평 가운데 정렬합니다. */
   transform: translate(-50%, -50%);
   position: relative;
-  top: 50%;
+  top: 50%; 
   left: 50%;
 }
 .DADD-aligned-right{
