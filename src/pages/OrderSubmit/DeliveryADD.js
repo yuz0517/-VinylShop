@@ -12,10 +12,10 @@ import AddressList from "./AddressList";
 import "./DeliveryADD.css";
 import {
   Fixed,
-  Scroll,
+
   Center,
   Div_flex,
-  Font15px_bold,
+  Address_Modal,
   Font15px_gray,
   Font15px_darkgray,
   Radius_btn,
@@ -155,15 +155,15 @@ export default function DeliveryADD() {
       )}
 
       <div>
-        <Modal
+        <Modal 
           contentLabel="Pop up Message"
           style={customStyles}
           isOpen={modalOpen}
           onRequestClose={closeModal}
           shouldCloseOnOverlayClick={true}
         >
-          <div className ="DADD-modal-container">
-            <div className="DADD-flex-box" >
+          
+            <div className="DADD-flex-box">
             {addBtn == true? (
               <Font_bold_center font_size="17px" font_weight="700" className="DADD-centered-center">
               배송지 추가
@@ -177,7 +177,7 @@ export default function DeliveryADD() {
               
               <IoMdClose onClick={closeModal} className="DADD-aligned-right">close</IoMdClose>
             </div>
-            
+            <Address_Modal>
             {addBtn == true ? (
               <></>
             ) : (
@@ -205,7 +205,7 @@ export default function DeliveryADD() {
                 <div></div>
               )}
             </div>
-          </div>
+          </Address_Modal>
         </Modal>
       </div>
       <div></div>
