@@ -9,9 +9,41 @@ export const Center = styled.div`
 export const Fixed = styled.div`
   position: fixed;
 `;
+export const Address_Modal = styled.div`
+  overflow-y: auto;
+  max-height: 70vh;
+  @media (min-width: 250px) {
+    width: 250px;
+
+  }
+  @media (min-width: 300px) {
+    width: 280px;
+
+  }
+  @media (min-width: 412px) {
+    width: 350px;
+
+  }
+  @media (min-width: 768px) {
+    width: 480px;
+
+  }
+`;
 export const Scroll = styled.div`
   overflow-y: auto;
-  max-height: 40vh;
+
+  @media (min-width: 250px) {
+    width: 250px;
+  }
+  @media (min-width: 300px) {
+    width: 280px;
+  }
+  @media (min-width: 412px) {
+    width: 350px;
+  }
+  @media (min-width: 768px) {
+    width: 480px;
+  }
 `;
 export const Section = styled.div`
   background-color: white;
@@ -32,7 +64,7 @@ export const Div_all = styled.div`
   @media (min-width: 300px) {
     width: 300px;
   }
-  @media (min-width: 412px){
+  @media (min-width: 412px) {
     width: 370px;
   }
   @media (min-width: 768px) {
@@ -53,7 +85,6 @@ export const Div_all_flex = styled.div`
 export const Div_flex_column = styled.div`
   display: flex;
   flex-direction: column;
-
 
   margin-right: ${(props) => props.margin_right};
   margin-left: ${(props) => props.margin_left};
@@ -76,7 +107,7 @@ export const Div_flex_dropdown = styled.div`
   @media (min-width: 300px) {
     width: 270px;
   }
-  @media (min-width: 412px){
+  @media (min-width: 412px) {
     width: 370px;
   }
   @media (min-width: 768px) {
@@ -163,7 +194,6 @@ export const B = styled.div`
 `;
 /* input */
 export const Input_Rect_transparent = styled.input`
-
   height: 43px;
   margin-bottom: ${(props) => props.marginbottom};
   border: 1px solid #dcdcdc;
@@ -181,14 +211,12 @@ export const Input_Rect_transparent = styled.input`
   @media (min-width: 300px) {
     width: 270px;
   }
-  @media (min-width: 412px){
+  @media (min-width: 412px) {
     width: 370px;
   }
   @media (min-width: 768px) {
     width: 500px;
   }
-
- 
 `;
 /* select*/
 export const Select_Rect_transparent = styled.select`
@@ -212,16 +240,15 @@ export const Cylinder_Gray = styled.div`
   margin-bottom: 5px;
   margin-top: ${(props) => props.margin_top};
 
-  @media (min-width: 300px){
+  @media (min-width: 300px) {
     width: 80px;
   }
-  @media (min-width: 412px){
+  @media (min-width: 412px) {
     width: 110px;
   }
   @media (min-width: 768px) {
-    width: 139px; 
+    width: 139px;
   }
-
 `;
 
 export const Radius_btn = styled.div`
