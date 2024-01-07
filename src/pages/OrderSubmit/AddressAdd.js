@@ -10,13 +10,24 @@ import { scriptUrl } from "../../components/DaumMap";
 import { IoMdRadioButtonOff, IoMdRadioButtonOn } from "react-icons/io";
 import { Context } from "../../components/ContextProvider";
 import { Scroll } from "../../styled-component/style";
+import {
+  Font14px_darkgray,
+  Font14px_red,
+  Font14px_lightRed,
+  ModalInput_tpr,
+  Select_Rect_transparent,
+  Cylinder_Gray,
+  Center,
+  Radius_btn,
+  Div_flex,
+} from "../../styled-component/style";
 export default function AddressAdd({ sendDataToAADD }) {
   const { sessionUserid, setIsloggedIn } = useContext(Context);
 
   const [isAddressNameN, setIsAddressNameN] = useState(true);
   const [isReciptientN, setIsRecipientN] = useState(true);
-  const [isPostalCodeN, setIsPostalCodeN] = useState(false);
-  const [isAddress1N, setIsAddress1N] = useState(false);
+  const [isPostalCodeN, setIsPostalCodeN] = useState(true);
+  const [isAddress1N, setIsAddress1N] = useState(true);
   const [isPhoneN, setIsPhoneN] = useState(true);
   const [isCountryNameN, setIsCountryNameN] = useState(false);
 
@@ -160,6 +171,8 @@ export default function AddressAdd({ sendDataToAADD }) {
     //setText_Address(fullAddress);
     setAddress1(fullAddress);
     setPostalCode(postcode);
+    console.log(postalCode, postcode);
+    console.log(address1, fullAddress);
     //setPerson_db.address(fullAddress);
   };
   const handleClick = () => {
@@ -175,13 +188,13 @@ export default function AddressAdd({ sendDataToAADD }) {
   const onSaveClick = () => {
     console.log("클릭");
     if (
-      addressName === null ||
-      phone === null ||
-      postalCode === null ||
-      address1 == null ||
-      countryName == null
+      addressName.length === 0 ||
+      phone.length === 0 ||
+      postalCode.length === 0 ||
+      address1.length == 0 ||
+      countryName.length == 0
     ) {
-      alert("입력해주세요");
+      alert("빈 칸을 입력해주세요");
     } else {
       console.log("클릭:가능");
       Axios.post("http://localhost:8000/api/address/postaddress", {
@@ -202,38 +215,41 @@ export default function AddressAdd({ sendDataToAADD }) {
           hideProgressBar: true,
         });
       });
+      sendDataToAADD(1);
     }
-    sendDataToAADD(1);
   };
 
   return (
-    <Scroll>
-      
-      <div>배송지 이름</div>
-      <input onChange={onAddressNameChange} />
-      <div>{isAddressNameN ? <></> : <p>필수 입력 정보입니다. </p>}</div>
-      <p>국가</p>
+    <div>
+      <Font14px_darkgray>배송지 이름</Font14px_darkgray>
+      <ModalInput_tpr type="text" onChange={onAddressNameChange} />
+      <div>
+        {isAddressNameN ? (
+          <></>
+        ) : (
+          <Font14px_red>필수 입력 정보입니다. </Font14px_red>
+        )}
+      </div>
+      <Font14px_darkgray>국가</Font14px_darkgray>
       <p></p>
-      <select onChange={onCountryChange}>
+      <Select_Rect_transparent onChange={onCountryChange}>
         {country.map((name) => {
           return <option value={name}>{name}</option>;
         })}
-      </select>
-      <p>수령인</p>
-      <input onChange={onRecipientChange} maxLength={30} />
+      </Select_Rect_transparent>
+      <Font14px_darkgray>수령인</Font14px_darkgray>
+      <ModalInput_tpr onChange={onRecipientChange} maxLength={30} />
       <div>
         {isReciptientN ? (
           recipient.length == 1 ? (
-            <p>2글자 이상 입력해주세요.</p>
-          ) : (
-            <></>
-          )
+            <Font14px_lightRed>2글자 이상 입력해주세요.</Font14px_lightRed>
+          ) : null
         ) : (
-          <p>필수 입력 정보입니다. </p>
+          <Font14px_red>필수 입력 정보입니다. </Font14px_red>
         )}
       </div>
-      <p>핸드폰 번호</p>
-      <input
+      <Font14px_darkgray>핸드폰 번호</Font14px_darkgray>
+      <ModalInput_tpr
         maxLength={15}
         onChange={onPhoneChange}
         onKeyDown={onNumKeyDown}
@@ -242,56 +258,65 @@ export default function AddressAdd({ sendDataToAADD }) {
       <div>
         {isPhoneN ? (
           phone.length > 0 && phone.length <= 5 ? (
-            <p>전화번호를 정확히 입력해주세요.</p>
+            <Font14px_lightRed>
+              전화번호를 정확히 입력해주세요.
+            </Font14px_lightRed>
           ) : null
         ) : (
-          <p>필수 입력 정보입니다. </p>
+          <Font14px_red>필수 입력 정보입니다. </Font14px_red>
         )}
       </div>
-
-      <p>우편번호</p>
-      <input
-        defaultValue={postalCode}
+          <Div_flex>
+      <Font14px_darkgray>우편번호</Font14px_darkgray>
+      <Radius_btn
+        font_size="13px"
+        background="#f3f3f3"
+        height="30px"
+        onClick={handleClick}
+      >
+        우편번호 찾기
+      </Radius_btn>
+      </Div_flex>
+      <ModalInput_tpr
+        value={postalCode}
         onChange={onPostalCodeChange}
         maxLength={10}
       />
       {isPostalCodeN ? (
-        postalCode.length == 1 ? (
-          <p>우편번호를 정확히 입력해주세요..</p>
-        ) : (
-          <p>필수입력란입니다.</p>
-        )
+        postalCode.length > 0 && postalCode.length <= 2 ? (
+          <Font14px_lightRed>우편번호를 정확히 입력해주세요.</Font14px_lightRed>
+        ) : null
       ) : (
-        <p>필수 입력 정보입니다. </p>
+        <Font14px_red>필수 입력 정보입니다. </Font14px_red>
       )}
-      <button onClick={handleClick}>우편번호 찾기</button>
-      <p>주소지</p>
-      <input
-        defaultValue={address1}
+      
+      <Font14px_darkgray>주소지</Font14px_darkgray>
+      <ModalInput_tpr
+        value={address1}
         onChange={onAddress1Change}
         maxLength={80}
       />
-      {isPostalCodeN ? (
-        address1.length == 4 ? (
-          <p>주소를 정확히 입력해주세요..</p>
-        ) : (
-          <></>
-        )
+      {isAddress1N ? (
+        address1.length > 0 && address1.length <= 4 ? (
+          <Font14px_lightRed>주소를 정확히 입력해주세요.</Font14px_lightRed>
+        ) : null
       ) : (
-        <p>필수 입력 정보입니다. </p>
+        <Font14px_red>필수 입력 정보입니다. </Font14px_red>
       )}
 
-      <p>상세주소</p>
-      <input onChange={onAddress2Change} maxLength={80} />
-      <div>
+      <Font14px_darkgray>상세주소</Font14px_darkgray>
+      <ModalInput_tpr onChange={onAddress2Change} maxLength={80} />
+      <Font14px_darkgray>
         {isDefault ? (
           <IoMdRadioButtonOn onClick={onDefaultOnClick} />
         ) : (
           <IoMdRadioButtonOff onClick={onDefaultOffClick} />
         )}
         기본 배송지로 설정
-      </div>
-      <button onClick={onSaveClick}>저장하기</button>
-    </Scroll>
+      </Font14px_darkgray>
+      <Center>
+        <Cylinder_Gray onClick={onSaveClick}>저장하기</Cylinder_Gray>
+      </Center>
+    </div>
   );
 }
