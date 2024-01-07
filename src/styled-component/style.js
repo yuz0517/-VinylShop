@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Center = styled.div`
 
   display: flex;
-  justify-content-center;
+  justify-content: center;
 `;
 export const Fixed = styled.div`
   position: fixed;
@@ -13,11 +13,11 @@ export const Address_Modal = styled.div`
   overflow-y: auto;
   max-height: 70vh;
   @media (min-width: 250px) {
-    width: 250px;
+    width: 240px;
 
   }
   @media (min-width: 300px) {
-    width: 280px;
+    width: 270px;
 
   }
   @media (min-width: 412px) {
@@ -29,22 +29,7 @@ export const Address_Modal = styled.div`
 
   }
 `;
-export const Scroll = styled.div`
-  overflow-y: auto;
 
-  @media (min-width: 250px) {
-    width: 250px;
-  }
-  @media (min-width: 300px) {
-    width: 280px;
-  }
-  @media (min-width: 412px) {
-    width: 350px;
-  }
-  @media (min-width: 768px) {
-    width: 480px;
-  }
-`;
 export const Section = styled.div`
   background-color: white;
   width: auto;
@@ -139,6 +124,18 @@ export const Font_plain = styled.div`
 export const Font14px_gray = styled.div`
   font-size: 14px;
   color: #979797;
+  margin-right: 5px;
+  font-weight: ${(props) => props.font_weight};
+`;
+export const Font14px_red = styled.div`
+  font-size: 14px;
+  color: #ff0000;
+  margin-right: 5px;
+  font-weight: ${(props) => props.font_weight};
+`;
+export const Font14px_lightRed = styled.div`
+  font-size: 14px;
+  color: #ff6969;
   margin-right: 5px;
   font-weight: ${(props) => props.font_weight};
 `;
@@ -298,5 +295,5 @@ export const Background_Gray = styled.div`
   padding-bottom: 14px;
   margin-right: 10px;
   margin-left: 13px;
-  width: 30vh;
+  
 `;
