@@ -296,4 +296,16 @@ export const Background_Gray = styled.div`
   margin-right: 10px;
   margin-left: 13px;
   
+  @media (min-width: 250px) {
+    width: 250px;
+  }
+  @media (min-width: 300px) {
+    width: 280px;
+  }
+  @media (min-width: 412px) {
+    width: 340px;
+  }
+  @media (min-width: 768px) {
+    width: 660px;
+  }
 `;
