@@ -4,15 +4,13 @@ import { Context } from "../../components/ContextProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase"; //파베
 import Modal from "react-modal";
-import { IoMdArrowRoundBack,IoMdClose } from "react-icons/io";
-
+import { IoMdArrowRoundBack, IoMdClose } from "react-icons/io";
 
 import AddressAdd from "./AddressAdd";
 import AddressList from "./AddressList";
 import "./DeliveryADD.css";
 import {
   Fixed,
-
   Center,
   Div_flex,
   Address_Modal,
@@ -74,12 +72,9 @@ export default function DeliveryADD() {
       alert("재로그인 해 주세요");
       logout();
     } else {
-     
     }
   }, []);
-  function getAddressdata() {
-
-  }
+  function getAddressdata() {}
   const handleDataFromList = (data) => {
     setDataFromList({ ...data });
     setModalOpen(false);
@@ -129,7 +124,7 @@ export default function DeliveryADD() {
           배송지목록
         </Radius_btn>
       </Div_flex>
-      
+
       {/* <div>{address_name}</div> */}
       {isSelect === true ? (
         dataFromList !== undefined ? (
@@ -155,29 +150,37 @@ export default function DeliveryADD() {
       )}
 
       <div>
-        <Modal 
+        <Modal
           contentLabel="Pop up Message"
           style={customStyles}
           isOpen={modalOpen}
           onRequestClose={closeModal}
           shouldCloseOnOverlayClick={true}
         >
-          
-            <div className="DADD-flex-box">
-            {addBtn == true? (
-              <Font_bold_center font_size="17px" font_weight="700" className="DADD-centered-center">
-              배송지 추가
-            </Font_bold_center>
+          <div className="DADD-flex-box">
+            {addBtn == true ? (
+              <Font_bold_center
+                font_size="17px"
+                font_weight="700"
+                className="DADD-centered-center"
+              >
+                배송지 추가
+              </Font_bold_center>
             ) : (
-              <Font_bold_center font_size="17px" font_weight="700" className="DADD-centered-center">
-              배송지 목록
-            </Font_bold_center>
-
+              <Font_bold_center
+                font_size="17px"
+                font_weight="700"
+                className="DADD-centered-center"
+              >
+                배송지 목록
+              </Font_bold_center>
             )}
-              
-              <IoMdClose onClick={closeModal} className="DADD-aligned-right">close</IoMdClose>
-            </div>
-            <Address_Modal>
+
+            <IoMdClose onClick={closeModal} className="DADD-aligned-right">
+              close
+            </IoMdClose>
+          </div>
+          <Address_Modal>
             {addBtn == true ? (
               <></>
             ) : (
@@ -185,7 +188,16 @@ export default function DeliveryADD() {
                 <AddressList sendDataToADD={handleDataFromList} />
               </>
             )}
-            {addBtn == true ? (
+            
+            <div>
+              {addBtn == true ? (
+                <AddressAdd sendDataToAADD={handleDataFromAAdd} />
+              ) : (
+                null
+              )}
+            </div>
+          </Address_Modal>
+          {addBtn == true ? (
               <IoMdArrowRoundBack onClick={() => setAddBtn(false)} />
             ) : (
               <Center>
@@ -198,14 +210,6 @@ export default function DeliveryADD() {
                 </Cylinder_Gray>
               </Center>
             )}
-            <div>
-              {addBtn == true ? (
-                <AddressAdd sendDataToAADD={handleDataFromAAdd} />
-              ) : (
-                <div></div>
-              )}
-            </div>
-          </Address_Modal>
         </Modal>
       </div>
       <div></div>
