@@ -215,10 +215,51 @@ export const Input_Rect_transparent = styled.input`
     width: 500px;
   }
 `;
+
+export const ModalInput_tpr = styled.input`
+  height: 33px;
+  margin-bottom: ${(props) => props.marginbottom};
+  border: 1px solid #dcdcdc;
+  border-radius: 7px;
+  padding: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 14px;
+  &:focus {
+    border-color: #00efff; /* 포커스를 받았을 때의 색상으로 변경 */
+    border: 2px solid #00efff;
+    outline: none; /* 포커스 효과 제거 */
+  }
+
+  @media (min-width: 200px) {
+    width: 130x;
+  }
+  @media (min-width: 300px) {
+    width: 160x;
+  }
+  @media (min-width: 412px) {
+    width: 250px;
+  }
+  @media (min-width: 768px) {
+    width: 400px;
+  }
+`;
 /* select*/
 export const Select_Rect_transparent = styled.select`
-  width: 80%;
-  height: 43px;
+  font-size:14px;
+  height: 33px;
+  @media (min-width: 200px) {
+    width: 130x;
+  }
+  @media (min-width: 300px) {
+    width: 160x;
+  }
+  @media (min-width: 412px) {
+    width: 250px;
+  }
+  @media (min-width: 768px) {
+    width: 400px;
+  }
 `;
 /* btn */
 
