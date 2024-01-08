@@ -19,3 +19,6 @@
 .DADD-modal-container{
   width: 70vh;
 }
+body.modal-open {
+  overflow: hidden;
+}
