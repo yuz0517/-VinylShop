@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef} from "react";
 import { useLocation } from "react-router-dom";
 import {
   Div_all,
@@ -43,6 +43,12 @@ const DivTable = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
+export function EnableScroll(){
+  document.body.classList.remove('modal-open')
+}
+export function DisableScroll(){
+  document.body.classList.add('modal-open')
+}
 
 export default function Orderdetail() {
   const location = useLocation();
@@ -138,7 +144,7 @@ export default function Orderdetail() {
     }
   };
   return (
-    <Div_all>
+    <Div_all >
       <Section>
         <Div_flex>
           <Font15px_bold className="ordertitle">주문상품</Font15px_bold>
@@ -196,7 +202,7 @@ export default function Orderdetail() {
       <Section>
         <Font15px_bold>배송지</Font15px_bold>
 
-        <DeliveryADD></DeliveryADD>
+        <DeliveryADD/>
       </Section>
       <Section>
         <Font15px_bold>배송 요청사항</Font15px_bold>
