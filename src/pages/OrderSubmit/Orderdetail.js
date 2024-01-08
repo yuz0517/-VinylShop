@@ -16,6 +16,7 @@ import {
   Div_flex_dropdown,
   Font14px_darkgray_600,
   Section,
+  BlackSquareBtn,
 } from "../../styled-component/style";
 import styled from "styled-components";
 import * as AiIcons from "react-icons/ai";
@@ -301,15 +302,15 @@ export default function Orderdetail() {
                 className="portone-ui-container"
                 data-portone-ui-type="paypal-spb"
               >
-                <div className="detailPaymentBtn" onClick={onTestClick}>
+                <BlackSquareBtn onClick={onTestClick}>
                   {data.finalPrice}원 결제하기
-                </div>
+                </BlackSquareBtn>
               </div>
             </div>
           ) : (
-            <div className="detailPaymentBtn" onClick={onTestClick}>
+            <BlackSquareBtn onClick={onTestClick}>
               {data.finalPrice}원 결제하기
-            </div>
+            </BlackSquareBtn>
           )}
         </div>
       </Section>
