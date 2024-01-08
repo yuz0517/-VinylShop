@@ -327,6 +327,34 @@ export const Transparent_btn = styled.div`
   padding-top: 1px;
   font-weight: 500;
 `;
+export const BlackSquareBtn = styled.div`
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+
+  height: 43px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  @media (min-width: 200px) {
+    width: 150x;
+  }
+  @media (min-width: 300px) {
+    width: 160x;
+  }
+  @media (min-width: 412px) {
+    width: 250px;
+  }
+  @media (min-width: 768px) {
+    width: 400px;
+  }
+`
 export const Background_Gray = styled.div`
   background-color: #e8e8e8;
   border-radius: 10px;
