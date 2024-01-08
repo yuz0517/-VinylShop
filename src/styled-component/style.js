@@ -6,6 +6,10 @@ export const Center = styled.div`
   display: flex;
   justify-content: center;
 `;
+export const MarginLR = styled.div`
+  margin-left: 10px;
+  margin-right: 10px;
+`;
 export const Fixed = styled.div`
   position: fixed;
 `;
