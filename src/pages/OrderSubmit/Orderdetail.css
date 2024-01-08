@@ -56,3 +56,10 @@
     height: 43px;
     
 }
+/* CSS 파일 또는 스타일 코드에 추가 */
+body.modal-open {
+    overflow: hidden;
+}
+/* CSS 파일 또는 스타일 코드에 추가 */
+
+  
