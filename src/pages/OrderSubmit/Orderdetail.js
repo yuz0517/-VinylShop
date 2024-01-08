@@ -43,12 +43,7 @@ const DivTable = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
 `;
-export function EnableScroll(){
-  document.body.classList.remove('modal-open')
-}
-export function DisableScroll(){
-  document.body.classList.add('modal-open')
-}
+
 
 export default function Orderdetail() {
   const location = useLocation();
