@@ -20,21 +20,7 @@
     justify-content: center;
 }
 
-.detailPaymentBtn{
-   
-  cursor: pointer;
-  background-color: black;
-  color: white;
-  font-weight: bold;
-
-  height: 43px;
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 3px;
-  margin-top: 10px;
-}    
+ 
 .selectedPayment{
     border: 1px sold rgb(73, 179, 187);
     color: aqua;
