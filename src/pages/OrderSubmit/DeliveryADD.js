@@ -10,23 +10,18 @@ import AddressAdd from "./AddressAdd";
 import AddressList from "./AddressList";
 import "./DeliveryADD.css";
 import {
-  Fixed,
   Center,
   Div_flex,
   Address_Modal,
-  Font15px_gray,
   Font15px_darkgray,
   Radius_btn,
   Font14px_gray,
   Cylinder_Gray,
   Font_bold_center,
-  Select_Rect_transparent,
-  Image,
-  Font_plain,
-  Div_all_flex,
-  Section,
+  MarginLR,
 } from "../../styled-component/style";
 import styled from "styled-components";
+import { DisableScroll, EnableScroll } from "./Orderdetail";
 const customStyles = {
   content: {
     top: "50%",
@@ -39,7 +34,6 @@ const customStyles = {
   },
 };
 export default function DeliveryADD() {
-  const [ADDcnt, setADDcnt] = useState(0);
   const { sessionUserid, setIsloggedIn } = useContext(Context);
   const [modalOpen, setModalOpen] = useState(false);
   const [addBtn, setAddBtn] = useState(false);
@@ -104,6 +98,7 @@ export default function DeliveryADD() {
   function openModal() {
     setModalOpen(true);
     getAddressdata();
+    DisableScroll()
   }
 
   function closeModal() {
@@ -114,6 +109,7 @@ export default function DeliveryADD() {
     }
     setModalOpen(false);
     setAddBtn(false);
+    EnableScroll();
   }
 
   return (
@@ -216,3 +212,5 @@ export default function DeliveryADD() {
     </div>
   );
 }
+
+
