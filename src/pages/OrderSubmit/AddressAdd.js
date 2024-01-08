@@ -20,6 +20,7 @@ import {
   Center,
   Radius_btn,
   Div_flex,
+  MarginLR,
 } from "../../styled-component/style";
 export default function AddressAdd({ sendDataToAADD }) {
   const { sessionUserid, setIsloggedIn } = useContext(Context);
@@ -220,7 +221,7 @@ export default function AddressAdd({ sendDataToAADD }) {
   };
 
   return (
-    <div>
+    <MarginLR>
       <Font14px_darkgray>배송지 이름</Font14px_darkgray>
       <ModalInput_tpr type="text" onChange={onAddressNameChange} />
       <div>
@@ -234,7 +235,7 @@ export default function AddressAdd({ sendDataToAADD }) {
       <p></p>
       <Select_Rect_transparent onChange={onCountryChange}>
         {country.map((name) => {
-          return <option value={name}>{name}</option>;
+          return <option value={name} selected={name === 'Korea, Republic of'}>{name}</option>;
         })}
       </Select_Rect_transparent>
       <Font14px_darkgray>수령인</Font14px_darkgray>
@@ -317,6 +318,6 @@ export default function AddressAdd({ sendDataToAADD }) {
       <Center>
         <Cylinder_Gray onClick={onSaveClick}>저장하기</Cylinder_Gray>
       </Center>
-    </div>
+    </MarginLR>
   );
 }
