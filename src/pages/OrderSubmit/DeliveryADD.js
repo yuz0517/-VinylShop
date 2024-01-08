@@ -21,7 +21,13 @@ import {
   MarginLR,
 } from "../../styled-component/style";
 import styled from "styled-components";
-import { DisableScroll, EnableScroll } from "./Orderdetail";
+
+export function EnableScroll(){
+  document.body.classList.remove('modal-open')
+}
+export function DisableScroll(){
+  document.body.classList.add('modal-open')
+}
 const customStyles = {
   content: {
     top: "50%",
