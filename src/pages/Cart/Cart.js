@@ -204,7 +204,7 @@ function List(props) {
   const checkboxRef = useRef([]);
 
   //const [checkCount, setCheckCount] = useState();
-  console.log();
+  console.log(props.cartdata);
   const onAllChecked = (e) => {
     //setCheckedAll(e.target.checked ? checkedAll : []);
     const tempEachCheck = new Array(props.cartdata.length).fill(
@@ -255,6 +255,20 @@ function List(props) {
     }
 
     console.log(usedPoints);
+  };
+  const onDeleteClick = (itemId) => {
+    //1. cartdata에서 item을 삭제한다.(화면에 우선 보이지 않게 하기 위해)
+    //2. db에서 삭제가 될 수 있도록 한다.
+    console.log(itemId)
+    // Axios.delete("http://localhost:8000/api/", {
+    //   data: { id: id},
+    // })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //   });
   };
   const onSubmitBtnClick = () => {
     console.log("submitbtnclick됨");
@@ -310,14 +324,14 @@ function List(props) {
             onChange={onAllChecked}
           ></InputPink>
           <Font13px_darkgray>
-         전체선택 [{checkList.length}/{props.cartdata.length}]
+            전체선택 [{checkList.length}/{props.cartdata.length}]
           </Font13px_darkgray>
         </Div_flex>
         <Table>
           {props.cartdata &&
             props.cartdata.map((item, index) => {
               return (
-                <tbody key={index}>
+                <tbody key={item.item_id}>
                   <tr>
                     <Td>
                       <InputPink
@@ -329,18 +343,22 @@ function List(props) {
                     <Td>
                       <VinylImg className="vinylItemimg" src={item.img0} />
                     </Td>
-                    <Td key={item.itemid}>
+                    <Td >
                       <Font12px_darkgray>
                         {item.artist + " - " + item.title}
                       </Font12px_darkgray>
                     </Td>
-                    <Td key={item.itemid}>
+                    <Td >
                       <Font_bold fontsize="13px" color="#262626">
                         {item.price}원
                       </Font_bold>
                     </Td>
                     <Td>
-                      <TiDelete color="#BFBFBF" className="deleteIcon" />
+                      <TiDelete
+                        color="#BFBFBF"
+                        className="deleteIcon"
+                        onClick={() => onDeleteClick(item.product_id)}
+                      />
                     </Td>
                   </tr>
                 </tbody>
