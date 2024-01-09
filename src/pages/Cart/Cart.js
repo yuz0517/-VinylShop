@@ -74,13 +74,12 @@ function Cart() {
   const [User, setUser] = useState({
     email: sessionStorage.key(0),
   });
-  let mycartArr = [];
+
   const logout = async () => {
     await signOut(auth);
     sessionStorage.clear();
     setIsloggedIn(false);
   };
-  //let cartdata = "";
 
   let [userData, setUserdata] = useState([]);
   let [rewardPoints, setRewardPoints] = useState(0);
@@ -125,7 +124,6 @@ function Cart() {
           reject(new Error("Request is failed"));
         })
         .catch((err) => {
-          console.log(err.message);
           console.log(err);
         });
     }).then(function () {
@@ -134,9 +132,8 @@ function Cart() {
       })
 
         .then((res) => {
-          console.log("2. 장바구니 불러오기");
+          //console.log("2. 장바구니 불러오기");
           setCartdata([...res.data]);
-          //testFunc();
         })
         .catch((err) => {
           console.log(err.message);
@@ -169,12 +166,9 @@ function List(props) {
   const [finalPrice, setFinalPrice] = useState(0);
   const [usedPoints, setUsedPoints] = useState(0);
   let navigate = useNavigate();
-  console.log(props.reward_points);
   useEffect(() => {
     // 페이지가 처음 로드될 때만 실행되는 코드
-    
       setCartdata(props.cartdata);
-
   },[props]);
   useEffect(() => {
     //setIsEachChecked(initEachChecked);
@@ -200,9 +194,6 @@ function List(props) {
     }
   }, [usedPoints]);
   const checkboxRef = useRef([]);
-
-  //const [checkCount, setCheckCount] = useState();
-  console.log(cartdata);
   const onAllChecked = (e) => {
     //setCheckedAll(e.target.checked ? checkedAll : []);
     const tempEachCheck = new Array(cartdata.length).fill(
@@ -214,29 +205,9 @@ function List(props) {
     } else if (!e.target.checked) {
       setCheckList([]);
     }
-
-    //(e.target.checked ?
-    // tempEachCheck.fill(true) : tempEachCheck.fill(false))
-    //setIsAllChecked(e.target.checked ? true : false);
     setIsEachChecked(tempEachCheck);
-    console.log("Allcheck", isEachChecked);
   };
-  // const onPointClick = (e) => {
-  //   if (totalPrice == 0) {
-  //     alert("상품이 선택되지 않았습니다. 한 개 이상의 상품을 선택해주세요.");
-  //   } else if (usedPoints < 0) {
-  //     alert("0 이상의 값을 입력해주세요.");
-  //   } else if (props.reward_points < usedPoints) {
-  //     alert("보유하고 계신 포인트보다 더 큰 값을 입력하셨습니다.");
-  //   } else if (usedPoints == null || usedPoints == undefined) {
-  //     alert("사용하실 포인트를 입력해주세요.");
-  //   } else {
-  //     setFinalPrice(totalPrice - usedPoints);
-  //   }
-  // };
-  // const onPointresetClick = (e) => {
-  //   setFinalPrice(0);
-  // };
+
   const onPointChange = (e) => {
     if (props.reward_points < e.target.value) {
       console.log("value가 더 커요... 포인트");
@@ -254,23 +225,22 @@ function List(props) {
 
     console.log(usedPoints);
   };
-  const onDeleteClick = (itemId) => {
+  const onDeleteClick = (productId,personId) => {
     //1. cartdata에서 item을 삭제한다.(화면에 우선 보이지 않게 하기 위해)
-    setCartdata(cartdata.filter(item => item.product_id !== itemId));
+    setCartdata(cartdata.filter(item => item.product_id !== productId));
     //2. db에서 삭제가 될 수 있도록 한다.
-    console.log(cartdata,itemId)
-    // Axios.delete("http://localhost:8000/api/cart/delete", {
-    //   data: { id: itemId},
-    // })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
+    Axios.delete("http://localhost:8000/api/cart/delete", {
+      data: { productId: productId,
+              personId: personId},
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
   const onSubmitBtnClick = () => {
-    console.log("submitbtnclick됨");
     if (checkList.length == 0) {
       alert("선택된 상품이 없습니다.");
     } else {
@@ -285,41 +255,26 @@ function List(props) {
   };
 
   const onCheckedEach = (e, index, item) => {
-    console.log("iseachchecked", isEachChecked[index], index);
     setCheckedEach(e.target.checked);
-    console.log(checkedEach);
     const tempisCheck = [...isEachChecked];
     tempisCheck[index] = e.target.checked ? true : false;
-    console.log("tempischeck", index, tempisCheck[index]);
     setIsEachChecked(tempisCheck);
 
     const tempCheckList = [...checkList];
     if (!checkList.includes(item) & e.target.checked) {
       setCheckList(tempCheckList);
       tempCheckList.push(item);
-
-      console.log("temptotalchecklist", checkList);
     } else if (tempCheckList.includes(item) & !e.target.checked) {
       setCheckList(tempCheckList.filter((element) => element !== item));
-
-      console.log("값 배열 삭제", checkList);
     }
   };
 
-  //   const checked = (e, id) => {
-  //     if (e.target.checked) {
-  //       setCheckedList([...checkedList, id]);
-  //     } else {
-  //       setCheckedList(checkedList);
-  //     }
-  //   };
   return (
     <Div_all>
       <div>
         <Div_flex>
           <InputPink
             type="checkbox"
-            //checked={isAllChecked}
             onChange={onAllChecked}
           ></InputPink>
           <Font13px_darkgray>
@@ -356,7 +311,7 @@ function List(props) {
                       <TiDelete
                         color="#BFBFBF"
                         className="deleteIcon"
-                        onClick={() => onDeleteClick(item.product_id)}
+                        onClick={() => onDeleteClick(item.product_id,item.person_id)}
                       />
                     </Td>
                   </tr>
