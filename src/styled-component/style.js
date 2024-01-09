@@ -143,6 +143,14 @@ export const Font14px_lightRed = styled.div`
   margin-right: 5px;
   font-weight: ${(props) => props.font_weight};
 `;
+export const Font12px_darkgray = styled.div`
+  font-size: 12px;
+  color: #545454;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  margin-right: 5px;
+  font-weight: 400;
+`;
 export const Font14px_darkgray = styled.div`
   font-size: 15px;
   color: #545454;
@@ -415,6 +423,13 @@ export const HrGray =styled.hr`
   background: #BFBFBF;
   height: 1px;
   border: 0;
-  margin-top:5px;
-  margin-bottom:5px;
+  margin-top:15px;
+  margin-bottom:15px;
+`
+/* input 태그 */
+export const InputPink = styled.input`
+  accent-color: #ff009B;
+  width: 16px;
+  height: 16px;
+  
 `
