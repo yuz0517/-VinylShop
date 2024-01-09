@@ -13,6 +13,7 @@ import {
 } from "../../styled-component/style";
 import styled from "styled-components";
 import "./AddressItem.css";
+import { EnableScroll } from "./DeliveryADD";
 export default function AddressItem(props) {
   const [visible, setVisible] = useState(true);
   const slicedPhone = `${props.phone.slice(0, 3)}-${props.phone.slice(
@@ -23,6 +24,7 @@ export default function AddressItem(props) {
   const onSelectClick = () => {
     console.log("선택 클릭");
     props.sendDataToItem(props);
+    EnableScroll();
   };
   const onDeleteClick = () => {
     Axios.delete("http://localhost:8000/api/address/delete", {
