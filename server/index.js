@@ -231,26 +231,7 @@ app.get("/api/boardsearch/mine",(req,res)=>{
 //     });
 // });
 
-// app.post("/api/boarddelete",(req,res)=>{
-        
-//     const key = req.query.key;
-//     const sqlQuery = "DELETE FROM board WHERE id=?";
-//     db.query(sqlQuery, [key], (err, data) => {
-//         console.log(req.query.key)
-//         if(!err){ 
-//             console.log(key)
-//             console.log(data)
-//             return res.send(data);
-//         } else { 
-//             console.log(key)
-//             res.send(err);
-   
-//         }
-//     });
-// });
 app.delete("/api/board/delete",(req,res)=>{
-        
-    //const key = req.query.key;
     const key = req.body.id;
     const sqlQuery = "DELETE FROM board WHERE id=? ;";
     db.query(sqlQuery, [key], (err, data) => {
@@ -358,7 +339,7 @@ app.delete("/api/cart/delete",(req,res)=>{
             return res.send(data);
         } else { 
             res.send(err);
-        }
+        }r
     });
 });
 
@@ -444,7 +425,6 @@ app.post("/api/address/postaddress", (req,res) => {
     const recipient = req.body.recipient;
     const sqlQuery =  "INSERT INTO address (user_id,postal_code,address1,address2,phone,country,is_default,address_name,recipient) VALUES (?,?,?,?,?,?,?,?,?)";
     db.query(sqlQuery,[user_id,postal_code,address1,address2,phone,country,is_default,address_name,recipient],(err,result)=>{
-        //res.send('success'); 
         console.log(user_id,postal_code,address1,address2,phone,country,is_default,address_name,)
         console.log(err)
         res.send(err); //에러코드를 표시.  
@@ -452,7 +432,6 @@ app.post("/api/address/postaddress", (req,res) => {
 });
 app.delete("/api/address/delete",(req,res)=>{
         
-    //const key = req.query.key;
     const key = req.body.id;
     const sqlQuery = "DELETE FROM address WHERE address_id=? ;";
     db.query(sqlQuery, [key], (err, data) => {
