@@ -221,14 +221,15 @@ export const Input_Rect_transparent = styled.input`
 `;
 
 export const InputMini = styled.input`
-  height: 43px;
+  height: 33px;
   margin-bottom: ${(props) => props.marginbottom};
   border: 1px solid #dcdcdc;
   border-radius: 7px;
   padding: 7px;
   padding-left: 10px;
   padding-right: 10px;
-  font-siz: 15px;
+  margin-right: 5px;
+  font-size: 14px;
   &:focus {
     border-color: #00efff; /* 포커스를 받았을 때의 색상으로 변경 */
     border: 2px solid #00efff;
@@ -242,7 +243,7 @@ export const InputMini = styled.input`
     width: 90px;
   }
   @media (min-width: 768px) {
-    width: 150px;
+    width: 100px;
   }
 `;
 
