@@ -146,8 +146,14 @@ export const Font14px_lightRed = styled.div`
 export const Font12px_darkgray = styled.div`
   font-size: 12px;
   color: #545454;
-  margin-bottom: 5px;
-  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-weight: 400;
+`;
+export const Font13px_darkgray = styled.div`
+  font-size: 13px;
+  color: #545454;
+  margin-left: 5px;
   margin-right: 5px;
   font-weight: 400;
 `;
