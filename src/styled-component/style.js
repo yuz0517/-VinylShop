@@ -410,3 +410,9 @@ export const Background_Gray = styled.div`
     width: 660px;
   }
 `;
+/* hr 태그 */
+export const HrGray =styled.hr`
+  background: #BFBFBF;
+  height: 1px;
+  border: 0;
+`
