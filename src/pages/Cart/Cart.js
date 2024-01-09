@@ -4,7 +4,7 @@ import Axios from "axios";
 import { Context } from "../../components/ContextProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase"; //파베
-import { TiDeleteOutline } from "react-icons/ti";
+import { TiDelete } from "react-icons/ti";
 import styled from "styled-components";
 import {
   Center,
@@ -19,6 +19,7 @@ import {
   HrGray,
   Div_all
 } from "../../styled-component/style";
+import './Cart.css';
 const CartFrame = styled.div``;
 const Frame = styled.div`
   width: auto;
@@ -329,7 +330,7 @@ function List(props) {
                     </Td>
                     <Td key={item.itemid}>{item.price}</Td>
                     <Td>
-                      <TiDeleteOutline className="deleteIcon" />
+                      <TiDelete color="#BFBFBF" className="deleteIcon"/>
                     </Td>
                   </tr>
                 </tbody>
