@@ -17,9 +17,10 @@ import {
   Div_flex,
   InputMini,
   HrGray,
-  Div_all
+  Div_all,
+  Font13px_darkgray,
 } from "../../styled-component/style";
-import './Cart.css';
+import "./Cart.css";
 const CartFrame = styled.div``;
 const Frame = styled.div`
   width: auto;
@@ -38,9 +39,9 @@ const VinylImg = styled.img`
 `;
 const Table = styled.table`
   border-left: none;
-  border-bottom:  1.5px solid #BFBFBF;
+  border-bottom: 1.5px solid #bfbfbf;
   border-right: none;
-  border-top: 1.5px solid #BFBFBF;
+  border-top: 1.5px solid #bfbfbf;
 
   cellpadding: 2px;
 `;
@@ -302,13 +303,16 @@ function List(props) {
   return (
     <Div_all>
       <div>
-        <InputPink
-          type="checkbox"
-          //checked={isAllChecked}
-          onChange={onAllChecked}
-        ></InputPink>
-        <Font14px_darkgray_600>전체선택</Font14px_darkgray_600>
-
+        <Div_flex>
+          <InputPink
+            type="checkbox"
+            //checked={isAllChecked}
+            onChange={onAllChecked}
+          ></InputPink>
+          <Font13px_darkgray>
+         전체선택 [{checkList.length}/{props.cartdata.length}]
+          </Font13px_darkgray>
+        </Div_flex>
         <Table>
           {props.cartdata &&
             props.cartdata.map((item, index) => {
@@ -326,11 +330,17 @@ function List(props) {
                       <VinylImg className="vinylItemimg" src={item.img0} />
                     </Td>
                     <Td key={item.itemid}>
-                      <Font12px_darkgray>{item.artist + " - " + item.title}</Font12px_darkgray>
+                      <Font12px_darkgray>
+                        {item.artist + " - " + item.title}
+                      </Font12px_darkgray>
                     </Td>
-                    <Td key={item.itemid}>{item.price}</Td>
+                    <Td key={item.itemid}>
+                      <Font_bold fontsize="13px" color="#262626">
+                        {item.price}원
+                      </Font_bold>
+                    </Td>
                     <Td>
-                      <TiDelete color="#BFBFBF" className="deleteIcon"/>
+                      <TiDelete color="#BFBFBF" className="deleteIcon" />
                     </Td>
                   </tr>
                 </tbody>
@@ -338,9 +348,11 @@ function List(props) {
             })}
         </Table>
         <div>
-        <HrGray/>
-          <Font_bold fontsize="17px" color="#000000">결제 예상 금액</Font_bold>
-        <HrGray/> 
+          <HrGray />
+          <Font_bold fontsize="17px" color="#000000">
+            결제 예상 금액
+          </Font_bold>
+          <HrGray />
           <Font14px_darkgray>총 {checkList.length}개의 상품</Font14px_darkgray>
           <DivPtag>
             <Font14px_darkgray>상품 가격</Font14px_darkgray>
@@ -358,13 +370,17 @@ function List(props) {
               <Font14px_darkgray>원</Font14px_darkgray>
             </Div_flex>
           </DivPtag>
-          <HrGray/>
+          <HrGray />
           <DivPtag>
-            <Font_bold fontsize="16px" color="#000000">총 결제 금액</Font_bold> 
-            <Font_bold fontsize="17px" color="#ff009B">{finalPrice}원</Font_bold>
+            <Font_bold fontsize="16px" color="#000000">
+              총 결제 금액
+            </Font_bold>
+            <Font_bold fontsize="17px" color="#ff009B">
+              {finalPrice}원
+            </Font_bold>
           </DivPtag>
         </div>
-        <HrGray/>
+        <HrGray />
         <Center>
           <BlackSquareBtn onClick={onSubmitBtnClick}>주문하기</BlackSquareBtn>
         </Center>
