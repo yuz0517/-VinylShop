@@ -415,4 +415,6 @@ export const HrGray =styled.hr`
   background: #BFBFBF;
   height: 1px;
   border: 0;
+  margin-top:5px;
+  margin-bottom:5px;
 `
