@@ -220,6 +220,33 @@ export const Input_Rect_transparent = styled.input`
   }
 `;
 
+export const InputMini = styled.input`
+  height: 43px;
+  margin-bottom: ${(props) => props.marginbottom};
+  border: 1px solid #dcdcdc;
+  border-radius: 7px;
+  padding: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-siz: 15px;
+  &:focus {
+    border-color: #00efff; /* 포커스를 받았을 때의 색상으로 변경 */
+    border: 2px solid #00efff;
+    outline: none; /* 포커스 효과 제거 */
+  }
+
+  @media (min-width: 300px) {
+    width: 70px;
+  }
+  @media (min-width: 412px) {
+    width: 90px;
+  }
+  @media (min-width: 768px) {
+    width: 150px;
+  }
+`;
+
+
 export const ModalInput_tpr = styled.input`
   height: 33px;
   margin-bottom: ${(props) => props.marginbottom};
