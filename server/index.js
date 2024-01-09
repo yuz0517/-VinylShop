@@ -348,6 +348,23 @@ app.delete("/api/cart/initdelete",(req,res)=>{
         }
     });
 });
+app.delete("/api/cart/delete",(req,res)=>{
+    const key = req.body.id;
+    const sqlQuery = "DELETE from cart WHERE product_id = ?;";
+    db.query(sqlQuery, [key], (err, data) => {
+        console.log(req.body.id)
+        if(!err){ 
+            console.log(key)
+            console.log(data)
+            return res.send(data);
+        } else { 
+            console.log(key)
+            res.send(err);
+   
+        }
+    });
+});
+
 app.get("/api/cart/getcartall",(req,res)=>{
     const sqlQuery = "SELECT title FROM VinylList where sold = 1;"
     console.log(sqlQuery);
