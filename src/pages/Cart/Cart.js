@@ -141,7 +141,7 @@ function Cart() {
         .catch((err) => {
           console.log(err.message);
         });
-      //});
+      
       return cartdata;
     });
   }, []);
@@ -151,22 +151,13 @@ function Cart() {
       <Frame>
         <DivTable>
           <List cartdata={cartdata} reward_points={rewardPoints} />
-          {/* {cartdata &&
-            cartdata.map((item) => {
-              console.log("화면에띄움");
-              return (
-                <div key={item.itemid}>
-                  <p key={item.itemid}>{item.title}</p>
-                </div>
-              );
-            })} */}
         </DivTable>
       </Frame>
     </CartFrame>
   );
 }
 function List(props) {
-  //const [tempcartdata, setTempcartdata] = useState([]);
+  const [cartdata, setCartdata] = useState([]);
   const [checkedEach, setCheckedEach] = useState([]); //개별체크
   const [checkedAll, setCheckedAll] = useState([]); //전체체크
   const [isAllChecked, setIsAllChecked] = useState(false);
@@ -180,7 +171,14 @@ function List(props) {
   let navigate = useNavigate();
   console.log(props.reward_points);
   useEffect(() => {
+    // 페이지가 처음 로드될 때만 실행되는 코드
+    
+      setCartdata(props.cartdata);
+
+  },[props]);
+  useEffect(() => {
     //setIsEachChecked(initEachChecked);
+   
     const tempTotalPrice = checkList.reduce(
       (total, item) => total + item.price,
       0
@@ -204,15 +202,15 @@ function List(props) {
   const checkboxRef = useRef([]);
 
   //const [checkCount, setCheckCount] = useState();
-  console.log(props.cartdata);
+  console.log(cartdata);
   const onAllChecked = (e) => {
     //setCheckedAll(e.target.checked ? checkedAll : []);
-    const tempEachCheck = new Array(props.cartdata.length).fill(
+    const tempEachCheck = new Array(cartdata.length).fill(
       e.target.checked
     );
-    const tempCheckList = new Array(props.cartdata.length);
+    const tempCheckList = new Array(cartdata.length);
     if (e.target.checked) {
-      setCheckList(props.cartdata);
+      setCheckList(cartdata);
     } else if (!e.target.checked) {
       setCheckList([]);
     }
@@ -258,10 +256,11 @@ function List(props) {
   };
   const onDeleteClick = (itemId) => {
     //1. cartdata에서 item을 삭제한다.(화면에 우선 보이지 않게 하기 위해)
+    setCartdata(cartdata.filter(item => item.product_id !== itemId));
     //2. db에서 삭제가 될 수 있도록 한다.
-    console.log(itemId)
-    // Axios.delete("http://localhost:8000/api/", {
-    //   data: { id: id},
+    console.log(cartdata,itemId)
+    // Axios.delete("http://localhost:8000/api/cart/delete", {
+    //   data: { id: itemId},
     // })
     //   .then((res) => {
     //     console.log(res);
@@ -324,12 +323,12 @@ function List(props) {
             onChange={onAllChecked}
           ></InputPink>
           <Font13px_darkgray>
-            전체선택 [{checkList.length}/{props.cartdata.length}]
+            전체선택 [{checkList.length}/{cartdata.length}]
           </Font13px_darkgray>
         </Div_flex>
         <Table>
-          {props.cartdata &&
-            props.cartdata.map((item, index) => {
+          {cartdata &&
+            cartdata.map((item, index) => {
               return (
                 <tbody key={item.product_id}>
                   <tr>
