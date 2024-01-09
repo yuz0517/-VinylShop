@@ -1,13 +1,22 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { Context, UserContextProvider } from "../../components/ContextProvider";
+import { Context } from "../../components/ContextProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase"; //파베
 import { TiDeleteOutline } from "react-icons/ti";
 import styled from "styled-components";
-import { icons } from "react-icons";
-import { on } from "process";
+import {
+  Center,
+  BlackSquareBtn,
+  Input_Rect_transparent,
+  Font15px_darkgray,
+  Font14px_darkgray,
+  Font14px_darkgray_600,
+  Font_bold_center,
+  Div_flex,
+  InputMini,
+} from "../../styled-component/style";
 const CartFrame = styled.div``;
 const Frame = styled.div`
   width: auto;
@@ -57,7 +66,7 @@ const Td = styled.td`
 function Cart() {
   const { sessionUserid, setIsloggedIn } = useContext(Context);
   const [cartdata, setCartdata] = useState([]);
-  console.log("sessionuserid",sessionUserid)
+  console.log("sessionuserid", sessionUserid);
   const [User, setUser] = useState({
     email: sessionStorage.key(0),
   });
@@ -147,7 +156,6 @@ function Cart() {
                 </div>
               );
             })} */}
-        
         </DivTable>
       </Frame>
     </CartFrame>
@@ -174,23 +182,21 @@ function List(props) {
       0
     );
     setTotalPrice(tempTotalPrice);
-    if(tempTotalPrice-usedPoints<0){
-      setFinalPrice(0)
-    }else{
+    if (tempTotalPrice - usedPoints < 0) {
+      setFinalPrice(0);
+    } else {
       setFinalPrice(tempTotalPrice - usedPoints);
     }
-   
 
     //const fianlTotalPrice = tempTotalPrice
   }, [checkList]); //checkList값이 변할 때 마다 price값의 합을 업데이트
   useEffect(() => {
-    if(totalPrice-usedPoints<0){
+    if (totalPrice - usedPoints < 0) {
       setFinalPrice(0);
-    }else{
+    } else {
       setFinalPrice(totalPrice - usedPoints);
     }
-
-  }, [usedPoints])
+  }, [usedPoints]);
   const checkboxRef = useRef([]);
 
   //const [checkCount, setCheckCount] = useState();
@@ -230,16 +236,16 @@ function List(props) {
   //   setFinalPrice(0);
   // };
   const onPointChange = (e) => {
-    if(props.reward_points < e.target.value){
-      console.log("value가 더 커요... 포인트")
-      alert("보유하고 계신 포인트보다 더 큰 값을 입력하셨습니다.")
+    if (props.reward_points < e.target.value) {
+      console.log("value가 더 커요... 포인트");
+      alert("보유하고 계신 포인트보다 더 큰 값을 입력하셨습니다.");
       e.target.value = 0;
       setUsedPoints(0);
-    }else if (e.target.value < 0) {
+    } else if (e.target.value < 0) {
       alert("0 이상의 값을 입력하세요.");
       e.target.value = 0;
       setUsedPoints(0);
-    }else if (e.target.value >= 0 || props.reward_points >= e.target.value) {
+    } else if (e.target.value >= 0 || props.reward_points >= e.target.value) {
       setUsedPoints(e.target.value);
       setFinalPrice(totalPrice - usedPoints);
     }
@@ -247,16 +253,19 @@ function List(props) {
     console.log(usedPoints);
   };
   const onSubmitBtnClick = () => {
-    console.log("submitbtnclick됨")
-    if(checkList.length==0){
-      alert("선택된 상품이 없습니다.")
-    }else{
-      const data={
-        totalPrice,finalPrice,usedPoints,checkList
-      }
-      navigate('/orderdetail', {state: data})
+    console.log("submitbtnclick됨");
+    if (checkList.length == 0) {
+      alert("선택된 상품이 없습니다.");
+    } else {
+      const data = {
+        totalPrice,
+        finalPrice,
+        usedPoints,
+        checkList,
+      };
+      navigate("/orderdetail", { state: data });
     }
-  }
+  };
 
   const onCheckedEach = (e, index, item) => {
     console.log("iseachchecked", isEachChecked[index], index);
@@ -295,7 +304,7 @@ function List(props) {
           //checked={isAllChecked}
           onChange={onAllChecked}
         ></input>
-        <p>전체선택</p>
+        <Font14px_darkgray_600>전체선택</Font14px_darkgray_600>
 
         <Table>
           {props.cartdata &&
@@ -326,30 +335,32 @@ function List(props) {
             })}
         </Table>
         <DivTotal>
-          <p>총 {checkList.length}개의 상품</p>
+          <Font14px_darkgray>총 {checkList.length}개의 상품</Font14px_darkgray>
           <DivPtag>
-            <p>상품 가격</p>
-            <p>{totalPrice}</p>
+            <Font14px_darkgray>상품 가격</Font14px_darkgray>
+            <Font14px_darkgray>{totalPrice}</Font14px_darkgray>
           </DivPtag>
 
           <DivPtag>
-            <p>보유 적립금</p>
-            <p>{props.reward_points}원</p>
+            <Font14px_darkgray>보유 적립금</Font14px_darkgray>
+            <Font14px_darkgray>{props.reward_points}원</Font14px_darkgray>
           </DivPtag>
           <DivPtag>
-            <p>사용 적립금</p>
-            <input onChange={(e) => onPointChange(e)} />
-            <p>원</p>
-           
+            <Font14px_darkgray>사용 적립금</Font14px_darkgray>
+            <Div_flex>
+              <InputMini onChange={(e) => onPointChange(e)} />
+              <Font14px_darkgray>원</Font14px_darkgray>
+            </Div_flex>
           </DivPtag>
 
-          <br />
           <DivPtag>
-            <p>결제 예상 금액</p>
-            <p>{finalPrice}원</p>
+            <Font14px_darkgray>결제 예상 금액</Font14px_darkgray>
+            <Font14px_darkgray>{finalPrice}원</Font14px_darkgray>
           </DivPtag>
         </DivTotal>
-        <button onClick={onSubmitBtnClick}>주문하기</button>
+        <Center>
+          <BlackSquareBtn onClick={onSubmitBtnClick}>주문하기</BlackSquareBtn>
+        </Center>
       </div>
     </>
   );
