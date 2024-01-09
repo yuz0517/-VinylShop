@@ -331,7 +331,7 @@ function List(props) {
           {props.cartdata &&
             props.cartdata.map((item, index) => {
               return (
-                <tbody key={item.item_id}>
+                <tbody key={item.product_id}>
                   <tr>
                     <Td>
                       <InputPink
