@@ -13,9 +13,10 @@ import {
   Font15px_darkgray,
   Font14px_darkgray,
   Font14px_darkgray_600,
-  Font_bold_center,
+  Font_bold,
   Div_flex,
   InputMini,
+  HrGray,
 } from "../../styled-component/style";
 const CartFrame = styled.div``;
 const Frame = styled.div`
@@ -334,11 +335,12 @@ function List(props) {
               );
             })}
         </Table>
-        <DivTotal>
+        <div>
+          <Font_bold fontsize="17px" color="#000000">결제 예상 금액</Font_bold>
           <Font14px_darkgray>총 {checkList.length}개의 상품</Font14px_darkgray>
           <DivPtag>
             <Font14px_darkgray>상품 가격</Font14px_darkgray>
-            <Font14px_darkgray>{totalPrice}</Font14px_darkgray>
+            <Font14px_darkgray>{totalPrice}원</Font14px_darkgray>
           </DivPtag>
 
           <DivPtag>
@@ -352,12 +354,12 @@ function List(props) {
               <Font14px_darkgray>원</Font14px_darkgray>
             </Div_flex>
           </DivPtag>
-
+          <HrGray/>
           <DivPtag>
             <Font14px_darkgray>결제 예상 금액</Font14px_darkgray>
             <Font14px_darkgray>{finalPrice}원</Font14px_darkgray>
           </DivPtag>
-        </DivTotal>
+        </div>
         <Center>
           <BlackSquareBtn onClick={onSubmitBtnClick}>주문하기</BlackSquareBtn>
         </Center>
