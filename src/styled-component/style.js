@@ -1,11 +1,17 @@
 import styled from "styled-components";
 /* hr */
 /* 정렬,레이아웃 */
-export const Center = styled.div`
+export const FlexCenter = styled.div`
 
   display: flex;
   justify-content: center;
 `;
+export const ColumnCenter = styled.div`
+  display: flex;
+  flex-direction:column;
+  align-items:center;
+  margin-top: ${(props) => props.margin_top};
+`
 export const MarginLR = styled.div`
   margin-left: 10px;
   margin-right: 10px;
@@ -48,6 +54,21 @@ export const Div_all = styled.div`
   display: grid;
 
   @media (min-width: 250px) {
+    width: 240px;
+  }
+  @media (min-width: 300px) {
+    width: 300px;
+  }
+  @media (min-width: 412px) {
+    width: 370px;
+  }
+  @media (min-width: 768px) {
+    width: 500px;
+  }
+`;
+export const DivWidth = styled.div`
+
+  @media (min-width: 250px) {
     width: 270px;
   }
   @media (min-width: 300px) {
@@ -77,6 +98,7 @@ export const Div_flex_column = styled.div`
 
   margin-right: ${(props) => props.margin_right};
   margin-left: ${(props) => props.margin_left};
+  margin-bottom: ${(props) => props.margin_bottom};
 `;
 export const Div_flex_dropdown = styled.div`
   display: flex;
@@ -117,8 +139,8 @@ export const Image = styled.img`
 export const Font15px_bold = styled.div`
   font-size: 15px;
   font-weight: 600;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 `;
 export const Font_plain = styled.div`
   margin-bottom: 5px;
@@ -149,6 +171,7 @@ export const Font12px_darkgray = styled.div`
   margin-left: 5px;
   margin-right: 5px;
   font-weight: 400;
+  margin-bottom: ${(props) => props.marginbottom};
 `;
 export const Font13px_darkgray = styled.div`
   font-size: 13px;
@@ -334,6 +357,32 @@ export const Cylinder_Gray = styled.div`
     width: 139px;
   }
 `;
+export const Radius_btn_= styled.div`
+  cursor: pointer;
+  border: 0px solid #dcdcdc;
+  height: 43px;
+  font-size: 13px;
+  font-color: white;
+  background-color: ${(props) => props.bgcolor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-radius: 20px;
+  margin-bottom: 5px;
+  margin-top: ${(props) => props.margin_top};
+
+  @media (min-width: 300px) {
+    width: 80px;
+  }
+  @media (min-width: 412px) {
+    width: 110px;
+  }
+  @media (min-width: 768px) {
+    width: 139px;
+  }
+`;
 
 export const Radius_btn = styled.div`
   cursor: pointer;
@@ -347,7 +396,7 @@ export const Radius_btn = styled.div`
   border-radius: 18px;
   margin-bottom: 1px;
   background: ${(props) => props.background};
-
+  color: #ffffff;
   padding-right: 10px;
   padding-left: 10px;
   padding-top: 1px;
@@ -374,7 +423,6 @@ export const BlackSquareBtn = styled.div`
   background-color: black;
   color: white;
   font-weight: bold;
-
   height: 43px;
   font-size: 14px;
   display: flex;
@@ -385,17 +433,19 @@ export const BlackSquareBtn = styled.div`
   margin-bottom: 10px;
 
   @media (min-width: 200px) {
-    width: 150x;
+    width: 170px;
   }
   @media (min-width: 300px) {
-    width: 160x;
+    width: 270px;
   }
   @media (min-width: 412px) {
-    width: 250px;
+    width: 370px;
   }
   @media (min-width: 768px) {
-    width: 400px;
+    width: 500px;
   }
+
+  
 `
 export const Background_Gray = styled.div`
   background-color: #e8e8e8;
@@ -432,6 +482,13 @@ export const HrGray =styled.hr`
   margin-top:15px;
   margin-bottom:15px;
 `
+export const HrGray2px =styled.hr`
+  background: #BFBFBF;
+  height: 2px;
+  border: 0;
+  margin-top:15px;
+  margin-bottom:15px;
+`
 /* input 태그 */
 export const InputPink = styled.input`
   accent-color: #ff009B;
@@ -439,3 +496,5 @@ export const InputPink = styled.input`
   height: 16px;
   
 `
+/*  아이콘 icon  */
+
