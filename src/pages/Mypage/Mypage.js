@@ -12,6 +12,20 @@ import { IfFulfilled } from 'react-async';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { scriptUrl } from '../../components/DaumMap';
+import {
+  Center,
+  BlackSquareBtn,
+  Font12px_darkgray,
+  InputPink,
+  Font14px_darkgray,
+  Font14px_darkgray_600,
+  Font_bold,
+  Div_flex,
+  InputMini,
+  HrGray,
+  Div_all,
+  Font13px_darkgray,
+} from "../../styled-component/style";
 function Mypage({ history }) {
 
 
@@ -54,17 +68,12 @@ function Mypage({ history }) {
       })
   }, []);
 
-
-  //console.log(db.nickname,db.userid)
-  //console.log(dbdata[0].userID,dbdata[0].Nickname)
   const ref = useRef(null); //ref 선언.
   const refNickname = useRef(null); //ref 선언.
   const refAddress1 = useRef(null);
 
-  //const [text_nickname, setText_nickname] = useState([dbdata]);
   //--------address----------
   /* ----- react-daum-postcode api 적용 */
-  //const scriptUrl = 'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
   const open = useDaumPostcodePopup(scriptUrl);
 
   const handleComplete = (data) => {
@@ -182,13 +191,13 @@ function Mypage({ history }) {
 
 
   return (
-    <div className= {styles.all}>
-      <div className={styles.about}>
+    <Div_all>
+      <Div_flex>
         <p className={styles.category}>기본 회원정보</p>
         <p className={styles.detail}>더블클릭 후 수정하세요.</p>
         <button className={styles.edit} onClick={onEditClick} >저장</button>
        
-      </div>
+      </Div_flex>
       <ToastContainer />
 
 
@@ -274,7 +283,7 @@ function Mypage({ history }) {
 
 
 
-    </div>
+    </Div_all>
 
 
 
