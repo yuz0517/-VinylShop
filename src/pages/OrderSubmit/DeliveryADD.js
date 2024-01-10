@@ -10,7 +10,7 @@ import AddressAdd from "./AddressAdd";
 import AddressList from "./AddressList";
 import "./DeliveryADD.css";
 import {
-  Center,
+  FlexCenter,
   Div_flex,
   Address_Modal,
   Font15px_darkgray,
@@ -202,7 +202,7 @@ export default function DeliveryADD() {
           {addBtn == true ? (
               <IoMdArrowRoundBack onClick={() => setAddBtn(false)} />
             ) : (
-              <Center>
+              <FlexCenter>
                 <Cylinder_Gray
                   onClick={backModal}
                   margin_top="13px"
@@ -210,7 +210,7 @@ export default function DeliveryADD() {
                 >
                   배송지 추가
                 </Cylinder_Gray>
-              </Center>
+              </FlexCenter>
             )}
         </Modal>
       </div>
