@@ -44,6 +44,9 @@ function Mypage_Main() {
   const onMyWriteClick = ()  => {
     {navigate('/Search/mine')}
   }
+  const onMyInfoClick = () => {
+    {navigate('/profile')}
+  }
 
   return (
     <Div_all className="Mypage_DivAll">
@@ -62,6 +65,7 @@ function Mypage_Main() {
           font_size="15px"
           border="3px"
           height="35px"
+          onClick={onMyInfoClick}
         >
           내 정보
         </Radius_btn>
