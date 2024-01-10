@@ -17,7 +17,7 @@ import {
   ModalInput_tpr,
   Select_Rect_transparent,
   Cylinder_Gray,
-  Center,
+  FlexCenter,
   Radius_btn,
   Div_flex,
   MarginLR,
@@ -315,9 +315,9 @@ export default function AddressAdd({ sendDataToAADD }) {
         )}
         기본 배송지로 설정
       </Font14px_darkgray>
-      <Center>
+      <FlexCenter>
         <Cylinder_Gray onClick={onSaveClick}>저장하기</Cylinder_Gray>
-      </Center>
+      </FlexCenter>
     </MarginLR>
   );
 }
