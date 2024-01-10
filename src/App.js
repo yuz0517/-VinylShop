@@ -42,8 +42,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/Mypage" element={<Mypage_Main />}>
-              <Route path="myinfo" element={<Mypage />} />
+              
             </Route>
+            <Route path="/profile" element={<Mypage />} />
             <Route path="/vinyl" element={<Vinyl />}></Route>
             <Route path="/vinyl/:id" element={<Item />} />
             <Route path="/Signup" element={<Signup />} />
