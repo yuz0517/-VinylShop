@@ -36,16 +36,16 @@ function Mypage_Main() {
     {navigate('/cart');}
   }
   const onRecipientClick = () => {
-    //{navigate('/cart');}
+    navigate('/point');
   }
   const onPointClick = () => {
-    //{navigate('/cart');}
+    navigate('/point');
   }
   const onMyWriteClick = ()  => {
-    {navigate('/Search/mine')}
+    navigate('/Search/mine');
   }
   const onMyInfoClick = () => {
-    {navigate('/profile')}
+    navigate('/profile');
   }
 
   return (
@@ -84,15 +84,15 @@ function Mypage_Main() {
             주문내역
           </Font_bold_center>
         </Div_flex>
-        <Div_flex marginbottom="14px">
+        <Div_flex marginbottom="14px" onClick={onPointClick}>
           <IoWalletOutline color="#000000" className="MypageIcon" />{" "}
-          <Font_bold_center font_size="16px" font_weight="600">
+          <Font_bold_center font_size="16px" font_weight="600" >
             포인트
           </Font_bold_center>
         </Div_flex>
         <Div_flex marginbottom="14px">
-          <IoPencil color="#000000" className="MypageIcon" />{" "}
-          <Font_bold_center font_size="16px" font_weight="600" onClick={onMyWriteClick}>
+          <IoPencil color="#000000" className="MypageIcon"onClick={onMyWriteClick} />{" "}
+          <Font_bold_center font_size="16px" font_weight="600" >
             작성한 글
           </Font_bold_center>
         </Div_flex>
