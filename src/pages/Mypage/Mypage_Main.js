@@ -1,53 +1,110 @@
 import React, { useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import Nav from 'react-bootstrap/Nav';
+import {
+  IoReceiptOutline,
+  IoCartOutline,
+  IoWalletOutline,
+  IoPencil,
+  IoPencilOutline,
+} from "react-icons/io5";
+
 import Mypage from "./Mypage";
 import { Tab } from "bootstrap";
-import styles from './Mypage_Main.module.css'
+import "./Mypage_Main.css";
 import Board_Mine from "../Board/Board_Mine";
 import Cart from "../Cart/Cart";
+import {
+  Div_all,
+  Radius_btn,
+  Font12px_darkgray,
+  Font15px_darkgray,
+  Font15px_bold,
+  Font_bold_center,
+  HrGray,
+  HrGray2px,
+  Div_flex,
+  ColumnCenter,
+  Center,
+  DivWidth,
+} from "../../styled-component/style";
 function Mypage_Main() {
   let [nav, setNav] = useState(0);
   console.log("mypagemain");
   let navigate = useNavigate();
- 
-  
+
+  const onCartClick = () => {
+    {navigate('/cart');}
+  }
+  const onRecipientClick = () => {
+    //{navigate('/cart');}
+  }
+  const onPointClick = () => {
+    //{navigate('/cart');}
+  }
+  const onMyWriteClick = ()  => {
+    {navigate('/Search/mine')}
+  }
+
   return (
-    <>
-      
-      <Nav className={styles.navtabs}fill variant="tabs" defaultActiveKey="/home">
-      <Nav.Item>
-        <Nav.Link eventKey="link-0"onClick={() => {setNav(0)}} > 기본 정보 수정</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-1" onClick={() => {navigate('/cart');}} >장바구니</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-2" onClick={() => {setNav(3)}} > 주문내역 </Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-3" onClick={() => {setNav(4)}} > 작성한 글 </Nav.Link>
-      </Nav.Item>
-      {/* <Nav.Item>
-        <Nav.Link eventKey="disabled" disabled>
-          Disabled
-        </Nav.Link>
-      </Nav.Item> */}
-    </Nav>
-    <TabContent nav={nav}> </TabContent>
-      <Outlet></Outlet>
-    </>
+    <Div_all className="Mypage_DivAll">
+      <ColumnCenter margin_top="10px">
+        <Font_bold_center font_size="16px" font_weight="700">
+          마이페이지
+        </Font_bold_center>
+        <Font15px_darkgray>안녕하세요👋</Font15px_darkgray>
+        <Div_flex>
+          <Font15px_bold>{"이유정"}</Font15px_bold>
+          <Font15px_darkgray>님</Font15px_darkgray>
+        </Div_flex>
+        <Font12px_darkgray marginbottom="10px">{"yujeong9805@naver.com"}</Font12px_darkgray>
+        <Radius_btn
+          background="#262626"
+          font_size="15px"
+          border="3px"
+          height="35px"
+        >
+          내 정보
+        </Radius_btn>
+      </ColumnCenter>
+      <HrGray2px/>
+      <DivWidth>
+        <Div_flex marginbottom="14px">
+          <IoCartOutline color="#000000" className="MypageIcon" />{" "}
+          <Font_bold_center font_size="16px" font_weight="600" onClick={onCartClick}>
+            장바구니
+          </Font_bold_center>
+        </Div_flex>
+        <Div_flex marginbottom="14px">
+          <IoReceiptOutline color="#000000" className="MypageIcon" />{" "}
+          <Font_bold_center font_size="16px" font_weight="600">
+            주문내역
+          </Font_bold_center>
+        </Div_flex>
+        <Div_flex marginbottom="14px">
+          <IoWalletOutline color="#000000" className="MypageIcon" />{" "}
+          <Font_bold_center font_size="16px" font_weight="600">
+            포인트
+          </Font_bold_center>
+        </Div_flex>
+        <Div_flex marginbottom="14px">
+          <IoPencil color="#000000" className="MypageIcon" />{" "}
+          <Font_bold_center font_size="16px" font_weight="600" onClick={onMyWriteClick}>
+            작성한 글
+          </Font_bold_center>
+        </Div_flex>
+      </DivWidth>
+      <HrGray2px />
+    </Div_all>
   );
 }
 
-function TabContent(props){
-  if(props.nav === 0){
-    return <Mypage></Mypage>
-  }else if(props.nav === 1 ){
-    return <Cart></Cart>
-
-  }else if(props.nav === 4){
-    return <Board_Mine></Board_Mine>
+function TabContent(props) {
+  if (props.nav === 0) {
+    return <Mypage></Mypage>;
+  } else if (props.nav === 1) {
+    return <Cart></Cart>;
+  } else if (props.nav === 4) {
+    return <Board_Mine></Board_Mine>;
   }
 }
 
