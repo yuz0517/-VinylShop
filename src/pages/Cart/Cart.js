@@ -7,7 +7,7 @@ import { auth } from "../../firebase"; //파베
 import { TiDelete } from "react-icons/ti";
 import styled from "styled-components";
 import {
-  Center,
+  FlexCenter,
   BlackSquareBtn,
   Font12px_darkgray,
   InputPink,
@@ -138,7 +138,7 @@ function Cart() {
         .catch((err) => {
           console.log(err.message);
         });
-      
+
       return cartdata;
     });
   }, []);
@@ -168,11 +168,11 @@ function List(props) {
   let navigate = useNavigate();
   useEffect(() => {
     // 페이지가 처음 로드될 때만 실행되는 코드
-      setCartdata(props.cartdata);
-  },[props]);
+    setCartdata(props.cartdata);
+  }, [props]);
   useEffect(() => {
     //setIsEachChecked(initEachChecked);
-   
+
     const tempTotalPrice = checkList.reduce(
       (total, item) => total + item.price,
       0
@@ -196,9 +196,7 @@ function List(props) {
   const checkboxRef = useRef([]);
   const onAllChecked = (e) => {
     //setCheckedAll(e.target.checked ? checkedAll : []);
-    const tempEachCheck = new Array(cartdata.length).fill(
-      e.target.checked
-    );
+    const tempEachCheck = new Array(cartdata.length).fill(e.target.checked);
     const tempCheckList = new Array(cartdata.length);
     if (e.target.checked) {
       setCheckList(cartdata);
@@ -225,13 +223,12 @@ function List(props) {
 
     console.log(usedPoints);
   };
-  const onDeleteClick = (productId,personId) => {
+  const onDeleteClick = (productId, personId) => {
     //1. cartdata에서 item을 삭제한다.(화면에 우선 보이지 않게 하기 위해)
-    setCartdata(cartdata.filter(item => item.product_id !== productId));
+    setCartdata(cartdata.filter((item) => item.product_id !== productId));
     //2. db에서 삭제가 될 수 있도록 한다.
     Axios.delete("http://localhost:8000/api/cart/delete", {
-      data: { productId: productId,
-              personId: personId},
+      data: { productId: productId, personId: personId },
     })
       .then((res) => {
         console.log(res);
@@ -271,92 +268,89 @@ function List(props) {
 
   return (
     <Div_all>
+      <Div_flex>
+        <InputPink type="checkbox" onChange={onAllChecked}></InputPink>
+        <Font13px_darkgray>
+          전체선택 [{checkList.length}/{cartdata.length}]
+        </Font13px_darkgray>
+      </Div_flex>
+      <Table>
+        {cartdata &&
+          cartdata.map((item, index) => {
+            return (
+              <tbody key={item.product_id}>
+                <tr>
+                  <Td>
+                    <InputPink
+                      onChange={(e) => onCheckedEach(e, index, item)}
+                      checked={isEachChecked[index]}
+                      type="checkbox"
+                    />
+                  </Td>
+                  <Td>
+                    <VinylImg className="vinylItemimg" src={item.img0} />
+                  </Td>
+                  <Td>
+                    <Font12px_darkgray>
+                      {item.artist + " - " + item.title}
+                    </Font12px_darkgray>
+                  </Td>
+                  <Td>
+                    <Font_bold fontsize="13px" color="#262626">
+                      {item.price}원
+                    </Font_bold>
+                  </Td>
+                  <Td>
+                    <TiDelete
+                      color="#BFBFBF"
+                      className="deleteIcon"
+                      onClick={() =>
+                        onDeleteClick(item.product_id, item.person_id)
+                      }
+                    />
+                  </Td>
+                </tr>
+              </tbody>
+            );
+          })}
+      </Table>
       <div>
-        <Div_flex>
-          <InputPink
-            type="checkbox"
-            onChange={onAllChecked}
-          ></InputPink>
-          <Font13px_darkgray>
-            전체선택 [{checkList.length}/{cartdata.length}]
-          </Font13px_darkgray>
-        </Div_flex>
-        <Table>
-          {cartdata &&
-            cartdata.map((item, index) => {
-              return (
-                <tbody key={item.product_id}>
-                  <tr>
-                    <Td>
-                      <InputPink
-                        onChange={(e) => onCheckedEach(e, index, item)}
-                        checked={isEachChecked[index]}
-                        type="checkbox"
-                      />
-                    </Td>
-                    <Td>
-                      <VinylImg className="vinylItemimg" src={item.img0} />
-                    </Td>
-                    <Td >
-                      <Font12px_darkgray>
-                        {item.artist + " - " + item.title}
-                      </Font12px_darkgray>
-                    </Td>
-                    <Td >
-                      <Font_bold fontsize="13px" color="#262626">
-                        {item.price}원
-                      </Font_bold>
-                    </Td>
-                    <Td>
-                      <TiDelete
-                        color="#BFBFBF"
-                        className="deleteIcon"
-                        onClick={() => onDeleteClick(item.product_id,item.person_id)}
-                      />
-                    </Td>
-                  </tr>
-                </tbody>
-              );
-            })}
-        </Table>
-        <div>
-          <HrGray />
-          <Font_bold fontsize="17px" color="#000000">
-            결제 예상 금액
-          </Font_bold>
-          <HrGray />
-          <Font14px_darkgray>총 {checkList.length}개의 상품</Font14px_darkgray>
-          <DivPtag>
-            <Font14px_darkgray>상품 가격</Font14px_darkgray>
-            <Font14px_darkgray>{totalPrice}원</Font14px_darkgray>
-          </DivPtag>
-
-          <DivPtag>
-            <Font14px_darkgray>보유 적립금</Font14px_darkgray>
-            <Font14px_darkgray>{props.reward_points}원</Font14px_darkgray>
-          </DivPtag>
-          <DivPtag>
-            <Font14px_darkgray>사용 적립금</Font14px_darkgray>
-            <Div_flex>
-              <InputMini onChange={(e) => onPointChange(e)} />
-              <Font14px_darkgray>원</Font14px_darkgray>
-            </Div_flex>
-          </DivPtag>
-          <HrGray />
-          <DivPtag>
-            <Font_bold fontsize="16px" color="#000000">
-              총 결제 금액
-            </Font_bold>
-            <Font_bold fontsize="17px" color="#ff009B">
-              {finalPrice}원
-            </Font_bold>
-          </DivPtag>
-        </div>
         <HrGray />
-        <Center>
-          <BlackSquareBtn onClick={onSubmitBtnClick}>주문하기</BlackSquareBtn>
-        </Center>
+        <Font_bold fontsize="17px" color="#000000">
+          결제 예상 금액
+        </Font_bold>
+        <HrGray />
+        <Font14px_darkgray>총 {checkList.length}개의 상품</Font14px_darkgray>
+        <DivPtag>
+          <Font14px_darkgray>상품 가격</Font14px_darkgray>
+          <Font14px_darkgray>{totalPrice}원</Font14px_darkgray>
+        </DivPtag>
+
+        <DivPtag>
+          <Font14px_darkgray>보유 적립금</Font14px_darkgray>
+          <Font14px_darkgray>{props.reward_points}원</Font14px_darkgray>
+        </DivPtag>
+        <DivPtag>
+          <Font14px_darkgray>사용 적립금</Font14px_darkgray>
+          <Div_flex>
+            <InputMini onChange={(e) => onPointChange(e)} />
+            <Font14px_darkgray>원</Font14px_darkgray>
+          </Div_flex>
+        </DivPtag>
+        <HrGray />
+        <DivPtag>
+          <Font_bold fontsize="16px" color="#000000">
+            총 결제 금액
+          </Font_bold>
+          <Font_bold fontsize="17px" color="#ff009B">
+            {finalPrice}원
+          </Font_bold>
+        </DivPtag>
       </div>
+      <HrGray />
+      <FlexCenter>
+        <BlackSquareBtn onClick={onSubmitBtnClick}>주문하기</BlackSquareBtn>
+      </FlexCenter>
     </Div_all>
   );
 }
