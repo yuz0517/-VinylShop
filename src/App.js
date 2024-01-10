@@ -19,6 +19,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Item from "./pages/Vinyl/Item";
 import Cart from "./pages/Cart/Cart";
 import Orderdetail from "./pages/OrderSubmit/Orderdetail";
+import Point from "./pages/Mypage/Point";
 
 function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false);
@@ -45,6 +46,7 @@ function App() {
               
             </Route>
             <Route path="/profile" element={<Mypage />} />
+            <Route path="/point" element={<Point />} />
             <Route path="/vinyl" element={<Vinyl />}></Route>
             <Route path="/vinyl/:id" element={<Item />} />
             <Route path="/Signup" element={<Signup />} />
