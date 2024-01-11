@@ -448,6 +448,22 @@ app.delete("/api/address/delete",(req,res)=>{
     });
 });
 
+/* ------------Point-------------- */
+app.get("/api/point/get",(req,res)=>{
+    const key = req.query.key;
+    const sqlQuery = "SELECT * FROM point WHERE person_id Like ?";
+    console.log(sqlQuery,key);
+    db.query(sqlQuery,[key],(err,data)=>{
+        if(!err){ 
+            console.log(key)
+            return res.send(data);
+        } else { 
+            res.send(err);
+   
+        }
+    });
+});
+
 app.listen(PORT, ()=>{
     console.log(`running on port ${PORT}`);
 });
