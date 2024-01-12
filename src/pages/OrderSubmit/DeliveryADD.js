@@ -120,9 +120,9 @@ export default function DeliveryADD() {
 
   return (
     <div>
-      <Div_flex justifycontent="flex-start">
+      <Div_flex $justifycontent="flex-start">
         <Font14px_gray>배송지 추가 및 변경</Font14px_gray>
-        <Radius_btn onClick={openModal} font_size="13px" background="#F3F3F3">
+        <Radius_btn onClick={openModal} $font_size="13px" $background="#F3F3F3">
           배송지목록
         </Radius_btn>
       </Div_flex>
@@ -162,16 +162,16 @@ export default function DeliveryADD() {
           <div className="DADD-flex-box">
             {addBtn == true ? (
               <Font_bold_center
-                font_size="17px"
-                font_weight="700"
+                $font_size="17px"
+                $font_weight="700"
                 className="DADD-centered-center"
               >
                 배송지 추가
               </Font_bold_center>
             ) : (
               <Font_bold_center
-                font_size="17px"
-                font_weight="700"
+                $font_size="17px"
+                $font_weight="700"
                 className="DADD-centered-center"
               >
                 배송지 목록
@@ -205,8 +205,8 @@ export default function DeliveryADD() {
               <FlexCenter>
                 <Cylinder_Gray
                   onClick={backModal}
-                  margin_top="13px"
-                  width="100%"
+                  $margin_top="13px"
+                  $width="100%"
                 >
                   배송지 추가
                 </Cylinder_Gray>
