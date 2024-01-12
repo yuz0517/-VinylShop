@@ -53,9 +53,8 @@ export default function AddressItem(props) {
               <Font15px_bold>{props.address_name}</Font15px_bold>
               <Radius_btn
                 onClick={onSelectClick}
-                font_size="13px"
-                background="#f3f3f3"
-                height="30px"
+                $font_size="13px"
+                $background="#f3f3f3"
               >
                 선택
               </Radius_btn>
@@ -66,7 +65,7 @@ export default function AddressItem(props) {
                 <Font14px_black>
                   {props.recipient + " ・ " + slicedPhone}
                 </Font14px_black>
-                <Div_flex justifycontent="space-between" marginbottom="20px">
+                <Div_flex $justifycontent="space-between" $marginbottom="20px">
                   <Font14px_gray>
                     {props.address1 +
                       " " +
@@ -77,9 +76,9 @@ export default function AddressItem(props) {
                   </Font14px_gray>
                   <Transparent_btn
                     onClick={onDeleteClick}
-                    font_size="12.5px"
-                    font_color="#cdcdcd"
-                    margin_top="7px"
+                    $font_size="12.5px"
+                    $font_color="#cdcdcd"
+                    $margin_top="7px"
                   >
                     삭제
                   </Transparent_btn>
