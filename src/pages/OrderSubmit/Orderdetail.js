@@ -162,7 +162,7 @@ export default function Orderdetail() {
         {listdrop ? (
           <></>
         ) : (
-          <Div_flex_column  margin_right="10px" margin_left="0px">
+          <Div_flex_column  $margin_right="10px" $margin_left="0px">
             {data.checkList.map((item, index) => {
               return (
                 <Div_flex_dropdown >
@@ -172,13 +172,13 @@ export default function Orderdetail() {
                     margin_right="20px"
                   />
                   <div>
-                    <Font_bold fontsize="12px" color="#5B5B5B">
+                    <Font_bold $fontsize="12px" $color="#5B5B5B">
                       {data.checkList[index].title}
                     </Font_bold>
-                    <Font_bold fontsize="12px" color="#979797">
+                    <Font_bold $fontsize="12px" $color="#979797">
                       {data.checkList[index].artist}
                     </Font_bold>
-                    <Font_plain fontsize="11px" color="#5B5B5B">
+                    <Font_plain $fontsize="11px" $color="#5B5B5B">
                       {data.checkList[index].price}
                     </Font_plain>
                   </div>
@@ -192,7 +192,7 @@ export default function Orderdetail() {
         <Font15px_bold>주문자 정보</Font15px_bold>
       </Section>
       <Font14px_darkgray>이름</Font14px_darkgray>{" "}
-      <Input_Rect_transparent  marginbottom="7px" />
+      <Input_Rect_transparent  $marginbottom="7px" />
       <Font14px_darkgray>전화번호</Font14px_darkgray>
       <Input_Rect_transparent  />
       <Section>
@@ -221,7 +221,7 @@ export default function Orderdetail() {
           <Font14px_gray>[필수] 개인정보 수집 및 이용 동의</Font14px_gray>
           <div onClick={() => setAgreement0Visible(!agreement0Visible)}>
             {agreement0Visible ? (
-              <Font14px_darkgray_600 font_weight="700">
+              <Font14px_darkgray_600 $font_weight="700">
                 닫기
               </Font14px_darkgray_600>
             ) : (
@@ -264,7 +264,7 @@ export default function Orderdetail() {
         </Div_flex>
         {depositVisible && (
           <Div_flex_column>
-            <Font_plain  fontsize="12px" color="#5B5B5B">
+            <Font_plain  $fontsize="12px" $color="#5B5B5B">
               🎧 무통장 입금 유의사항
             </Font_plain>
             <Font14px_gray>
@@ -273,12 +273,12 @@ export default function Orderdetail() {
             <Font14px_gray>✔️ 입금 확인은 수동으로 이루어집니다.</Font14px_gray>
 
             <div>
-              <Font_plain fontsize="12px" color="#5B5B5B">
+              <Font_plain $fontsize="12px" $color="#5B5B5B">
                 입금자명
               </Font_plain>{" "}
               <Input_Rect_transparent className="입금자명" />
             </div>
-            <Font_plain fontsize="12px" color="#5B5B5B">
+            <Font_plain $fontsize="12px" $color="#5B5B5B">
               은행
             </Font_plain>
             <Select_Rect_transparent>
