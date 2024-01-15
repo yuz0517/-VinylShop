@@ -40,6 +40,38 @@ export const Address_Modal = styled.div`
   }
 `;
 
+export const Inner_Container = styled.div`
+  overflow-y: auto;
+  margin-bottom: 15px;
+  border: ${(props) => props.border};
+  border-radius: ${(props) => props.borderradius};
+  padding: ${(props) => props.padding};
+  @media (min-width: 250px) {
+    width: 200px;
+    border: none;
+    padding: 0px;
+  }
+  @media (min-width: 300px) {
+    width: 280px;
+    border: none;
+    padding: 0px;
+  }
+  @media (min-width: 350px) {
+    border: 1px solid #d8d8d8
+    padding: 10px;
+  }
+  @media (min-width: 412px) {
+    width: 350px;
+    border: 1px solid #d8d8d8;
+    padding: 13px;
+  }
+  @media (min-width: 768px) {
+    width: 480px;
+    padding: 15px;
+
+  }
+`;
+
 export const Section = styled.div`
   background-color: white;
   width: auto;
@@ -146,6 +178,14 @@ export const Font_plain = styled.div`
   margin-bottom: 5px;
   margin-top: 5px;
   color: ${(props) => props.color};
+  font-size: ${(props) => props.fontsize};
+`;
+
+export const Font14px_pinkred = styled.div`
+  font-size: 14px;
+  color: #ff009B;
+  margin-right: 5px;
+  font-weight: ${(props) => props.font_weight};
 `;
 export const Font14px_gray = styled.div`
   font-size: 14px;
