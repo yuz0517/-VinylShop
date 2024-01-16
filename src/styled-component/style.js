@@ -11,6 +11,10 @@ export const ColumnCenter = styled.div`
   flex-direction:column;
   align-items:center;
   margin-top: ${(props) => props.margin_top};
+  background: ${(props)=>props.bg_color};
+  border-radius: ${(props) => props.borderradius};
+  padding: ${(props) => props.padding};
+  margin: ${(props) => props.margin};
 `
 export const MarginLR = styled.div`
   margin-left: 10px;
@@ -42,7 +46,9 @@ export const Address_Modal = styled.div`
 
 export const Inner_Container = styled.div`
   overflow-y: auto;
-  margin-bottom: 15px;
+  background: ${(props) => props.background};;
+  margin-bottom: 10px;
+  margin-top: 10px;
   border: ${(props) => props.border};
   border-radius: ${(props) => props.borderradius};
   padding: ${(props) => props.padding};
@@ -78,7 +84,7 @@ export const Section = styled.div`
   margin-bottom: 10px;
 `;
 export const Div_all = styled.div`
-  background-color: #ffffff;
+  background: ${(props) => props.background};
   width: auto;
   place-content: center;
   flex-direction: column;
@@ -179,6 +185,7 @@ export const Font_plain = styled.div`
   margin-top: 5px;
   color: ${(props) => props.color};
   font-size: ${(props) => props.fontsize};
+  text-align: ${(props) => props.textalign};
 `;
 
 export const Font14px_pinkred = styled.div`
@@ -219,6 +226,7 @@ export const Font13px_darkgray = styled.div`
   margin-left: 5px;
   margin-right: 5px;
   font-weight: 400;
+  
 `;
 export const Font14px_darkgray = styled.div`
   font-size: 15px;
