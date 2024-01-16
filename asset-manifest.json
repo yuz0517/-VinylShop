@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/first-app2022/static/css/main.08970132.css",
-    "main.js": "/first-app2022/static/js/main.fd6e331b.js",
-    "index.html": "/first-app2022/index.html",
-    "main.08970132.css.map": "/first-app2022/static/css/main.08970132.css.map",
-    "main.fd6e331b.js.map": "/first-app2022/static/js/main.fd6e331b.js.map"
+    "main.css": "/-VinylShop/static/css/main.5f999dd6.css",
+    "main.js": "/-VinylShop/static/js/main.c8fb9373.js",
+    "index.html": "/-VinylShop/index.html",
+    "main.5f999dd6.css.map": "/-VinylShop/static/css/main.5f999dd6.css.map",
+    "main.c8fb9373.js.map": "/-VinylShop/static/js/main.c8fb9373.js.map"
   },
   "entrypoints": [
-    "static/css/main.08970132.css",
-    "static/js/main.fd6e331b.js"
+    "static/css/main.5f999dd6.css",
+    "static/js/main.c8fb9373.js"
   ]
 }
