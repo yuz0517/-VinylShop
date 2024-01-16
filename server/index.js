@@ -73,6 +73,21 @@ app.get("/api/userinfo",(req,res)=>{
         }
     });
 });
+app.get("/api/userinfo/point",(req,res)=>{
+    
+    const sqlQuery = "SELECT reward_points FROM Persons WHERE userID LIKE ?";
+    //전달받은 parameter 값.
+    const Firebase_ID = req.query.user;
+    console.log(req.body.user);
+    db.query(sqlQuery,[Firebase_ID],(err,data)=>{
+        if(!err){ 
+            return res.send(data);
+        } else { 
+            res.send(err);
+   
+        }
+    });
+});
 
 app.get("/api/userinfo/personid",(req,res)=>{
     
