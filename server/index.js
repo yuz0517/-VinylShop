@@ -75,18 +75,20 @@ app.get("/api/userinfo",(req,res)=>{
 });
 app.get("/api/userinfo/point",(req,res)=>{
     
-    const sqlQuery = "SELECT reward_points FROM Persons WHERE userID LIKE ?";
-    //전달받은 parameter 값.
-    const Firebase_ID = req.query.user;
-    console.log(req.body.user);
-    db.query(sqlQuery,[Firebase_ID],(err,data)=>{
+    const sqlQuery = "SELECT reward_points FROM Persons WHERE PersonID Like ?";
+    const key = req.query.key;
+    console.log(sqlQuery,key);
+    db.query(sqlQuery,[key],(err,data)=>{
         if(!err){ 
             return res.send(data);
         } else { 
             res.send(err);
+            console.log(err)
    
         }
     });
+
+    
 });
 
 app.get("/api/userinfo/personid",(req,res)=>{
@@ -96,9 +98,11 @@ app.get("/api/userinfo/personid",(req,res)=>{
     const userID = req.query.user;
     console.log(req.body.user);
     db.query(sqlQuery,[userID],(err,data)=>{
-        if(!err){ 
+        if(!err){
+            console.log(data);
             return res.send(data);
-        } else { 
+        }else {
+            console.log(err);
             res.send(err);
         }
     });
