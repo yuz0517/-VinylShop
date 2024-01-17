@@ -53,14 +53,14 @@ function List(dbdata) { //Board_Main.js에서 넘겨준 값을 props로 받아�
     console.log("currentPost", currentPost);
     //console.log("page")
     return (
-        <div className='list-full'>
+        <div >
             {/*<h4>총 {itemPerPage} 개의 데이터가 있습니다. </h4> */}
             <table>
                 <thead>
                     <tr>
-                        <th className='th-title'>Title</th>
-                        <th className='th-date'>Date</th>
-                        <th className='th-writer'>Writer</th>
+                        <th >Title</th>
+                        <th >Date</th>
+                        <th >Writer</th>
                     </tr>
                 </thead>
 
