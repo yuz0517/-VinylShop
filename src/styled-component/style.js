@@ -2,20 +2,19 @@ import styled from "styled-components";
 /* hr */
 /* 정렬,레이아웃 */
 export const FlexCenter = styled.div`
-
   display: flex;
   justify-content: center;
 `;
 export const ColumnCenter = styled.div`
   display: flex;
-  flex-direction:column;
-  align-items:center;
+  flex-direction: column;
+  align-items: center;
   margin-top: ${(props) => props.margin_top};
-  background: ${(props)=>props.bg_color};
+  background: ${(props) => props.bg_color};
   border-radius: ${(props) => props.borderradius};
   padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};
-`
+`;
 export const MarginLR = styled.div`
   margin-left: 10px;
   margin-right: 10px;
@@ -28,19 +27,15 @@ export const Address_Modal = styled.div`
   max-height: 70vh;
   @media (min-width: 250px) {
     width: 240px;
-
   }
   @media (min-width: 300px) {
     width: 270px;
-
   }
   @media (min-width: 412px) {
     width: 350px;
-
   }
   @media (min-width: 768px) {
     width: 480px;
-
   }
 `;
 
@@ -83,12 +78,38 @@ export const Section = styled.div`
   width: auto;
   margin-bottom: 10px;
 `;
+export const Div_all_table = styled.div`
+  background: ${(props) => props.background};
+ 
+  place-content: center;
+  flex-direction: column;
+  margin: auto;
+  padding: ${(props) => props.padding};
+
+
+  @media (min-width: 250px) {
+    width: 240px;
+  }
+  @media (min-width: 300px) {
+    width: 290px;
+  }
+  @media (min-width: 412px) {
+    width: 400x;
+  }
+  @media (min-width: 500px) {
+    width: 490px;
+  }
+  @media (min-width: 768px) {
+    width: 700px;
+  }
+  `
 export const Div_all = styled.div`
   background: ${(props) => props.background};
   width: auto;
   place-content: center;
   flex-direction: column;
   margin: auto;
+  padding: ${(props) => props.padding};
   display: grid;
 
   @media (min-width: 250px) {
@@ -105,7 +126,6 @@ export const Div_all = styled.div`
   }
 `;
 export const DivWidth = styled.div`
-
   @media (min-width: 250px) {
     width: 270px;
   }
@@ -190,7 +210,7 @@ export const Font_plain = styled.div`
 
 export const Font14px_pinkred = styled.div`
   font-size: 14px;
-  color: #ff009B;
+  color: #ff009b;
   margin-right: 5px;
   font-weight: ${(props) => props.font_weight};
 `;
@@ -226,7 +246,6 @@ export const Font13px_darkgray = styled.div`
   margin-left: 5px;
   margin-right: 5px;
   font-weight: 400;
-  
 `;
 export const Font14px_darkgray = styled.div`
   font-size: 15px;
@@ -274,10 +293,38 @@ export const Font_bold_center = styled.div`
   margin-top: 5px;
   color: ${(props) => props.color};
   text-align: center;
+  cursor: ${(props) => props.cursor};
 `;
 export const B = styled.div`
   padding-left: 1.2em;
 `;
+/* box */
+export const Rect_transparent = styled.p`
+  height: 43px;
+  margin-bottom: ${(props) => props.marginbottom};
+  border: 1px solid #dcdcdc;
+  border-radius: 7px;
+  padding: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-siz: 15px;
+  &:focus {
+    border-color: #00efff; /* 포커스를 받았을 때의 색상으로 변경 */
+    border: 2px solid #00efff;
+    outline: none; /* 포커스 효과 제거 */
+  }
+
+  @media (min-width: 300px) {
+    width: 270px;
+  }
+  @media (min-width: 412px) {
+    width: 370px;
+  }
+  @media (min-width: 768px) {
+    width: 500px;
+  }
+`;
+
 /* input */
 export const Input_Rect_transparent = styled.input`
   height: 43px;
@@ -302,6 +349,32 @@ export const Input_Rect_transparent = styled.input`
   }
   @media (min-width: 768px) {
     width: 500px;
+  }
+`;
+
+export const InputRectAddress = styled.input`
+  height: 43px;
+  margin-bottom: ${(props) => props.marginbottom};
+  border: 1px solid #dcdcdc;
+  border-radius: 7px;
+  padding: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 13px;
+  &:focus {
+    border-color: #00efff; /* 포커스를 받았을 때의 색상으로 변경 */
+    border: 2px solid #00efff;
+    outline: none; /* 포커스 효과 제거 */
+  }
+
+  @media (min-width: 300px) {
+    width: 200px;
+  }
+  @media (min-width: 412px) {
+    width: 300px;
+  }
+  @media (min-width: 768px) {
+    width: 430px;
   }
 `;
 
@@ -331,7 +404,6 @@ export const InputMini = styled.input`
     width: 100px;
   }
 `;
-
 
 export const ModalInput_tpr = styled.input`
   height: 33px;
@@ -363,7 +435,7 @@ export const ModalInput_tpr = styled.input`
 `;
 /* select*/
 export const Select_Rect_transparent = styled.select`
-  font-size:14px;
+  font-size: 14px;
   height: 33px;
   @media (min-width: 200px) {
     width: 130x;
@@ -405,13 +477,13 @@ export const Cylinder_Gray = styled.div`
     width: 139px;
   }
 `;
-export const Radius_btn_= styled.div`
+export const Radius_btn_ = styled.div`
   cursor: pointer;
   border: 0px solid #dcdcdc;
   height: 43px;
   font-size: 13px;
   font-color: white;
-  background-color: ${(props) => props.bgcolor};
+  background: ${(props) => props.background};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -436,7 +508,7 @@ export const Radius_btn = styled.div`
   cursor: pointer;
   border: ${(props) => props.border};
   height: ${(props) => props.height};
-  width: auto;
+  width: ${(props) => props.width};
   font-size: ${(props) => props.font_size};
   display: flex;
   justify-content: center;
@@ -492,9 +564,7 @@ export const BlackSquareBtn = styled.div`
   @media (min-width: 768px) {
     width: 500px;
   }
-
-  
-`
+`;
 export const Background_Gray = styled.div`
   background-color: #e8e8e8;
   border-radius: 10px;
@@ -508,7 +578,7 @@ export const Background_Gray = styled.div`
   padding-bottom: 14px;
   margin-right: 10px;
   margin-left: 13px;
-  
+
   @media (min-width: 250px) {
     width: 250px;
   }
@@ -522,27 +592,41 @@ export const Background_Gray = styled.div`
     width: 660px;
   }
 `;
+export const CustomMini = styled.div`
+  cursor: pointer;
+  border: ${(props) => props.border};
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};;
+  font-size: ${(props) => props.fontsize};
+  color: ${(props) => props.fontcolor};
+  margin: ${(props) => props.margin};
+  padding: ${(props) => props.padding};
+  background: ${(props) => props.background};
+  border-radius:10px;
+  display: flex;
+  align-items:center;
+  text-align:center;
+  justify-content:center;
+`;
 /* hr 태그 */
-export const HrGray =styled.hr`
-  background: #BFBFBF;
+export const HrGray = styled.hr`
+  background: #bfbfbf;
   height: 1px;
   border: 0;
-  margin-top:15px;
-  margin-bottom:15px;
-`
-export const HrGray2px =styled.hr`
-  background: #BFBFBF;
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;
+export const HrGray2px = styled.hr`
+  background: #bfbfbf;
   height: 2px;
   border: 0;
-  margin-top:15px;
-  margin-bottom:15px;
-`
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;
 /* input 태그 */
 export const InputPink = styled.input`
-  accent-color: #ff009B;
+  accent-color: #ff009b;
   width: 16px;
   height: 16px;
-  
-`
+`;
 /*  아이콘 icon  */
-
