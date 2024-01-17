@@ -2,7 +2,7 @@
   "name": "myapp2022",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://yuz0517.github.io/first-app2022",
+  "homepage": "http://yuz0517.github.io/-VinylShop",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^35.0.1",
     "@ckeditor/ckeditor5-react": "^5.0.2",
