@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Mypage_Main from "./pages/Mypage/Mypage_Main";
 import Mypage from "./pages/Mypage/Mypage";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Vinyl from "./pages/Vinyl";
 import Navbar from "./components/Navbar";
 import Signup from "./pages/Signup";
@@ -41,7 +41,7 @@ function App() {
           <Navbar />
 
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/-Vinylshop" element={<Home />} />
             <Route path="/Mypage" element={<Mypage_Main />}>
               
             </Route>
