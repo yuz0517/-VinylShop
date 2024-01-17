@@ -9,7 +9,7 @@ import {
   Font13px_darkgray,
   Font14px_pinkred,
 } from "../../styled-component/style";
-import "./PointItem.css"
+import { numberWithCommas } from "../../Utils/Utils";
 const PointAddIcon = styled(IoAddCircle)`
   margin-top: 6px;
 `;
@@ -18,13 +18,13 @@ const PointRemoveIcon = styled(IoRemoveCircle)`
 `;
 function PointItem(props) {
   //className=
-  console.log(props);
+  
   let IconSize = "25px";
   let year = props.pointItem.date.substr(0, 4);
   let month = props.pointItem.date.substr(5,2);
   let date = props.pointItem.date.substr(8, 2);
   return (
-    <Inner_Container  borderradius="6px">
+    <Inner_Container  borderradius="6px" >
       <Font13px_darkgray>{year+"/"+month+"/"+date}</Font13px_darkgray>
       <Div_flex justifycontent="space-between">
         {props.pointItem.point_earned === 0 ? (
@@ -55,13 +55,13 @@ function PointItem(props) {
           {props.pointItem.point_earned === 0 ? (
             <>
               <Font_bold fontsize="18px" color="#ff009B">
-                {props.pointItem.points}
+                {numberWithCommas(props.pointItem.points)}
               </Font_bold>
             </>
           ) : (
             <>
               <Font_bold fontsize="18px" color="#a9a9a9">
-                {props.pointItem.points}
+                {numberWithCommas(props.pointItem.points)}
               </Font_bold>
             </>
           )}
