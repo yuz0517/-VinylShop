@@ -1,0 +1,6 @@
+.vinylimage{
+    top: 50%;
+    left: 50%;
+  transform: translate(-70%, -50%);
+  z-index: 0;
+}
