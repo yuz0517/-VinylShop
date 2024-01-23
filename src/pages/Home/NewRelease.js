@@ -41,18 +41,12 @@ function NewRelease() {
             <Child>
               <ColumnCenter>
                 <Div_flex>
-                  <AlbumWrapper
-                    src={VinylImage}
-                    alt="VinylRecord"
-                  />
-                  <VinylWrapper
-                   
-                  >
+                  <AlbumWrapper src={TestImage} alt="testimg" />
+                  <VinylWrapper>
                     <VinylImg
                       className="vinylimage"
                       src={VinylImage}
                       alt="VinylRecord"
-                     
                     />
                   </VinylWrapper>
                 </Div_flex>
@@ -66,12 +60,46 @@ function NewRelease() {
         </RealseContainer>
         <RealseContainer background={backgroundColor}>
           <HoverContainer>
-            <Child></Child>
+          <Child>
+              <ColumnCenter>
+                <Div_flex>
+                  <AlbumWrapper src={TestImage} alt="testimg" />
+                  <VinylWrapper>
+                    <VinylImg
+                      className="vinylimage"
+                      src={VinylImage}
+                      alt="VinylRecord"
+                    />
+                  </VinylWrapper>
+                </Div_flex>
+                <Font15px_bold>Jayuro</Font15px_bold>
+                <Font13px_darkgray>Minecraftworld</Font13px_darkgray>
+                <Font12px_darkgray>$10000</Font12px_darkgray>
+                <Cylinder_Gray>View all</Cylinder_Gray>
+              </ColumnCenter>
+            </Child>
           </HoverContainer>
         </RealseContainer>
         <RealseContainer background={backgroundColor}>
           <HoverContainer>
-            <Child></Child>
+          <Child>
+              <ColumnCenter>
+                <Div_flex>
+                  <AlbumWrapper src={TestImage} alt="testimg" />
+                  <VinylWrapper>
+                    <VinylImg
+                      className="vinylimage"
+                      src={VinylImage}
+                      alt="VinylRecord"
+                    />
+                  </VinylWrapper>
+                </Div_flex>
+                <Font15px_bold>Jayuro</Font15px_bold>
+                <Font13px_darkgray>Minecraftworld</Font13px_darkgray>
+                <Font12px_darkgray>$10000</Font12px_darkgray>
+                <Cylinder_Gray>View all</Cylinder_Gray>
+              </ColumnCenter>
+            </Child>
           </HoverContainer>
         </RealseContainer>
       </Flex1Container>
