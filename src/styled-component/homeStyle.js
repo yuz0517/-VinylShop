@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
 const scaleY = 1.2;
 const calcScaleY = 1 / 1.2;
 export const Div_flex = styled.div`
   display: flex;
   flex-direction: column;
-  
+
   width: 100vw;
   height: 100vh;
   @media (min-width: 300px) {
@@ -52,10 +53,12 @@ export const HoverContainer = styled.div`
   height: 100%;
   background: none;
   transition: background 0.3s ease, transform 0.3s ease;
+
   transform-origin: top;
 
   &:hover {
     transform: scaleY(${scaleY});
+    transition: transform 0.8s ease;
     transform-origin: top;
     background: #ffdada;
     background-image: radial-gradient(#ffb6b6 0.5px, transparent 0);
@@ -77,8 +80,10 @@ export const HoverContainer = styled.div`
 //   }
 
 export const Child = styled.div`
+  margin-top: 60px;
   ${RealseContainer}:hover & {
     transform: scaleY(${calcScaleY});
+    margin-top: 39px;
   }
 `;
 
@@ -101,36 +106,36 @@ export const Title = styled.div`
   }
 `;
 export const VinylWrapper = styled.div`
-
   position: relative;
-  z-index:0;
+  z-index: 0;
 `;
 export const VinylImg = styled.img`
   width: 100px;
   height: 100px;
-  position:absolute;
+  position: absolute;
+
   top: 50%;
-    left: 50%;
+  left: 50%;
   transform: translate(-80%, -50%);
+  transition: transform 0.8s ease;
   z-index: 0;
 
   ${RealseContainer}:hover & {
     transform: translate(-50%, -50%);
-    transition:  transform 0.8s ease;
+    transition: transform 0.8s ease;
   }
 `;
 
 export const AlbumWrapper = styled.img`
   width: 100px;
   height: 100px;
-  
-  
+
   position: relative;
   z-index: 1;
 
   ${RealseContainer}:hover & {
     transform: translate(-10%, 0%);
-    transition:  transform 0.8s ease;
+    transition: transform 0.8s ease;
   }
 `;
 
