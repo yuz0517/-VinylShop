@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import {
   Flex1Container,
   RealseContainer,
@@ -8,6 +9,8 @@ import {
   AlbumWrapper,
   VinylWrapper,
   VinylImg,
+  VinylTitle,
+  vinylTitle,
 } from "../../styled-component/homeStyle";
 import {
   ColumnCenter,
@@ -60,7 +63,7 @@ function NewRelease() {
         </RealseContainer>
         <RealseContainer background={backgroundColor}>
           <HoverContainer>
-          <Child>
+            <Child>
               <ColumnCenter>
                 <Div_flex>
                   <AlbumWrapper src={TestImage} alt="testimg" />
@@ -72,7 +75,20 @@ function NewRelease() {
                     />
                   </VinylWrapper>
                 </Div_flex>
-                <Font15px_bold>Jayuro</Font15px_bold>
+                <Helmet>
+                  <link
+                    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400&display=swap"
+                    rel="stylesheet"
+                  />
+                  <style>{`
+                    .VinylTitle {
+                        font-family: 'Oswald', sans-serif;
+                        font-size: 20px;
+                        color: black;
+                          }
+                  `}</style>
+                </Helmet>
+                <p className="VinylTitle">helmet</p>
                 <Font13px_darkgray>Minecraftworld</Font13px_darkgray>
                 <Font12px_darkgray>$10000</Font12px_darkgray>
                 <Cylinder_Gray>View all</Cylinder_Gray>
@@ -82,7 +98,7 @@ function NewRelease() {
         </RealseContainer>
         <RealseContainer background={backgroundColor}>
           <HoverContainer>
-          <Child>
+            <Child>
               <ColumnCenter>
                 <Div_flex>
                   <AlbumWrapper src={TestImage} alt="testimg" />
