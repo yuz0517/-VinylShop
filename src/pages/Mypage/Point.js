@@ -41,6 +41,7 @@ export default function Point() {
   console.log(pointData);
   return (
     <Div_all >
+      <p>test</p>
       <ColumnCenter margin="30px 0 20px 0" bg_color="#F2F2F2" borderradius="10px" padding="20px 30px 20px 30px">
         
         <div style={{ textAlign: 'left' }}>
