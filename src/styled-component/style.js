@@ -9,6 +9,7 @@ export const ColumnCenter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   margin-top: ${(props) => props.margin_top};
   background: ${(props) => props.bg_color};
   border-radius: ${(props) => props.borderradius};
