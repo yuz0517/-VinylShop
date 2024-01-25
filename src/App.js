@@ -41,7 +41,7 @@ function App() {
           <Navbar />
 
           <Routes>
-            <Route path="/-Vinylshop" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/Mypage" element={<Mypage_Main />}>
               
             </Route>
