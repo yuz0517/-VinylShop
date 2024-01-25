@@ -2,6 +2,7 @@ import styled, { createGlobalStyle } from "styled-components";
 
 const scaleY = 1.2;
 const calcScaleY = 1 / 1.2;
+
 export const Div_flex = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,15 +20,16 @@ export const Flex1Container = styled.div`
   background: ${(props) => props.background};
   flex: 1;
   display: flex;
-  display: flex;
+
   flex-wrap: wrap;
   gap: 1px;
+  width: 100%
 `;
 export const RealseContainer = styled.div`
   background: ${(props) => props.background};
 
   place-content: center;
-  background-image: radial-gradient(#a39fff 0.5px, transparent 0);
+  background-image: radial-gradient(#b3e9ff 0.5px, transparent 0);
   background-size: 4px 4px;
 
   flex: 1;
@@ -43,8 +45,9 @@ export const RealseContainer = styled.div`
   flex-basis: 200px;
   flex-grow: 1;
 
+
   @media screen and (min-width: 700px) {
-    width: 33.33%;
+    
     float: left;
   }
 `;
@@ -53,14 +56,16 @@ export const HoverContainer = styled.div`
   height: 100%;
   background: none;
   transition: background 0.3s ease, transform 0.3s ease;
+  position: relative;
 
   transform-origin: top;
+
 
   &:hover {
     transform: scaleY(${scaleY});
     transition: transform 0.8s ease;
     transform-origin: top;
-    background: #ffdada;
+    background: #ff94ad;
     background-image: radial-gradient(#ffb6b6 0.5px, transparent 0);
     background-size: 4px 4px;
     background-position: 0px 0px;
@@ -80,10 +85,13 @@ export const HoverContainer = styled.div`
 //   }
 
 export const Child = styled.div`
+
   margin-top: 60px;
   ${RealseContainer}:hover & {
     transform: scaleY(${calcScaleY});
-    margin-top: 39px;
+    transition: transform 0.8s ease;
+    margin-top: 31px;
+   
   }
 `;
 
@@ -138,4 +146,70 @@ export const AlbumWrapper = styled.img`
     transition: transform 0.8s ease;
   }
 `;
+
+export const Absolute = styled.div`
+  position: absolute;
+
+`;
+export const NextRightWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  top: 50%;
+  border: 3px border black;
+  width: 100%;
+  height: 100%;
+
+
+`;
+export const VerticalCenter = styled.div`
+  position: absolute;
+  display: flex;
+  top: 50%;
+
+  
+  
+`;
+export const VerticalRightCenter = styled.div`
+  position: absolute;
+  display: flex;
+  top: 50%;
+  right: 0%;
+  
+  
+`;
+
+export const Font12px_white = styled.div`
+  color: white;
+  font-size: 12px;
+`;
+export const NextBtn = styled.div`
+
+  border: 1.5px solid white;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  z-index:1;
+  ${RealseContainer}:hover & {
+    transform: scaleY(${calcScaleY});
+    transition: transform 0.8s ease;
+    cursor: pointer;
+  }
+
+`;
+export const NextRightBtn = styled.div`
+border: 1.5px solid white;
+color: white;
+padding: 10px;
+cursor: pointer;
+
+z-index:1;
+${RealseContainer}:hover & {
+
+  transition: transform 0.8s ease;
+  cursor: pointer;
+}
+
+`;
+
+
 
