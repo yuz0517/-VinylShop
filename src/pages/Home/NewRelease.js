@@ -45,8 +45,7 @@ function NewRelease() {
   const onLeftClick = (()=>{
     if(vinylStartId-3>=0){
       setVinylStartId(vinylStartId-3)
-  }else setVinylStartId(6)
-  console.log("left",vinylStartId)
+  }else setVinylStartId(6)//
   });
 
   const onRightClick = (()=>{
@@ -55,7 +54,6 @@ function NewRelease() {
     if(vinylStartId+3<7){
         setVinylStartId(vinylStartId+3)
     }else setVinylStartId(0)
-    console.log("right",vinylStartId)
   })
   return (
     <>
