@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SidebarData } from "./SidebarData";
 import "./Navbar.css";
 import { IconContext } from "react-icons";
@@ -11,9 +11,12 @@ import * as Hi2Icons from "react-icons/hi2";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase"; //파베
 import { Context } from "./ContextProvider";
-
+import { Image } from "../styled-component/style";
+import  Imgsrc  from "../assets/logo.png"
+import { Div_flex } from "../styled-component/style";
 //const { isLoggedIn, setIsloggedIn } = UserContextProvider();
 function Navbar() {
+  let navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false); //false=notshowing
 
   const { isLoggedIn, setIsloggedIn } = useContext(Context);
@@ -43,6 +46,9 @@ function Navbar() {
     sessionStorage.clear();
     setIsloggedIn(false);
   };
+  const onTitleClick = () => {
+    navigate("/")
+  };
 
   return (
     <>
@@ -51,6 +57,12 @@ function Navbar() {
           <div className="menu-bars">
             <Hi2Icons.HiBars3 onClick={showSidebar} />
           </div>
+          <Div_flex>
+        
+            <Image  onClick ={onTitleClick} width="25px"src={Imgsrc}></Image>
+            <div className="shop-title" onClick ={onTitleClick}>YuzVinyl</div>
+
+          </Div_flex>
           <div className="navbar-right">
             
             {/*<Loginform />*/}
