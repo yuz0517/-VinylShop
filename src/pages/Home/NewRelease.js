@@ -14,18 +14,11 @@ import {
   VerticalCenter,
   NextRightBtn,
   NextRightWrapper,
-  VerticalRightCenter
+  VerticalRightCenter,
+  ColumnCenter,
 } from "../../styled-component/homeStyle";
 import {
-  ColumnCenter,
-  Cylinder_Gray,
   Div_flex,
-  Font12px_darkgray,
-  FlexCenter,
-  Font15px_bold,
-  Font15px_darkgray,
-  Font_bold,
-  Transparent_btn,
 } from "../../styled-component/style";
 import VinylImage from "./../../assets/Vinyl.png";
 import TestImage from "./../../assets/Capsule.png";
@@ -36,6 +29,8 @@ function NewRelease() {
   const border = "1.5px solid white";
   const none = "none";
   const [newVinylData, setNewVinylData] = useState([]);
+  const [vinylId, setVinylId] = useState(0);
+  const [vinylStartId, setVinylStartId] = useState(0);
   const [hover1, setHover1] = useState(false);
   const [hover2, setHover2] = useState(false);
   const [hover3, setHover3] = useState(false);
@@ -46,6 +41,22 @@ function NewRelease() {
       console.log(res.data);
     });
   }, []);
+
+  const onLeftClick = (()=>{
+    if(vinylStartId-3>=0){
+      setVinylStartId(vinylStartId-3)
+  }else setVinylStartId(6)
+  console.log("left",vinylStartId)
+  });
+
+  const onRightClick = (()=>{
+ 
+    //right click이 될 때마다 3씩 더함 근데 더한 값이 __ 값 이상이 되는지 검사해서 범위 넘으면 다시 0으로 초기홯마
+    if(vinylStartId+3<7){
+        setVinylStartId(vinylStartId+3)
+    }else setVinylStartId(0)
+    console.log("right",vinylStartId)
+  })
   return (
     <>
       <Helmet>
@@ -65,19 +76,19 @@ function NewRelease() {
       </Helmet>
 
       {newVinylData &&
-        newVinylData.reverse().map((item, idx) => {
-          if (idx / 3 == 0) {
-            const sliceData = newVinylData.slice(idx, idx + 3);
-
+        newVinylData.map((item, idx) => {
+          if (idx / 3 === 0) {
+            const sliceData = newVinylData.slice(vinylStartId, vinylStartId + 3);
+          console.log(sliceData)
             return (
-              <Flex1Container>
+              <Flex1Container key={item.id}>
                 {sliceData.map((item, idx) => {
                   return (
-                    <RealseContainer background={backgroundColor}>
+                    <RealseContainer background={backgroundColor} key={item.id}>
                       <HoverContainer>
                         {idx == 0 ? (
                           <VerticalCenter>
-                            <NextBtn>{`<`}</NextBtn>
+                            <NextBtn onClick={onLeftClick}>{`<`}</NextBtn>
                           </VerticalCenter>
                         ) : (
                           <></>
@@ -102,11 +113,11 @@ function NewRelease() {
                           </ColumnCenter>
                           {idx == 2 ? (
                             <VerticalRightCenter>
-                            <NextRightBtn>{`>`}</NextRightBtn></VerticalRightCenter> ) : (<></>)
+                            <NextRightBtn onClick={onRightClick}>{`>`}</NextRightBtn></VerticalRightCenter> ) : (<></>)
                     
                           }
                         </Child>
-                        
+                        <NextRightWrapper></NextRightWrapper>
                       </HoverContainer>
                     </RealseContainer>
                   );
