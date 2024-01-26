@@ -1,9 +1,9 @@
 
-
+@import url('https://fonts.googleapis.com/css2?family=Sixtyfour&display=swap');
 
 .navbar{
-    background-color: rgb(245, 245, 245);
-    height: 80px;
+    background-color: transparent;
+    height: 50px;
    
     
     align-items:center;
@@ -18,8 +18,8 @@
 .navbar-right{
 
     margin-right:2rem;
-    font-size: 1.6rem;
-    width: 130px;
+    font-size: 24px;
+    width: 90px;
     justify-content: space-between;
     align-items: flex-end;
     display: flex;
@@ -34,6 +34,10 @@
     top: 8px;
     left:-100%;
     transition: 850ms;
+    z-index: 2;
+    /*Homestyle.js에서 ImageWrapper와 < 버튼에 z-index=1 이 설정되어있어서 
+    Navbar가 열려있을 때 NewRealse component 밑에 깔리게 됨. 그래서
+    nav-menu가 열려있을 때 항상 최상단에 위치하도록 함.*/
 }
 
 .nav-menu.active{
@@ -79,6 +83,10 @@
     align-items: center;
 }
 
+.shop-title{
+    font-family: 'Sixtyfour', sans-serif;
+    margin-left: 10px;
+}
 span{
     margin-left: 16px;
     
