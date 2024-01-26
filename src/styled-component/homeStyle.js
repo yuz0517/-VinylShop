@@ -8,7 +8,7 @@ export const Div_flex = styled.div`
   flex-direction: column;
 
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   @media (min-width: 300px) {
     flex-direction: none;
   }
@@ -23,7 +23,7 @@ export const Flex1Container = styled.div`
 
   flex-wrap: wrap;
   gap: 1px;
-  width: 100%
+  width: 100%;
 `;
 export const RealseContainer = styled.div`
   background: ${(props) => props.background};
@@ -210,6 +210,16 @@ ${RealseContainer}:hover & {
 }
 
 `;
-
+export const ColumnCenter = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  margin-top: ${(props) => props.margin_top};
+  background: ${(props) => props.bg_color};
+  border-radius: ${(props) => props.borderradius};
+  padding: ${(props) => props.padding};
+  margin: ${(props) => props.margin};
+`;
 
 
