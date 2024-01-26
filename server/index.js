@@ -331,6 +331,20 @@ app.get("/api/vinyl/isitsold",(req,res)=>{
         }
     });
 });
+
+app.get("/api/vinyl/new",(req,res)=>{
+    const sqlQuery = " SELECT * FROM VinylList WHERE sold = 0 LIMIT 9";
+    db.query(sqlQuery,[],(err,data)=>{
+        if(!err){ 
+            console.log(data)
+            return res.send(data);
+        } else { 
+           console.log(err)
+            res.send(err);
+   
+        }
+    });
+});
 //---------------------cart------------------------
 app.delete("/api/cart/initdelete",(req,res)=>{
         
