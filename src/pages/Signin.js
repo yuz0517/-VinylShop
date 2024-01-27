@@ -4,7 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../firebase"; //파베
 import { getAuth } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import * as Navbar from "../components/Navbar.js";
 import {
@@ -22,6 +22,7 @@ const Signin = () => {
     email: sessionStorage.key(0),
   });
   const { sessionUserid, setSessionUserid } = useContext(Context);
+  const navigate=useNavigate();
   const login = async () => {
     try {
        //session storage
@@ -29,6 +30,7 @@ const Signin = () => {
 
       const user = await signInWithEmailAndPassword(auth, Email, Password);
       sessionStorage.setItem(user.user.email, user.user.accessToken);
+      navigate('/');
     } catch (error) {
       console.log(error.message);
     }
