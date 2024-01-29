@@ -4,8 +4,7 @@
 .navbar{
     background-color: transparent;
     height: 50px;
-   
-    
+    justify-content: space-between;
     align-items:center;
 }
 
@@ -31,7 +30,7 @@
     display: flex;
     justify-content: space-between;
     position:fixed;
-    top: 8px;
+    top: 0px;
     left:-100%;
     transition: 850ms;
     z-index: 2;
@@ -86,8 +85,39 @@
 .shop-title{
     font-family: 'Sixtyfour', sans-serif;
     margin-left: 10px;
+    cursor: pointer;
+}
+.title-wrapper{
+    display: flex;
+    margin-left: 20px;
+    
 }
 span{
     margin-left: 16px;
     
+}
+
+.icon-log, .icon-mypage {
+   /* 기본 값 */
+    
+   
+}
+
+
+@media (max-width: 369px) {
+    .icon-log,.icon-mypage,.icon-cart{
+        display: none;
+    }
+    .navbar{
+        justify-content: start;
+    }
+    .title-wrapper{
+        margin-left: 15px;
+    }
+}
+
+@media (max-width: 400px) {
+    .icon-log,.icon-mypage{
+        display: none;
+    }
 }

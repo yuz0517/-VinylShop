@@ -12,7 +12,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase"; //파베
 import { Context } from "./ContextProvider";
 import { Image } from "../styled-component/style";
-import  Imgsrc  from "../assets/logo.png"
+import Imgsrc from "../assets/logo.png";
 import { Div_flex } from "../styled-component/style";
 //const { isLoggedIn, setIsloggedIn } = UserContextProvider();
 function Navbar() {
@@ -47,7 +47,7 @@ function Navbar() {
     setIsloggedIn(false);
   };
   const onTitleClick = () => {
-    navigate("/")
+    navigate("/");
   };
 
   return (
@@ -57,28 +57,32 @@ function Navbar() {
           <div className="menu-bars">
             <Hi2Icons.HiBars3 onClick={showSidebar} />
           </div>
-          <Div_flex>
-        
-            <Image  onClick ={onTitleClick} width="25px"src={Imgsrc}></Image>
-            <div className="shop-title" onClick ={onTitleClick}>YuzVinyl</div>
-
-          </Div_flex>
+          <div className="title-wrapper">
+            <Image
+              style={{ cursor: "pointer" }}
+              onClick={onTitleClick}
+              width="25px"
+              src={Imgsrc}
+            ></Image>
+            <div className="shop-title" onClick={onTitleClick}>
+              YuzVinyl
+            </div>
+          </div>
           <div className="navbar-right">
-            
             {/*<Loginform />*/}
             {/*<ioIcons.IoIosLogOut/>*/}
             {isLoggedIn ? (
-              <ioIcons.IoIosLogOut onClick={logout} />
+              <ioIcons.IoIosLogOut className="icon-log" onClick={logout} />
             ) : (
               <Link to="/Signin">
-                <ioIcons.IoIosLogIn />
+                <ioIcons.IoIosLogIn className="icon-log" />
               </Link>
             )}
             <Link to="/mypage">
-              <io5Icons.IoPersonOutline />
+              <io5Icons.IoPersonOutline className="icon-mypage" />
             </Link>
             <Link to="/cart">
-            <AiIcons.AiOutlineShoppingCart />
+              <AiIcons.AiOutlineShoppingCart className="icon-cart" />
             </Link>
           </div>
         </div>
