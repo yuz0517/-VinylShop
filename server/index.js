@@ -9,8 +9,14 @@ const bodyParser =  require('body-parser');
 const { urlencoded } = require('body-parser');
 const { default: axios } = require('axios');
 
+
+
 const PORT = process.env.port || 8000;
  
+app.listen(PORT, ()=>{
+    console.log(`running on port ${PORT}`);
+});
+
 const db = mysql.createPool({
     host: "localhost",
     user: "root",
@@ -21,6 +27,9 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+
+app.get("/", (req,res) => res.json('API Running 🏃🏻‍♂️'));
 
 /* Persons */
 app.post("/api/signup", (req,res) => {
@@ -497,6 +506,4 @@ app.get("/api/point/get",(req,res)=>{
     });
 });
 
-app.listen(PORT, ()=>{
-    console.log(`running on port ${PORT}`);
-});
+
