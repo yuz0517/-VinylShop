@@ -20,6 +20,7 @@ import Item from "./pages/Vinyl/Item";
 import Cart from "./pages/Cart/Cart";
 import Orderdetail from "./pages/OrderSubmit/Orderdetail";
 import Point from "./pages/Mypage/Point";
+import AdminMain from "./pages/Administrator/AdminMain";
 
 function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false);
@@ -38,13 +39,13 @@ function App() {
             setPrevpagenation,
           }}
         >
-          <Navbar />
+          
+            <Navbar />
 
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Mypage" element={<Mypage_Main />}>
-              
-            </Route>
+            <Route path="/admin" element={<AdminMain />} />
+            <Route path="/Mypage" element={<Mypage_Main />}></Route>
             <Route path="/profile" element={<Mypage />} />
             <Route path="/point" element={<Point />} />
             <Route path="/vinyl" element={<Vinyl />}></Route>
