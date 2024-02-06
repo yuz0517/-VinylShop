@@ -21,6 +21,7 @@ import Cart from "./pages/Cart/Cart";
 import Orderdetail from "./pages/OrderSubmit/Orderdetail";
 import Point from "./pages/Mypage/Point";
 import AdminMain from "./pages/Administrator/AdminMain";
+import AdminLogin from "./pages/Administrator/AdminLogin";
 
 function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false);
@@ -45,6 +46,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<AdminMain />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/Mypage" element={<Mypage_Main />}></Route>
             <Route path="/profile" element={<Mypage />} />
             <Route path="/point" element={<Point />} />
