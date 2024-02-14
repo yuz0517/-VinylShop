@@ -1,82 +1,123 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { HiChevronUpDown } from "react-icons/hi2";
+import {
+  HiChevronUpDown,
+  HiPencilSquare,
+  HiOutlineTrash,
+} from "react-icons/hi2";
 function UserList() {
-  const [user, setUser] = useState([]);
+  const [customer, setCustomer] = useState([]);
+  const [admin, setAdmin] = useState([]);
 
-  const [SortNO, setSortNO] = useState(0);
-  const [SortNAME, setSortNAME] = useState(0);
-  const [SortEMAIL, setSortEMAIL] = useState(0);
-  const [SortDATE, setSortDATE] = useState(0);
+  const [selectedValue, setSelectedValue] = useState(0);
+  const [sortNO, setSortNO] = useState(0);
+  const [sortNAME, setSortNAME] = useState(0);
+  const [sortEMAIL, setSortEMAIL] = useState(0);
+  const [sortDATE, setSortDATE] = useState(0);
+
+  const selectedArray = selectedValue === "admin" ? admin : customer;
+  //selectedValue admin이면 admin배열을 넣고 아니면 customer 배열을 할당함.
   useEffect(() => {
     Axios.get("http://localhost:8000/api/admin/getuser", {})
       .then((res) => {
-        setUser([...res.data]);
+        setCustomer([...res.data]);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+
+    Axios.get("http://localhost:8000/api/admin/getadmin", {})
+      .then((res) => {
+        setAdmin([...res.data]);
         console.log(res.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, []);
+
   const onSortNOClick = () => {
-    setSortNO(!SortNO);
-    SortNO
-      ? setUser((prevUser) => [
+    setSortNO(!sortNO);
+    sortNO
+      ? setCustomer((prevUser) => [
           ...prevUser.sort((a, b) => b.PersonID - a.PersonID),
         ])
-      : setUser((prevUser) => [
+      : setCustomer((prevUser) => [
           ...prevUser.sort((a, b) => a.PersonID - b.PersonID),
         ]);
   };
   const onSortNAMEClick = () => {
-    console.log("눌림")
-    setSortNAME(!SortNAME);
-    SortNAME
-      ? setUser((prevUser) => [
+    console.log("눌림");
+    setSortNAME(!sortNAME);
+    sortNAME
+      ? setCustomer((prevUser) => [
           ...prevUser.sort((a, b) => a.Nickname.localeCompare(b.Nickname)),
         ])
-      : setUser((prevUser) => [
+      : setCustomer((prevUser) => [
           ...prevUser.sort((a, b) => b.Nickname.localeCompare(a.Nickname)),
         ]);
   };
   const onSortEMAILClick = () => {
-    setSortEMAIL(!SortEMAIL);
-    SortEMAIL
-      ? setUser((prevUser) => [
+    setSortEMAIL(!sortEMAIL);
+    sortEMAIL
+      ? setCustomer((prevUser) => [
           ...prevUser.sort((a, b) => a.userID.localeCompare(b.userID)),
         ])
-      : setUser((prevUser) => [
-        ...prevUser.sort((a, b) => b.userID.localeCompare(a.userID)),
+      : setCustomer((prevUser) => [
+          ...prevUser.sort((a, b) => b.userID.localeCompare(a.userID)),
         ]);
   };
   const onSortDATEClick = () => {
-    setSortDATE(!SortDATE);
-    SortDATE
-      ? setUser((prevUser) => [
-          ...prevUser.sort((a, b) => a.userID.localeCompare(b.userID)),
+    setSortDATE(!sortDATE);
+    sortDATE
+      ? setCustomer((prevUser) => [
+          ...prevUser.sort((a, b) => a.SignUpDate.localeCompare(b.SignUpDate)),
         ])
-      : setUser((prevUser) => [
-        ...prevUser.sort((a, b) => b.userID.localeCompare(a.userID)),
+      : setCustomer((prevUser) => [
+          ...prevUser.sort((a, b) => b.SignUpDate.localeCompare(a.SignUpDate)),
         ]);
+  };
+
+  const onSelectChange = (e) => {
+    if (e.target.value === "customer") {
+      setSelectedValue("customer");
+      console.log(selectedValue);
+    } else {
+      setSelectedValue("admin");
+    }
   };
 
   return (
     <div>
+      <div>
+        filter{" "}
+        <select onChange={onSelectChange}>
+          <option value="customer">Customer</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
       <table>
         <thead>
           <tr>
             <th onClick={onSortNOClick}>
               NO <HiChevronUpDown onClick={onSortNOClick} />
             </th>
-            <th onClick={onSortNAMEClick}>NAME <HiChevronUpDown onClick={onSortNAMEClick} /></th>
-            <th onClick={onSortEMAILClick}>EMAIL <HiChevronUpDown onClick={onSortEMAILClick} /></th>
-            <th onClick={onSortEMAILClick}>EMAIL <HiChevronUpDown onClick={onSortEMAILClick} /></th>
+            <th onClick={onSortNAMEClick}>
+              NAME <HiChevronUpDown onClick={onSortNAMEClick} />
+            </th>
+            <th onClick={onSortEMAILClick}>
+              EMAIL <HiChevronUpDown onClick={onSortEMAILClick} />
+            </th>
+            <th onClick={onSortDATEClick}>
+              DATE <HiChevronUpDown onClick={onSortDATEClick} />
+            </th>
             <th>OPTIONS</th>
           </tr>
         </thead>
 
         <tbody>
-          {user.map((item) => {
+          {selectedArray.map((item) => {
             var date_kst = new Date(
               Date.parse(item.SignUpDate) + 9 * 60 * 60000
             ).toISOString(Date(Date.parse(item.data) + 9 * 60 * 60000));
@@ -92,6 +133,10 @@ function UserList() {
                 <td>{item.Nickname}</td>
                 <td>{item.userID}</td>
                 <td>{kst}</td>
+                <td>
+                  <HiPencilSquare />
+                  <HiOutlineTrash />
+                </td>
               </tr>
             );
           })}
