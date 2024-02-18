@@ -9,7 +9,6 @@ function Home() {
   return (
     <Div_flex>
       <NewRelease/>
-      
       <Intro/>
       
       <ShopInfo/>
