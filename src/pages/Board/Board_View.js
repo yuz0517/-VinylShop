@@ -65,22 +65,7 @@ const Board_View = ({}) => {
     address = "",
     address1 = "";
 
-  // useEffect(() => {
-  //   if (mine === true) {
-  //     Axios.get("http://localhost:8000/api/board/delete", {
-  //       params: { user: User.email },
-  //     })
-  //       .then((res) => {
-  //         //set_dbdata([...dbdata, ...res.data]);
-  //         //userid = res.data[0].userID;
-  //         //setLoginId(userid);
-  //         //console.log();
-  //       })
-  //       .catch((err) => {
-  //         console.log(err.message);
-  //       });
-  //   }
-  // }, []);
+  
 
   //좋아요 기능 구현.
   async function like_click() {
