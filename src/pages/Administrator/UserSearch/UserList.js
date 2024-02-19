@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+//import { auth } from "../../../firebase";
+import { getAuth, deleteUser } from "firebase/auth";
+import firebase from "firebase-admin"
+import 'firebase/auth'
+//import  { firebase } from "firebase/app"
 import Axios from "axios";
 import {
   HiChevronUpDown,
@@ -8,13 +13,13 @@ import {
 function UserList() {
   const [customer, setCustomer] = useState([]);
   const [admin, setAdmin] = useState([]);
-
+  const [selectedUser, setSelectedUser] = useState([]);
   const [selectedValue, setSelectedValue] = useState(0);
   const [sortNO, setSortNO] = useState(0);
   const [sortNAME, setSortNAME] = useState(0);
   const [sortEMAIL, setSortEMAIL] = useState(0);
   const [sortDATE, setSortDATE] = useState(0);
-
+  
   const selectedArray = selectedValue === "admin" ? admin : customer;
   //selectedValue admin이면 admin배열을 넣고 아니면 customer 배열을 할당함.
   useEffect(() => {
@@ -79,6 +84,79 @@ function UserList() {
         ]);
   };
 
+
+  // const fbadmin = require("firebase-admin")
+  // const serviceAccount = require("../../../firebase-admin-key.json")
+  // fbadmin.initializeApp({
+  //   credential: fbadmin.credential.cert(serviceAccount)
+  //   //credential: admin.credential.cert(serviceAccount)
+  // })
+  const onDeleteClick = async (e) => {
+     await firebase.auth().getUserByEmail("test02@yuz.co.kr")
+    .then((userRecord) => {
+      console.log("이메일갖고오기성공")
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+    // try {
+    //   setSelectedUser(e);
+  
+    //   // getUserByEmail 메서드를 사용하여 사용자를 비동기적으로 가져옴
+    //   const userRecord = await auth.getUserByEmail(selectedUser.userID);
+  
+    //   // deleteUser 메서드를 사용하여 사용자를 삭제하고 완료될 때까지 기다림
+    //   await auth.deleteUser(userRecord.uid);
+  
+    //   console.log("Firebase 삭제 성공");
+    // } catch (error) {
+    //   console.error("Firebase 삭제 실패", selectedUser.userID, error);
+    // }
+  };
+  // const onDeleteClick = (e) => {
+  //   setSelectedUser(e);
+  //   const deleteUserFromFirebase = new Promise((resolve,reject) => {
+  //     const delUser = firebase.auth().getUserByEmail(selectedUser.userID);
+  //     await firebase.auth().deleteUser(delUser.uid);
+  //     .then(() => {
+  //       console.log("Firebase 삭제 성공");
+  //       resolve(console.log("firebase 삭제 성공"));
+  //     })
+  //     .catch((error) => {
+  //       console.log("Firebase 삭제 실패",selectedUser.userID);
+  //       reject(console.log(error))
+  //     })
+  //   });
+  //   // const deleteUSerFromDB = new Promise((resolve) => {
+  //   //   Axios.delete("http://localhost:8000/api/admin/user/delete", {
+  //   //     data: { id: selectedUser.userID },
+  //   //   })
+  //   //     .then((res) => {
+  //   //       console.log(res);
+  //   //     })
+  //   //     .catch((err) => {
+  //   //       console.log(err.message);
+  //   //     });
+  //   // });
+    
+
+  //   Promise.all([
+  //     deleteUserFromFirebase()
+  //   ])//위 두 개의 비동기 코드를 병렬로 처리함.
+  //   .then()
+  //   // try{
+  //   //   //deleteUser(selectedUser.userID)\
+  //   //   console.log(삭제완료);
+
+  //   // } catch (error) {
+  //   //   console.error("사용자 삭제 실패")
+  //   // }
+
+  //   console.log(e);
+  // };
+
+  const onEditClick = () => {};
+
   const onSelectChange = (e) => {
     if (e.target.value === "customer") {
       setSelectedValue("customer");
@@ -134,8 +212,8 @@ function UserList() {
                 <td>{item.userID}</td>
                 <td>{kst}</td>
                 <td>
-                  <HiPencilSquare />
-                  <HiOutlineTrash />
+                  <HiPencilSquare onClick={onEditClick} />
+                  <HiOutlineTrash onClick={() => onDeleteClick(item)} />
                 </td>
               </tr>
             );
