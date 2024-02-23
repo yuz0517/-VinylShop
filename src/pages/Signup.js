@@ -124,9 +124,7 @@ const Signup = () => {
             //setRegisterEmail("");
             //setRegisterPassword("");
             toast.success(<h4>회원가입이 완료되었습니다.<br /> 로그인 해 주세요.</h4>, { position: toast.POSITION.TOP_RIGHT, autoClose: 2000 });
-            //setTimeout(()=> {
-            //    navigate("/");
-            //  }, 2000);
+
 
         } catch (error) {
             console.log(error.message);
@@ -216,17 +214,12 @@ const Signup = () => {
                         placeholder="address"
                         type='text'
                         name='address'
-                        //onChange={getValue}
                         defaultValue={Address} //vlaue로 하면 에러남
-
-                    //onChange={onChangeAddress}//쓸모없는거!! 지워버리자
                     />
 
                     <button
                         className='button-signup-address'
-                        onClick={handleClick}
-                    //onChange={getValue}
-                        
+                        onClick={handleClick}   
                     >
                        
                         
@@ -238,7 +231,6 @@ const Signup = () => {
                     placeholder="상세 주소를 입력 해 주세요."
                     type='text'
                     name='address1'
-                    //onChange={onChangeAddress}//쓸모없는거!! 지워버리자
                     onChange={getValue}
                 />
 
