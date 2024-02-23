@@ -1,18 +1,25 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { MenubarData } from "./MenubarData";
+import "./Menubar.css"
 function Menubar() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
-    <>
-    <div>
-        <div >정보 수정</div>
-        <div onClick={(e) => { navigate('/admin/search/user')}}>사용자 조회</div>
-        <div>Journal 작성</div>
-        <div>제품 등록</div>
-        <div>답변</div>
+    <div className="admin-menu-container">
+      <div>
+        {MenubarData.map((item, index) => {
+          return (
+            <li key={index} className={item.cName}>
+              <Link to={item.path}>
+                {item.icon}
+                <span>{item.title}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </div>
     </div>
-    </>
-  )
+  );
 }
 
-export default Menubar
+export default Menubar;
