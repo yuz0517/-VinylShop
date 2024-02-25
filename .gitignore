@@ -1,5 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+/src/firebase.js
 /src/config-overrides.js
 /src/firebase-admin-key.json
 # dependencies
