@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 //import { auth } from "../../../firebase";
 import { getAuth, deleteUser } from "firebase/auth";
 import "firebase/compat/storage";
 import "firebase/auth";
 import firebase from "firebase/compat/app";
+
 
 //import  { firebase } from "firebase/app"
 import Axios from "axios";
@@ -21,13 +23,16 @@ function UserList() {
   const [sortNAME, setSortNAME] = useState(0);
   const [sortEMAIL, setSortEMAIL] = useState(0);
   const [sortDATE, setSortDATE] = useState(0);
+  const [selectedArray, setSelectedArray] = useState([]);
+  //let selectedArray = selectedValue === "admin" ? admin : customer;
 
-  const selectedArray = selectedValue === "admin" ? admin : customer;
   //selectedValue admin이면 admin배열을 넣고 아니면 customer 배열을 할당함.
+  const navigate = useNavigate();
   useEffect(() => {
     Axios.get("http://localhost:8000/api/admin/getuser", {})
       .then((res) => {
         setCustomer([...res.data]);
+        setSelectedArray([...res.data]);
         console.log(res.data);
       })
       .catch((err) => {
@@ -87,100 +92,70 @@ function UserList() {
   };
 
   const onDeleteClick = async (e) => {
-    console.log("e는?", e.userID);
     const email = e.userID;
     setSelectedUser(e);
-    //await firebase.auth().getUserByEmail("test02@yuz.co.kr")
-    // await firebase.auth().getUserByEmail("test02@yuz.co.kr")
-
-    const response = await fetch('http://localhost:8000/getUserEmail',{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
-    const data = await response.json();
-
-    if (data.success) {
-      const userRecord = data.userRecord;
-      console.log(userRecord);
-    }else {
-      console.error(data.error)
-    }
     
-    const deleteUSerFromDB = new Promise((resolve) => {
-      Axios.delete("http://localhost:8000/api/admin/user/delete", {
-        data: { id: selectedUser.userID },
-      })
-        .then((res) => {
-          console.log(selectedUser.userID)
-          console.log("성공", res);
-          console.log("성공");
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    });
-    // Promise.all([deleteUSerFromDB()]) //위 두 개의 비동기 코드를 병렬로 처리함.
-    //   .then();
-    // try {
-    //   //deleteUser(selectedUser.userID)\
-    //   console.log("삭제완료");
-    // } catch (error) {
-    //   console.error("사용자 삭제 실패");
-    // }
-   
+    try {
+      console.log(selectedUser.userID)
+      const firebaseDeleteResponse = await fetch(
+        "http://localhost:8000/users/api/admin/user/delete",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
+      const data = await firebaseDeleteResponse.json();
+
+      if (data.success) {
+        console.log("삭제완");
+
+        console.log(data,email);
+
+        try { const dbDeleteResponse = await Axios.delete(
+          "http://localhost:8000/api/admin/user/delete",
+          {
+            data: { id:email },
+          }
+        )
+          .then((res) => {
+            console.log(selectedArray.filter(
+              (item) => item.userID !== email
+            ))
+            setSelectedArray(
+              selectedArray.filter(
+                (item) => item.userID !== email
+              )
+            );
+          })
+          .catch((err) => {
+            console.log("db에러")
+            console.log(err.message);
+          });
+        } catch(err){
+          console.error(err.message)
+        }
+        
+      } else {
+        console.error(data.error);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
   };
-  // const onDeleteClick = (e) => {
-  //   setSelectedUser(e);
-  //   const deleteUserFromFirebase = new Promise((resolve,reject) => {
-  //     const delUser = firebase.auth().getUserByEmail(selectedUser.userID);
-  //     await firebase.auth().deleteUser(delUser.uid);
-  //     .then(() => {
-  //       console.log("Firebase 삭제 성공");
-  //       resolve(console.log("firebase 삭제 성공"));
-  //     })
-  //     .catch((error) => {
-  //       console.log("Firebase 삭제 실패",selectedUser.userID);
-  //       reject(console.log(error))
-  //     })
-  //   });
-  //   // const deleteUSerFromDB = new Promise((resolve) => {
-  //   //   Axios.delete("http://localhost:8000/api/admin/user/delete", {
-  //   //     data: { id: selectedUser.userID },
-  //   //   })
-  //   //     .then((res) => {
-  //   //       console.log(res);
-  //   //     })
-  //   //     .catch((err) => {
-  //   //       console.log(err.message);
-  //   //     });
-  //   // });
 
-  //   Promise.all([
-  //     deleteUserFromFirebase()
-  //   ])//위 두 개의 비동기 코드를 병렬로 처리함.
-  //   .then()
-  //   // try{
-  //   //   //deleteUser(selectedUser.userID)\
-  //   //   console.log(삭제완료);
-
-  //   // } catch (error) {
-  //   //   console.error("사용자 삭제 실패")
-  //   // }
-
-  //   console.log(e);
-  // };
-
-  const onEditClick = () => {};
+  const onEditClick = (e) => {
+    navigate('/path', { state: { param: e } });
+  };
 
   const onSelectChange = (e) => {
     if (e.target.value === "customer") {
-      setSelectedValue("customer");
+      setSelectedArray(customer);
       console.log(selectedValue);
-    } else {
-      setSelectedValue("admin");
+    } else if (e.target.value === "admin") {
+      setSelectedArray(admin);
     }
   };
 
