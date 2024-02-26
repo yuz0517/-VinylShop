@@ -24,6 +24,7 @@ import AdminMain from "./pages/Administrator/AdminMain";
 import AdminLogin from "./pages/Administrator/AdminLogin";
 import UserSearchContainer from "./pages/Administrator/UserSearch/UserSearchContainer";
 import Menubar from "./pages/Administrator/Menubar";
+import UserEdit from "./pages/Administrator/UserSearch/UserEdit";
 import { Div_flex } from "./styled-component/homeStyle";
 
 function App() {
@@ -53,9 +54,10 @@ function App() {
                 <Route path="/admin" element={<AdminMain />} />
 
                 <Route
-                  path="/admin/search/user"
-                  element={<UserSearchContainer />}
+                  path="/admin/user" element={<UserSearchContainer />}
                 />
+                <Route 
+                  path="/admin/user/edit" element={<UserEdit/>}/>
               </Routes>
             </>
           ) : (
