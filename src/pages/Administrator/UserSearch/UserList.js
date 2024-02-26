@@ -147,7 +147,8 @@ function UserList() {
   };
 
   const onEditClick = (e) => {
-    navigate('/path', { state: { param: e } });
+    navigate('/admin/user/edit', { state: e });
+    console.log(e)
   };
 
   const onSelectChange = (e) => {
@@ -191,7 +192,7 @@ function UserList() {
           {selectedArray.map((item) => {
             var date_kst = new Date(
               Date.parse(item.SignUpDate) + 9 * 60 * 60000
-            ).toISOString(Date(Date.parse(item.data) + 9 * 60 * 60000));
+            ).toISOString(Date(Date.parse(item.SignUpDate) + 9 * 60 * 60000));
             var kst =
               date_kst.slice(0, 4) +
               "/" +
@@ -205,7 +206,7 @@ function UserList() {
                 <td>{item.userID}</td>
                 <td>{kst}</td>
                 <td>
-                  <HiPencilSquare onClick={onEditClick} />
+                  <HiPencilSquare onClick={() => onEditClick(item)} />
                   <HiOutlineTrash onClick={() => onDeleteClick(item)} />
                 </td>
               </tr>
