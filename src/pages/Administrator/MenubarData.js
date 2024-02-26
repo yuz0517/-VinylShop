@@ -13,7 +13,7 @@ export const MenubarData=[
     },
     {
         title:'Users',
-        path: '/admin/search/user',
+        path: '/admin/user',
         icon:<AiIcons.AiOutlineTeam />,
         cName: "admin-nav-text",
     },
