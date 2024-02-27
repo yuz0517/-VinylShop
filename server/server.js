@@ -37,8 +37,9 @@ app.post("/api/signup", (req, res) => {
   const usrID = req.body.id;
   const Address = req.body.address;
   const Address1 = req.body.address1;
+  const withdrawal = 1000;
   const sqlQuery =
-    "INSERT INTO Persons (Nickname,userID,Address,Address1) VALUES (?,?,?,?)";
+    "INSERT INTO Persons (Nickname,userID,Address,Address1,withdrawal,admin) VALUES (?,?,?,?,1000,0)";
   db.query(sqlQuery, [Nickname, usrID, Address, Address1], (err, result) => {
     if (!err) {
       console.log(result);
@@ -536,7 +537,7 @@ app.delete("/api/admin/user/delete", (req, res) => {
   const key = req.body.id;
   const sqlQuery = "DELETE FROM Persons WHERE userID = ? ;";
   db.query(sqlQuery, [key], (err, data) => {
-    console.log(req.body.id);
+    console.log("key is: ",req.body.id);
     if (!err) {
       console.log(key);
       console.log(data);
@@ -548,17 +549,16 @@ app.delete("/api/admin/user/delete", (req, res) => {
   });
 });
 
-//----/
+//--firebase--
 admin.initializeApp({
   credential: admin.credential.cert(firebaseAdminAccount),
-
 });
 
 const auth = admin.auth();
 
 app.use(bodyParser.json());
 
-app.post("/getUserEmail", async (req, res) => {
+app.post("/users/api/admin/user/delete", async (req, res) => {
   const { email } = req.body;
 
   try {
