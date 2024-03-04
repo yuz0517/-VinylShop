@@ -52,10 +52,10 @@ function UserList() {
   const onSortNOClick = () => {
     setSortNO(!sortNO);
     sortNO
-      ? setCustomer((prevUser) => [
+      ? setSelectedArray((prevUser) => [
           ...prevUser.sort((a, b) => b.PersonID - a.PersonID),
         ])
-      : setCustomer((prevUser) => [
+      : setSelectedArray((prevUser) => [
           ...prevUser.sort((a, b) => a.PersonID - b.PersonID),
         ]);
   };
@@ -63,30 +63,30 @@ function UserList() {
     console.log("눌림");
     setSortNAME(!sortNAME);
     sortNAME
-      ? setCustomer((prevUser) => [
+      ? setSelectedArray((prevUser) => [
           ...prevUser.sort((a, b) => a.Nickname.localeCompare(b.Nickname)),
         ])
-      : setCustomer((prevUser) => [
+      : setSelectedArray((prevUser) => [
           ...prevUser.sort((a, b) => b.Nickname.localeCompare(a.Nickname)),
         ]);
   };
   const onSortEMAILClick = () => {
     setSortEMAIL(!sortEMAIL);
     sortEMAIL
-      ? setCustomer((prevUser) => [
+      ? setSelectedArray((prevUser) => [
           ...prevUser.sort((a, b) => a.userID.localeCompare(b.userID)),
         ])
-      : setCustomer((prevUser) => [
+      : setSelectedArray((prevUser) => [
           ...prevUser.sort((a, b) => b.userID.localeCompare(a.userID)),
         ]);
   };
   const onSortDATEClick = () => {
     setSortDATE(!sortDATE);
     sortDATE
-      ? setCustomer((prevUser) => [
+      ? setSelectedArray((prevUser) => [
           ...prevUser.sort((a, b) => a.SignUpDate.localeCompare(b.SignUpDate)),
         ])
-      : setCustomer((prevUser) => [
+      : setSelectedArray((prevUser) => [
           ...prevUser.sort((a, b) => b.SignUpDate.localeCompare(a.SignUpDate)),
         ]);
   };
@@ -94,6 +94,7 @@ function UserList() {
   const onDeleteClick = async (e) => {
     const email = e.userID;
     setSelectedUser(e);
+
     
     try {
       console.log(selectedUser.userID)
@@ -110,10 +111,6 @@ function UserList() {
       const data = await firebaseDeleteResponse.json();
 
       if (data.success) {
-        console.log("삭제완");
-
-        console.log(data,email);
-
         try { const dbDeleteResponse = await Axios.delete(
           "http://localhost:8000/api/admin/user/delete",
           {
@@ -129,6 +126,7 @@ function UserList() {
                 (item) => item.userID !== email
               )
             );
+            alert("삭제 완료되었습니다.");
           })
           .catch((err) => {
             console.log("db에러")
