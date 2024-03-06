@@ -15,6 +15,7 @@ import {
   Div_flex,
 } from "../../../styled-component/style.js";
 import { convertToKst } from "../../../Utils/Utils.js";
+import Axios from "axios"
 export default function UserEdit() {
   const location = useLocation();
   const data = location.state;
@@ -28,7 +29,16 @@ export default function UserEdit() {
   const { year, month, day, hour, minute } = convertToKst(data.SignUpDate);
 
   const onSaveClick = () => {
-
+    Axios.patch(`http://localhost:8000/api/admin/user/update/${data.PersonID}`,{
+        nickname: nickName,
+        address: address,
+        address1: address1,
+        role: role,
+    }).then((res)=> {
+        console.log(res)
+    }).catch((err)=>{
+        console.log(err)
+    })
   }
   const onCancelClick = () => {
     navigate('/admin/user');
