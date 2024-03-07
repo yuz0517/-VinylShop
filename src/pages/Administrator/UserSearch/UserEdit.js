@@ -15,7 +15,7 @@ import {
   Div_flex,
 } from "../../../styled-component/style.js";
 import { convertToKst } from "../../../Utils/Utils.js";
-import Axios from "axios"
+import Axios from "axios";
 export default function UserEdit() {
   const location = useLocation();
   const data = location.state;
@@ -29,21 +29,27 @@ export default function UserEdit() {
   const { year, month, day, hour, minute } = convertToKst(data.SignUpDate);
 
   const onSaveClick = () => {
-    Axios.patch(`http://localhost:8000/api/admin/user/update/${data.PersonID}`,{
+    Axios.patch(
+      `http://localhost:8000/api/admin/user/update/${data.PersonID}`,
+      {
         nickname: nickName,
         address: address,
         address1: address1,
         role: role,
-    }).then((res)=> {
-        console.log(res)
-        navigate('/admin/user');
-    }).catch((err)=>{
-        console.log(err)
-    })
-  }
+      }
+    )
+      .then((res) => {
+        console.log(res);
+        const isInputAll = nickName == '' && address == '' && address1 == '';
+        isInputAll ? navigate("/admin/user") : alert("모든 필드가 입력되지 않았습니다.")
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const onCancelClick = () => {
-    navigate('/admin/user');
-  }
+    navigate("/admin/user");
+  };
   console.log(data.Address);
   return (
     <Div_all>
