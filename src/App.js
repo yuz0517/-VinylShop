@@ -26,6 +26,7 @@ import UserSearchContainer from "./pages/Administrator/UserSearch/UserSearchCont
 import Menubar from "./pages/Administrator/Menubar";
 import UserEdit from "./pages/Administrator/UserSearch/UserEdit";
 import { Div_flex } from "./styled-component/homeStyle";
+import SearchResult from "./pages/Administrator/UserSearch/SearchResult";
 
 function App() {
   const isAdminOpen = window.location.pathname.startsWith("/admin");
@@ -58,6 +59,9 @@ function App() {
                 />
                 <Route 
                   path="/admin/user/edit" element={<UserEdit/>}/>
+                <Route
+                  path="/admin/user/search" element={<SearchResult/>}
+                />
               </Routes>
             </>
           ) : (
