@@ -557,7 +557,7 @@ app.patch("/api/admin/user/update/:id", (req, res) => {
   const address = req.body.address;
   const address1 = req.body.address1;
   const sqlQuery =
-    "UPDATE Persons SET Nickname = ? , Address = ? , Address1 = ? WHERE PersonID = ?";
+    "UPDATE Persons SET Nickname = ? , Address = ? , Address1 = ? , admin = ? WHERE PersonID = ?";
   db.query(sqlQuery, [nickName, address, address1, role, id], (err, result) => {
     if (!err) {
       return res.send(result);
