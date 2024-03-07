@@ -36,6 +36,7 @@ export default function UserEdit() {
         role: role,
     }).then((res)=> {
         console.log(res)
+        navigate('/admin/user');
     }).catch((err)=>{
         console.log(err)
     })
@@ -87,6 +88,7 @@ export default function UserEdit() {
       <Select_Rect_transparent
         onChange={(e) => {
           setRole(e.target.value);
+          console.log(e.target.value);
         }}
       >
         <option value="1">Admin</option>
