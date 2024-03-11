@@ -6,7 +6,6 @@ import "firebase/compat/storage";
 import "firebase/auth";
 import firebase from "firebase/compat/app";
 
-
 //import  { firebase } from "firebase/app"
 import Axios from "axios";
 import {
@@ -24,6 +23,9 @@ function UserList() {
   const [sortEMAIL, setSortEMAIL] = useState(0);
   const [sortDATE, setSortDATE] = useState(0);
   const [selectedArray, setSelectedArray] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [selectedListOption, setSelectedListOption] = useState("customer");
+  const [selectedSearchOption, setSelectedSearchOption] = useState("Email");
   //let selectedArray = selectedValue === "admin" ? admin : customer;
 
   //selectedValue admin이면 admin배열을 넣고 아니면 customer 배열을 할당함.
@@ -90,14 +92,14 @@ function UserList() {
           ...prevUser.sort((a, b) => b.SignUpDate.localeCompare(a.SignUpDate)),
         ]);
   };
+  
 
   const onDeleteClick = async (e) => {
     const email = e.userID;
     setSelectedUser(e);
 
-    
     try {
-      console.log(selectedUser.userID)
+      console.log(selectedUser.userID);
       const firebaseDeleteResponse = await fetch(
         "http://localhost:8000/users/api/admin/user/delete",
         {
@@ -111,31 +113,29 @@ function UserList() {
       const data = await firebaseDeleteResponse.json();
 
       if (data.success) {
-        try { const dbDeleteResponse = await Axios.delete(
-          "http://localhost:8000/api/admin/user/delete",
-          {
-            data: { id:email },
-          }
-        )
-          .then((res) => {
-            console.log(selectedArray.filter(
-              (item) => item.userID !== email
-            ))
-            setSelectedArray(
-              selectedArray.filter(
-                (item) => item.userID !== email
-              )
-            );
-            alert("삭제 완료되었습니다.");
-          })
-          .catch((err) => {
-            console.log("db에러")
-            console.log(err.message);
-          });
-        } catch(err){
-          console.error(err.message)
+        try {
+          const dbDeleteResponse = await Axios.delete(
+            "http://localhost:8000/api/admin/user/delete",
+            {
+              data: { id: email },
+            }
+          )
+            .then((res) => {
+              console.log(
+                selectedArray.filter((item) => item.userID !== email)
+              );
+              setSelectedArray(
+                selectedArray.filter((item) => item.userID !== email)
+              );
+              alert("삭제 완료되었습니다.");
+            })
+            .catch((err) => {
+              console.log("db에러");
+              console.log(err.message);
+            });
+        } catch (err) {
+          console.error(err.message);
         }
-        
       } else {
         console.error(data.error);
       }
@@ -145,23 +145,38 @@ function UserList() {
   };
 
   const onEditClick = (e) => {
-    navigate('/admin/user/edit', { state: e });
-    console.log(e)
+    navigate("/admin/user/edit", { state: e });
   };
 
   const onSelectChange = (e) => {
     if (e.target.value === "customer") {
       setSelectedArray(customer);
-      console.log(selectedValue);
+      setSelectedListOption("customer");
     } else if (e.target.value === "admin") {
       setSelectedArray(admin);
+      setSelectedListOption("admin");
     }
   };
+  const onSearchClick = () => {
+    navigate("/admin/user/search", { state: { option: selectedSearchOption, searchKey: searchKeyword, listOption: selectedListOption } });
+  };
+  
+  const onSearchSelectChange = (e) => {
+    (e.target.value === 'id') ? setSelectedSearchOption("id") :
+    (e.target.value === 'nickname') ? setSelectedSearchOption("nickname") : setSelectedSearchOption("email");
+  }
 
   return (
     <div>
       <div>
-        filter{" "}
+        <select onChange={onSearchSelectChange}>
+          <option value="email">Email</option>
+          <option value="id">고유번호</option>
+          <option value="nickname">Nickname</option>
+        </select>
+        <input onChange={(e) => setSearchKeyword(e.target.value)} />
+
+        <div onClick={onSearchClick}>검색</div>
         <select onChange={onSelectChange}>
           <option value="customer">Customer</option>
           <option value="admin">Admin</option>
