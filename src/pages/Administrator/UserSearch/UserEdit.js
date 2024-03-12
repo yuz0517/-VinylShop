@@ -29,23 +29,29 @@ export default function UserEdit() {
   const { year, month, day, hour, minute } = convertToKst(data.SignUpDate);
 
   const onSaveClick = () => {
-    Axios.patch(
-      `http://localhost:8000/api/admin/user/update/${data.PersonID}`,
-      {
-        nickname: nickName,
-        address: address,
-        address1: address1,
-        role: role,
-      }
-    )
-      .then((res) => {
-        console.log(res);
-        const isInputAll = nickName == '' && address == '' && address1 == '';
-        isInputAll ? navigate("/admin/user") : alert("모든 필드가 입력되지 않았습니다.")
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const isInputAll = nickName == '' || address == '' || address1 == '';
+    isInputAll ? alert("모든 필드가 입력되지 않았습니다.") : 
+      Axios.patch(
+        `http://localhost:8000/api/admin/user/update/${data.PersonID}`,
+        {
+          nickname: nickName,
+          address: address,
+          address1: address1,
+          role: role,
+        }
+      )
+        .then((res) => {
+          console.log(res);
+          
+         navigate("/admin/user") 
+          console.log(address, nickName,address1)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+      
+  
+    
   };
   const onCancelClick = () => {
     navigate("/admin/user");
