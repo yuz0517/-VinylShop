@@ -533,6 +533,29 @@ app.get("/api/admin/getadmin", (req, res) => {
   });
 });
 
+app.get("/api/admin/user/search/:searchKey", (req, res) => {
+  const sqlQuery = "SELECT * FROM Persons WHERE admin = ? AND ?? Like ?";
+  const admin = req.query.listOption;
+  const key = req.params.searchKey;
+  const searchOption = req.query.searchOption;
+  const keuyy = req.query.searchKey
+  const queryKey = "%" + key + "%";
+  
+  //const fullQuery = db.format(sqlQuery,[admin,listOption,queryKey])
+  //console.log(fullQuery);
+  console.log(admin,searchOption, queryKey)
+  db.query(sqlQuery, [admin,searchOption,queryKey], (err, data) => {
+    if (!err) {
+      console.log(data);
+      return res.send(data);
+      
+    } else {
+      res.send(err);
+      console.log(sqlQuery)
+    }
+  });
+});
+
 app.delete("/api/admin/user/delete", (req, res) => {
   const key = req.body.id;
   const sqlQuery = "DELETE FROM Persons WHERE userID = ? ;";
