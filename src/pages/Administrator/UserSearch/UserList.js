@@ -5,7 +5,9 @@ import { getAuth, deleteUser } from "firebase/auth";
 import "firebase/compat/storage";
 import "firebase/auth";
 import firebase from "firebase/compat/app";
-
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Stack from "@mui/material/Stack";
 //import  { firebase } from "firebase/app"
 import Axios from "axios";
 import List from "./List";
@@ -19,11 +21,13 @@ function UserList() {
   const [admin, setAdmin] = useState([]);
   const [selectedUser, setSelectedUser] = useState([]);
   const [selectedValue, setSelectedValue] = useState(0);
-  
+
   const [selectedArray, setSelectedArray] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [selectedListOption, setSelectedListOption] = useState(0);
   const [selectedSearchOption, setSelectedSearchOption] = useState("userID");
+
+  const [alignment, setAlignment] = useState("customer");
   //let selectedArray = selectedValue === "admin" ? admin : customer;
 
   //selectedValue admin이면 admin배열을 넣고 아니면 customer 배열을 할당함.
@@ -48,30 +52,32 @@ function UserList() {
       });
   }, []);
 
-  
-  
 
-  
 
- 
-
-  const onSelectChange = (e) => {
-    if (e.target.value === "customer") {
-      setSelectedArray(customer);
-      setSelectedListOption("0");
-    } else if (e.target.value === "admin") {
-      setSelectedArray(admin);
-      setSelectedListOption("1");
-    }
-  };
-  const onSearchClick = () => {
-    navigate("/admin/user/search", { state: { option: selectedSearchOption, searchKey: searchKeyword, listOption: selectedListOption } });
-  };
-  
-  const onSearchSelectChange = (e) => {
-    (e.target.value === 'id') ? setSelectedSearchOption("PersonID") :
-    (e.target.value === 'nickname') ? setSelectedSearchOption("Nickname") : setSelectedSearchOption("userID");
+  const onToggleChange = (e,value) => {
+    value === 0 ? setSelectedArray(customer) : setSelectedArray(admin);
+    setSelectedListOption(value);
+    console.log(selectedListOption)
   }
+  const onSearchClick = () => {
+    navigate("/admin/user/search", {
+      state: {
+        option: selectedSearchOption,
+        searchKey: searchKeyword,
+        listOption: selectedListOption,
+      },
+    });
+  };
+
+  const onSearchSelectChange = (e) => {
+    e.target.value === "id"
+      ? setSelectedSearchOption("PersonID")
+      : e.target.value === "nickname"
+      ? setSelectedSearchOption("Nickname")
+      : setSelectedSearchOption("userID");
+  };
+
+
 
   return (
     <div>
@@ -84,12 +90,15 @@ function UserList() {
         <input onChange={(e) => setSearchKeyword(e.target.value)} />
 
         <div onClick={onSearchClick}>검색</div>
-        <select onChange={onSelectChange}>
-          <option value="customer">Customer</option>
-          <option value="admin">Admin</option>
-        </select>
+        
+          <ToggleButtonGroup value={selectedListOption}onChange={onToggleChange} exclusive aria-label="Platform" color="primary">
+            <ToggleButton value={0}size="small">Customer</ToggleButton>
+            <ToggleButton value={1}size="small">Admin</ToggleButton>
+          </ToggleButtonGroup>
+       
+     
       </div>
-      <List dataArray={selectedArray}/>
+      <List dataArray={selectedArray} />
       {/* 
             <Pagination
                 // 현재 보고있는 페이지 
