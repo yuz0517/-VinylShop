@@ -163,6 +163,12 @@ function List(props) {
   const createHandleMenuClick = (menuItem) => {
     console.log(`Clicked on ${menuItem}`);
   };
+  const onCheckboxChange = (e,item) => {
+    setSelectedUser(item)
+    console.log(e.target.checked)
+    e.target.checked ? setCheckedData(prev => [...prev,item ]): setCheckedData(checkedData.filter(user =>user.PersonID !== selectedUser.PersonID))
+    console.log(checkedData);
+  }
   return (
     <>
       <table>
@@ -199,7 +205,7 @@ function List(props) {
             return (
               <tr>
                 <td>
-                  <Checkbox onChange={() => console.log(item)} label="Label" />
+                  <Checkbox onChange={(e) => (onCheckboxChange(e,item))} label="Label" />
                 </td>
                 <td>{item.PersonID}</td>
                 <td>{item.Nickname}</td>
