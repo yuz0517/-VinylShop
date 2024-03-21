@@ -11,6 +11,15 @@ import Stack from "@mui/material/Stack";
 //import  { firebase } from "firebase/app"
 import Axios from "axios";
 import List from "./List";
+
+import {
+  TextField,
+  Button,
+  Select,
+  InputLabel,
+  FormControl,
+  MenuItem,
+} from "@mui/material";
 import {
   HiChevronUpDown,
   HiPencilSquare,
@@ -52,21 +61,22 @@ function UserList() {
       });
   }, []);
 
-
-
-  const onToggleChange = (e,value) => {
+  const onToggleChange = (e, value) => {
     value === 0 ? setSelectedArray(customer) : setSelectedArray(admin);
     setSelectedListOption(value);
-    console.log(selectedListOption)
-  }
+    console.log(selectedListOption);
+  };
   const onSearchClick = () => {
-    navigate("/admin/user/search", {
-      state: {
-        option: selectedSearchOption,
-        searchKey: searchKeyword,
-        listOption: selectedListOption,
-      },
-    });
+    const isComplete =
+      searchKeyword.length === 0
+        ? alert("검색어를 한 글자 이상 입력 해 주세요.")
+        : navigate("/admin/user/search", {
+            state: {
+              option: selectedSearchOption,
+              searchKey: searchKeyword,
+              listOption: selectedListOption,
+            },
+          });
   };
 
   const onSearchSelectChange = (e) => {
@@ -77,27 +87,48 @@ function UserList() {
       : setSelectedSearchOption("userID");
   };
 
-
-
   return (
     <div>
       <div>
-        <select onChange={onSearchSelectChange}>
-          <option value="email">Email</option>
-          <option value="id">고유번호</option>
-          <option value="nickname">Nickname</option>
-        </select>
-        <input onChange={(e) => setSearchKeyword(e.target.value)} />
-
-        <div onClick={onSearchClick}>검색</div>
-        
-          <ToggleButtonGroup value={selectedListOption}onChange={onToggleChange} exclusive aria-label="Platform" color="primary">
-            <ToggleButton value={0}size="small">Customer</ToggleButton>
-            <ToggleButton value={1}size="small">Admin</ToggleButton>
-          </ToggleButtonGroup>
-       
-     
+  
+        <FormControl sx={{ m: 0, minWidth: 120 }}>
+          <InputLabel id="user-list-search-select-label">Option</InputLabel>
+          <Select
+            labelId="user-list-search-select-label"
+            id="demo-controlled-open-select"
+            label="Option"
+            onChange={onSearchSelectChange}
+          >
+            <MenuItem value="email">Email</MenuItem>
+            <MenuItem value="id">고유번호</MenuItem>
+            <MenuItem value="nickname">닉네임</MenuItem>
+          </Select>
+        </FormControl>
+        <TextField
+          id="outlined-search"
+          label="Search field"
+          type="search"
+          onChange={(e) => setSearchKeyword(e.target.value)}
+        />
+        <Button variant="outlined" onClick={onSearchClick}>
+          검색
+        </Button>
       </div>
+      <ToggleButtonGroup
+        value={selectedListOption}
+        onChange={onToggleChange}
+        exclusive
+        aria-label="Platform"
+        color="primary"
+      >
+        <ToggleButton value={0} size="small">
+          Customer
+        </ToggleButton>
+        <ToggleButton value={1} size="small">
+          Admin
+        </ToggleButton>
+      </ToggleButtonGroup>
+
       <List dataArray={selectedArray} />
       {/* 
             <Pagination
