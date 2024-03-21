@@ -12,5 +12,7 @@ export const convertToKst = (originDate) => {
   const day = adjustDate.slice(8, 10);
   const hour = adjustDate.slice(11, 13);
   const minute = adjustDate.slice(14,16)
-  return { year,month,day,hour,minute };
+  const fullDate = year+""+month+""+day+""+hour+""+minute
+  return { year,month,day,hour,minute,fullDate};
 };
+
