@@ -538,20 +538,19 @@ app.get("/api/admin/user/search/:searchKey", (req, res) => {
   const admin = req.query.listOption;
   const key = req.params.searchKey;
   const searchOption = req.query.searchOption;
-  const keuyy = req.query.searchKey
+  const keuyy = req.query.searchKey;
   const queryKey = "%" + key + "%";
-  
+
   //const fullQuery = db.format(sqlQuery,[admin,listOption,queryKey])
   //console.log(fullQuery);
-  console.log(admin,searchOption, queryKey)
-  db.query(sqlQuery, [admin,searchOption,queryKey], (err, data) => {
+  console.log(admin, searchOption, queryKey);
+  db.query(sqlQuery, [admin, searchOption, queryKey], (err, data) => {
     if (!err) {
       console.log(data);
       return res.send(data);
-      
     } else {
       res.send(err);
-      console.log(sqlQuery)
+      console.log(sqlQuery);
     }
   });
 });
@@ -560,7 +559,7 @@ app.delete("/api/admin/user/delete", (req, res) => {
   const key = req.body.id;
   const sqlQuery = "DELETE FROM Persons WHERE userID = ? ;";
   db.query(sqlQuery, [key], (err, data) => {
-    console.log("key is: ",req.body.id);
+    console.log("key is: ", req.body.id);
     if (!err) {
       console.log(key);
       console.log(data);
@@ -572,9 +571,38 @@ app.delete("/api/admin/user/delete", (req, res) => {
   });
 });
 
+app.delete("/api/admin/user/delete/multi", (req, res) => {
+
+    const key = req.body.id;
+    console.log("안녕");
+    var keyString = "";
+    key.forEach((element, index, array) => {
+      if (index === array.length - 1) {
+        keyString += `userID = "` + element + "" + `"`;
+      } else {
+        keyString += `userID = "` + element + "" + `"` + `||`;
+      }
+    });
+
+
+  console.log(keyString, key);
+  const sqlQuery = "DELETE FROM Persons WHERE ? ;";
+  console.log(sqlQuery);
+  db.query(sqlQuery, [keyString], (err, data) => {
+    console.log("key is: ",req.body.id,keyString);
+    if (!err) {
+      console.log(key);
+      console.log(data);
+      return res.send(data);
+    } else {
+      console.log(key);
+      res.send(err);
+    }
+  });
+});
 
 app.patch("/api/admin/user/update/:id", (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   const nickName = req.body.nickname;
   const role = req.body.role;
   const address = req.body.address;
@@ -603,10 +631,27 @@ app.post("/users/api/admin/user/delete", async (req, res) => {
 
   try {
     const userRecord = await auth.getUserByEmail(email);
-    auth.deleteUser(userRecord.uid);
+    await auth.deleteUser(userRecord.uid);
     res.json({ success: true, userRecord });
   } catch (error) {
     console.error("에러 발생", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.post("/users/api/admin/user/delete/multi", async (req, res) => {
+  const { emails } = req.body;
+  try{
+    var deleteResults = [];
+    for (const email of emails){
+      console.log("firebase 삭제 시도 ",email)
+      const userRecord = await auth.getUserByEmail(email);
+      await auth.deleteUser(userRecord.uid);
+      deleteResults.push({ email, success: true });
+    }
+    res.json({ success: true, deleteResults });
+  } catch(error){
+    console.error("error", error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
