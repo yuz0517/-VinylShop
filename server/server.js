@@ -574,29 +574,41 @@ app.delete("/api/admin/user/delete", (req, res) => {
 app.delete("/api/admin/user/delete/multi", (req, res) => {
 
     const key = req.body.id;
-    console.log("안녕");
     var keyString = "";
-    key.forEach((element, index, array) => {
-      if (index === array.length - 1) {
-        keyString += `userID = "` + element + "" + `"`;
+    // key.forEach((element, index, array) => {
+    //   if (index === array.length - 1) {
+    //     keyString += "userID = " + `"`+element  + `"`;
+    //   } else {
+    //     keyString += "userID = "+`"` + element + `"` + `||`;
+    //   }
+    // });
+  //  key.forEach((element, index, array) => {
+  //     if( index === array.length -1 ){
+  //       keyString += `"`+element + `"`;
+  //     } else {
+  //       keyString += `"` + element + `"` + ","
+  //     }
+  //  })
+   key.forEach((element, index, array) => {
+      if( index === array.length -1 ){
+        keyString += "'"+element +"'" 
       } else {
-        keyString += `userID = "` + element + "" + `"` + `||`;
+        keyString +=  "'"+element+"'"  + "," 
       }
-    });
+   })
 
-
-  console.log(keyString, key);
-  const sqlQuery = "DELETE FROM Persons WHERE ? ;";
-  console.log(sqlQuery);
+  console.log(keyString);
+  const sqlQuery = `DELETE FROM Persons WHERE userID  IN( ${keyString}) ;`;
+  console.log(sqlQuery + keyString);
   db.query(sqlQuery, [keyString], (err, data) => {
-    console.log("key is: ",req.body.id,keyString);
+    console.log(db.query);
     if (!err) {
       console.log(key);
-      console.log(data);
-      return res.send(data);
+      console.log(data.sql);
+      return res.send("success");
     } else {
       console.log(key);
-      res.send(err);
+      res.send("fail");
     }
   });
 });

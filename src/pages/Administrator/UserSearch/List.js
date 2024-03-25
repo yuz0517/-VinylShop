@@ -29,6 +29,7 @@ import {
   HiPencilSquare,
   HiOutlineTrash,
 } from "react-icons/hi2";
+import ExportCSV from "../../../Utils/ExportCSV";
 
 const modalStyle = {
   position: "absolute",
@@ -52,7 +53,8 @@ function List(props) {
   const [sortEMAIL, setSortEMAIL] = useState(0);
   const [sortDATE, setSortDATE] = useState(0);
   const [checkedData, setCheckedData] = useState([]);
-
+  const [emails,setEmails] = useState([])
+  const testString = "sdf";
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -61,6 +63,11 @@ function List(props) {
   useEffect(() => {
     setSelectedArray(props.dataArray);
   }, [props.dataArray]);
+  
+  useEffect(() => {
+    setEmails( checkedData ? checkedData.map(user => user.userID):[])
+    console.log("useEffect:",emails)
+  },[checkedData])
   const onEditClick = (e) => {
     navigate("/admin/user/edit", { state: e });
   };
@@ -113,11 +120,47 @@ function List(props) {
     setSelectedUserName(name);
   };
 
-  const onDeleteClick = async (e) => {
-    // const email = e.userID;
-    // const name = e.Nickname;
-    // setSelectedUser(e);
-    // setSelectedUserName(name);
+  const  onDeleteMultiUserClick  = async (e) => {
+    //props.data.forEach((obj) => delete obj.withdrawal);
+   
+    console.log(checkedData,emails)
+   
+    console.log(emails)
+    try {
+      const firebaseDeleteResponse = await fetch(
+        "http://localhost:8000/users/api/admin/user/delete/multi",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ emails }),
+        }
+      );
+      const data = await firebaseDeleteResponse.json();
+      console.log(data)
+      try {
+        const dbDeleteResponse = await Axios.delete(
+          "http://localhost:8000/api/admin/user/delete/multi",
+          {
+            data: { id: emails },
+            
+          }
+        );
+
+        //console.log(selectedArray.filter((item) => item.userID !== emails));
+        //setSelectedArray(selectedArray.filter((item) => item.userID !== email));
+        alert("삭제 완료되었습니다.");
+        handleClose();
+      } catch (err) {
+        console.log("db에러");
+        console.log(err.message);
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+  const onDeleteSingleUserClick = async (e) => {
     const email = selectedUser.userID;
     try {
       console.log(selectedUser.userID);
@@ -128,13 +171,10 @@ function List(props) {
           headers: {
             "Content-Type": "application/json",
           },
-        //   body: JSON.stringify({ email }),
-        body: JSON.stringify({ email }),
+          body: JSON.stringify({ email }),
         }
       );
       const data = await firebaseDeleteResponse.json();
-
-      //   if (data.success) {
 
       try {
         const dbDeleteResponse = await Axios.delete(
@@ -155,20 +195,21 @@ function List(props) {
     } catch (err) {
       console.error(err.message);
     }
-    //   } else {
-    //     console.error(data.error);
-    //   }
   };
 
   const createHandleMenuClick = (menuItem) => {
     console.log(`Clicked on ${menuItem}`);
   };
-  const onCheckboxChange = (e,item) => {
-    setSelectedUser(item)
-    console.log(e.target.checked)
-    e.target.checked ? setCheckedData(prev => [...prev,item ]): setCheckedData(checkedData.filter(user =>user.PersonID !== selectedUser.PersonID))
+  const onCheckboxChange = (e, item) => {
+    setSelectedUser(item);
+    console.log(e.target.checked);
+    const setCheckedDataDone = e.target.checked
+      ? setCheckedData((prev) => [...prev, item])
+      : setCheckedData(
+          checkedData.filter((user) => user.PersonID !== selectedUser.PersonID)
+        );
     console.log(checkedData);
-  }
+  };
   return (
     <>
       <table>
@@ -205,7 +246,10 @@ function List(props) {
             return (
               <tr>
                 <td>
-                  <Checkbox onChange={(e) => (onCheckboxChange(e,item))} label="Label" />
+                  <Checkbox
+                    onChange={(e) => onCheckboxChange(e, item)}
+                    label="Label"
+                  />
                 </td>
                 <td>{item.PersonID}</td>
                 <td>{item.Nickname}</td>
@@ -231,7 +275,8 @@ function List(props) {
                           open={open}
                           onClose={handleClose}
                           onClick={() => {
-                            handleOpen(); onDeleteOptionClick(item);
+                            handleOpen();
+                            onDeleteOptionClick(item);
                           }}
                         >
                           사용자 삭제
@@ -246,7 +291,7 @@ function List(props) {
         </tbody>
       </table>
 
-      <Button>CSV</Button>
+      <ExportCSV data={checkedData} />
       <Modal
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -262,10 +307,19 @@ function List(props) {
             삭제합니다. 삭제를 원하시면 'Yes' 취소를 원하시면 'Cancel'를
             클릭해주세요.
           </Typography>
-          <Button onClick={() => {onDeleteClick()}}>Yes(삭제)</Button>{" "}
+          <Button
+            onClick={() => {
+              onDeleteSingleUserClick();
+            }}
+          >
+            Yes(삭제)
+          </Button>{" "}
           <Button onClick={handleClose}>cancel(취소)</Button>
         </Box>
       </Modal>
+      <Button variant="outlined" color="error" onClick={ onDeleteMultiUserClick } >
+        사용자 삭제
+      </Button>
     </>
   );
 }
