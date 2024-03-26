@@ -44,7 +44,6 @@ const modalStyle = {
   p: 3, //여백
 };
 function List(props) {
-  console.log(props.dataArray);
   const [selectedArray, setSelectedArray] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedUserName, setSelectedUserName] = useState("");
@@ -53,7 +52,7 @@ function List(props) {
   const [sortEMAIL, setSortEMAIL] = useState(0);
   const [sortDATE, setSortDATE] = useState(0);
   const [checkedData, setCheckedData] = useState([]);
-  const [emails,setEmails] = useState([])
+  const [emails, setEmails] = useState([]);
   const testString = "sdf";
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -63,11 +62,11 @@ function List(props) {
   useEffect(() => {
     setSelectedArray(props.dataArray);
   }, [props.dataArray]);
-  
+
   useEffect(() => {
-    setEmails( checkedData ? checkedData.map(user => user.userID):[])
-    console.log("useEffect:",emails)
-  },[checkedData])
+    setEmails(checkedData ? checkedData.map((user) => user.userID) : []);
+    console.log("useEffect:", emails);
+  }, [checkedData]);
   const onEditClick = (e) => {
     navigate("/admin/user/edit", { state: e });
   };
@@ -120,12 +119,12 @@ function List(props) {
     setSelectedUserName(name);
   };
 
-  const  onDeleteMultiUserClick  = async (e) => {
+  const onDeleteMultiUserClick = async (e) => {
     //props.data.forEach((obj) => delete obj.withdrawal);
-   
-    console.log(checkedData,emails)
-   
-    console.log(emails)
+
+    console.log(checkedData, emails);
+
+    console.log(emails);
     try {
       const firebaseDeleteResponse = await fetch(
         "http://localhost:8000/users/api/admin/user/delete/multi",
@@ -137,20 +136,28 @@ function List(props) {
           body: JSON.stringify({ emails }),
         }
       );
-      const data = await firebaseDeleteResponse.json();
-      console.log(data)
+      const firebaseResponse = await firebaseDeleteResponse.json();
+      console.log(firebaseResponse)
+      if(!firebaseResponse.success) { 
+        console.error("firebase 삭제 실패.")
+        alert("삭제에 실패했습니다. 관리자에게 문의해주세요.")
+        return;
+      }
+
       try {
         const dbDeleteResponse = await Axios.delete(
           "http://localhost:8000/api/admin/user/delete/multi",
           {
             data: { id: emails },
-            
           }
-        );
+        ).then((res) => {
+          res.data === "success"
+            ? alert("삭제가 성공적으로 이루어졌습니다.")
+            : alert("삭제에 실패했습니다. 다시 시도해주세요.");
+        });
 
         //console.log(selectedArray.filter((item) => item.userID !== emails));
         //setSelectedArray(selectedArray.filter((item) => item.userID !== email));
-        alert("삭제 완료되었습니다.");
         handleClose();
       } catch (err) {
         console.log("db에러");
@@ -159,7 +166,7 @@ function List(props) {
     } catch (err) {
       console.error(err.message);
     }
-  }
+  };
   const onDeleteSingleUserClick = async (e) => {
     const email = selectedUser.userID;
     try {
@@ -317,7 +324,7 @@ function List(props) {
           <Button onClick={handleClose}>cancel(취소)</Button>
         </Box>
       </Modal>
-      <Button variant="outlined" color="error" onClick={ onDeleteMultiUserClick } >
+      <Button variant="outlined" color="error" onClick={onDeleteMultiUserClick}>
         사용자 삭제
       </Button>
     </>
