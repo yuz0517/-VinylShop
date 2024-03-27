@@ -135,7 +135,7 @@ function List(props) {
           },
           body: JSON.stringify({ emails }),
         }
-      );
+        );
       const firebaseResponse = await firebaseDeleteResponse.json();
       console.log(firebaseResponse)
       if(!firebaseResponse.success) { 
