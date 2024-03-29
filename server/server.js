@@ -572,16 +572,15 @@ app.delete("/api/admin/user/delete", (req, res) => {
 });
 
 app.delete("/api/admin/user/delete/multi", (req, res) => {
-
-    const key = req.body.id;
-    var keyString = "";
-    // key.forEach((element, index, array) => {
-    //   if (index === array.length - 1) {
-    //     keyString += "userID = " + `"`+element  + `"`;
-    //   } else {
-    //     keyString += "userID = "+`"` + element + `"` + `||`;
-    //   }
-    // });
+  const key = req.body.id;
+  var keyString = "";
+  // key.forEach((element, index, array) => {
+  //   if (index === array.length - 1) {
+  //     keyString += "userID = " + `"`+element  + `"`;
+  //   } else {
+  //     keyString += "userID = "+`"` + element + `"` + `||`;
+  //   }
+  // });
   //  key.forEach((element, index, array) => {
   //     if( index === array.length -1 ){
   //       keyString += `"`+element + `"`;
@@ -589,13 +588,13 @@ app.delete("/api/admin/user/delete/multi", (req, res) => {
   //       keyString += `"` + element + `"` + ","
   //     }
   //  })
-   key.forEach((element, index, array) => {
-      if( index === array.length -1 ){
-        keyString += "'"+element +"'" 
-      } else {
-        keyString +=  "'"+element+"'"  + "," 
-      }
-   })
+  key.forEach((element, index, array) => {
+    if (index === array.length - 1) {
+      keyString += "'" + element + "'";
+    } else {
+      keyString += "'" + element + "'" + ",";
+    }
+  });
 
   console.log(keyString);
   const sqlQuery = `DELETE FROM Persons WHERE userID  IN( ${keyString}) ;`;
@@ -605,10 +604,10 @@ app.delete("/api/admin/user/delete/multi", (req, res) => {
     if (!err) {
       console.log(key);
       console.log(data.sql);
-      return res.send("success");
+      return res.send({success: true, key});
     } else {
       console.log(key);
-      res.send("fail");
+      res.send({success: false, key});
     }
   });
 });
@@ -653,16 +652,34 @@ app.post("/users/api/admin/user/delete", async (req, res) => {
 
 app.post("/users/api/admin/user/delete/multi", async (req, res) => {
   const { emails } = req.body;
-  try{
+  try {
     var deleteResults = [];
-    for (const email of emails){
-      console.log("firebase 삭제 시도 ",email)
-      const userRecord = await auth.getUserByEmail(email);
-      await auth.deleteUser(userRecord.uid);
-      deleteResults.push({ email, success: true });
+    var failResults = [];
+    var successResults = [];
+    for (const email of emails) {
+      try {
+        console.log("firebase 삭제 시도 ", email);
+        const userRecord = await auth.getUserByEmail(email);
+        await auth.deleteUser(userRecord.uid);
+        //deleteResults.push({ email, success: true });
+        successResults.push( email );
+      } catch (error) {
+        failResults.push( email );
+      }
     }
-    res.json({ success: true, deleteResults });
-  } catch(error){
+    if (failResults.length === 0) {
+      console.log("전체삭제성공")
+      res.json({ success: true, successResults, failResults });
+    } else if (failResults.length === emails.length) {
+      //삭제 요청 건과 삭제 실패 건의 수가 동일하면 전체 삭제 실패이므로 success false 값을 보내서 db 삭제를 막는다.
+      console.log("전체삭제실패")
+      res.status(500).json({ success: false, successResults,failResults, error: error.message });
+    } else if(failResults.length >=1 ) {
+      //삭제 실패 건이 1 이상일 때 -> 요청 건의 일부가 실패된 상태
+      console.log("일부삭제실패")
+      res.json({ success: true, successResults, failResults });
+    }
+  } catch (error) {
     console.error("error", error);
     res.status(500).json({ success: false, error: error.message });
   }
