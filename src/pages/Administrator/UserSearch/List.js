@@ -135,12 +135,13 @@ function List(props) {
           },
           body: JSON.stringify({ emails }),
         }
-        );
+      );
       const firebaseResponse = await firebaseDeleteResponse.json();
-      console.log(firebaseResponse)
-      if(!firebaseResponse.success) { 
-        console.error("firebase 삭제 실패.")
-        alert("삭제에 실패했습니다. 관리자에게 문의해주세요.")
+      console.log(firebaseResponse);
+      if (!firebaseResponse.success) {
+        console.error("firebase 삭제 실패.");
+        alert("삭제에 실패했습니다. 처리 결과가 이메일로 발송되었습니다.");
+        //이메일 보내기
         return;
       }
 
@@ -148,16 +149,22 @@ function List(props) {
         const dbDeleteResponse = await Axios.delete(
           "http://localhost:8000/api/admin/user/delete/multi",
           {
-            data: { id: emails },
+            data: { id: firebaseResponse.successResults },
           }
         ).then((res) => {
-          res.data === "success"
-            ? alert("삭제가 성공적으로 이루어졌습니다.")
-            : alert("삭제에 실패했습니다. 다시 시도해주세요.");
+          if (res.data.success === true) {
+            alert("삭제 처리 완료. 처리 결과는 이메일을 확인 해 주세요.");
+            setSelectedArray(
+              selectedArray.filter(
+                (item) => !((res.data.key).includes(item.userID))
+              )
+            );
+          } else {
+            alert("삭제에 실패했습니다. 다시 시도해주세요.");
+          }
         });
+        
 
-        //console.log(selectedArray.filter((item) => item.userID !== emails));
-        //setSelectedArray(selectedArray.filter((item) => item.userID !== email));
         handleClose();
       } catch (err) {
         console.log("db에러");
