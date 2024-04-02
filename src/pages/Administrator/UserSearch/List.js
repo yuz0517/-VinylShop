@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 //import { auth } from "../../../firebase";
 import { getAuth, deleteUser } from "firebase/auth";
 import "firebase/compat/storage";
@@ -30,6 +31,7 @@ import {
   HiOutlineTrash,
 } from "react-icons/hi2";
 import ExportCSV from "../../../Utils/ExportCSV";
+import EmailUserDeletion from "../EmailJS/EmailUserDeletion";
 
 const modalStyle = {
   position: "absolute",
@@ -44,6 +46,7 @@ const modalStyle = {
   p: 3, //여백
 };
 function List(props) {
+
   const [selectedArray, setSelectedArray] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedUserName, setSelectedUserName] = useState("");
@@ -55,10 +58,16 @@ function List(props) {
   const [emails, setEmails] = useState([]);
   const testString = "sdf";
   const [open, setOpen] = useState(false);
+
+  const [localStroageUserEmail, setLocalStroageUserEmail] = useState({
+    email: localStorage.key(0),
+  });
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     setSelectedArray(props.dataArray);
   }, [props.dataArray]);
@@ -159,6 +168,7 @@ function List(props) {
                 (item) => !((res.data.key).includes(item.userID))
               )
             );
+            EmailUserDeletion(e,firebaseResponse.success,firebaseResponse.successResults,firebaseResponse.failResults,localStroageUserEmail)
           } else {
             alert("삭제에 실패했습니다. 다시 시도해주세요.");
           }
@@ -334,6 +344,7 @@ function List(props) {
       <Button variant="outlined" color="error" onClick={onDeleteMultiUserClick}>
         사용자 삭제
       </Button>
+      
     </>
   );
 }
