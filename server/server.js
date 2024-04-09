@@ -494,6 +494,21 @@ app.get("/api/point/get", (req, res) => {
   });
 });
 
+/* -------------Intro--------------- */
+//subscribe
+app.post("/api/intro/subscribe", (req, res) => {
+  const email = req.query.email;
+  const name = req.query.name;
+  console.log(key);
+  const sqlQuery = "INSERT INTO subscribe (email,name) VALUES (?,?)";
+  db.query(sqlQuery,[key],(err,data) => {
+    if(!err){
+      console.log(data);
+    }else {
+      res.send(err);
+    }
+  })
+})
 /*-------------admin--------------------*/
 app.get("/api/admin/login", (req, res) => {
   const key = req.query.key;
