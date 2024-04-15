@@ -69,9 +69,10 @@ function List(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
-
+  
+  const pagenationCount = 4;
   useEffect(() => {
-    setSelectedArray(props.dataArray);
+    setSelectedArray(props.dataArray.slice((0),(pagenationCount)))
   }, [props.dataArray]);
 
   useEffect(() => {
@@ -243,9 +244,8 @@ function List(props) {
   };
 
   const onPageChange  = (e,value) => {
-    console.log(e.target.innerText)
-    console.log(e.target.outerText)
-    console.log(e,value)
+    setSelectedArray(props.dataArray.slice(pagenationCount*(value-1),pagenationCount*(value-1)+(pagenationCount)))
+    console.log(pagenationCount*(value-1),pagenationCount*(value-1)+(pagenationCount-1))
   }
   return (
     <>
@@ -331,9 +331,9 @@ function List(props) {
       <Stack spacing={2}>
         <Pagination 
           count={
-            selectedArray.length % 2 === 0
-              ? parseInt(selectedArray.length / 2)
-              : parseInt(selectedArray.length / 2 + 1)
+            props.dataArray.length % pagenationCount === 0
+              ? parseInt(props.dataArray.length / pagenationCount)
+              : parseInt(props.dataArray.length / pagenationCount + 1)
           }
           onChange={(e,value) => onPageChange(e,value)}
         />
