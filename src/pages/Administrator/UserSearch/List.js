@@ -21,6 +21,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
+
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+
 import PropTypes from "prop-types";
 //import  { firebase } from "firebase/app"
 import Axios from "axios";
@@ -46,7 +50,6 @@ const modalStyle = {
   p: 3, //여백
 };
 function List(props) {
-
   const [selectedArray, setSelectedArray] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedUserName, setSelectedUserName] = useState("");
@@ -67,7 +70,6 @@ function List(props) {
   const handleClose = () => setOpen(false);
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     setSelectedArray(props.dataArray);
   }, [props.dataArray]);
@@ -165,15 +167,20 @@ function List(props) {
             alert("삭제 처리 완료. 처리 결과는 이메일을 확인 해 주세요.");
             setSelectedArray(
               selectedArray.filter(
-                (item) => !((res.data.key).includes(item.userID))
+                (item) => !res.data.key.includes(item.userID)
               )
             );
-            EmailUserDeletion(e,firebaseResponse.success,firebaseResponse.successResults,firebaseResponse.failResults,localStroageUserEmail)
+            EmailUserDeletion(
+              e,
+              firebaseResponse.success,
+              firebaseResponse.successResults,
+              firebaseResponse.failResults,
+              localStroageUserEmail
+            );
           } else {
             alert("삭제에 실패했습니다. 다시 시도해주세요.");
           }
         });
-        
 
         handleClose();
       } catch (err) {
@@ -234,6 +241,12 @@ function List(props) {
         );
     console.log(checkedData);
   };
+
+  const onPageChange  = (e,value) => {
+    console.log(e.target.innerText)
+    console.log(e.target.outerText)
+    console.log(e,value)
+  }
   return (
     <>
       <table>
@@ -256,7 +269,8 @@ function List(props) {
           </tr>
         </thead>
 
-        <tbody>
+        <tbody
+        >
           {selectedArray.map((item) => {
             var date_kst = new Date(
               Date.parse(item.SignUpDate) + 9 * 60 * 60000
@@ -314,6 +328,16 @@ function List(props) {
           })}
         </tbody>
       </table>
+      <Stack spacing={2}>
+        <Pagination 
+          count={
+            selectedArray.length % 2 === 0
+              ? parseInt(selectedArray.length / 2)
+              : parseInt(selectedArray.length / 2 + 1)
+          }
+          onChange={(e,value) => onPageChange(e,value)}
+        />
+      </Stack>
 
       <ExportCSV data={checkedData} />
       <Modal
@@ -344,7 +368,6 @@ function List(props) {
       <Button variant="outlined" color="error" onClick={onDeleteMultiUserClick}>
         사용자 삭제
       </Button>
-      
     </>
   );
 }
