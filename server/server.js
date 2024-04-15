@@ -497,14 +497,18 @@ app.get("/api/point/get", (req, res) => {
 /* -------------Intro--------------- */
 //subscribe
 app.post("/api/intro/subscribe", (req, res) => {
-  const email = req.query.email;
-  const name = req.query.name;
-  console.log(key);
+  const email = req.body.email;
+  const name = req.body.name;
+  console.log(email)
+
+  console.log(email)
   const sqlQuery = "INSERT INTO subscribe (email,name) VALUES (?,?)";
-  db.query(sqlQuery,[key],(err,data) => {
+  db.query(sqlQuery,[email,name],(err,data) => {
     if(!err){
       console.log(data);
-    }else {
+      res.send(data);
+    }
+    else {
       res.send(err);
     }
   })
