@@ -513,7 +513,23 @@ app.post("/api/intro/subscribe", (req, res) => {
     }
   })
 })
+
+
 /*-------------admin--------------------*/
+app.get("/api/admin/subscribe/get", (req, res) => {
+  
+  const sqlQuery = "SELECT * FROM subscribe";
+  db.query(sqlQuery,[],(err,data) => {
+    if(!err){
+      console.log(data);
+      return res.send(data);
+    }
+    else {
+      res.send(err);
+    }
+  })
+});
+
 app.get("/api/admin/login", (req, res) => {
   const key = req.query.key;
   const sqlQuery = "SELECT * FROM admin WHERE email Like ?";
