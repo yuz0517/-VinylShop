@@ -529,6 +529,60 @@ app.get("/api/admin/subscribe/get", (req, res) => {
     }
   })
 });
+app.delete ("api/admin/subscribe/delete", (req, res) => {
+  const key = req.body.id;
+  var keyString = "";
+   key.forEach((element, index, array) => {
+    if (index === array.length - 1) {
+      keyString += "'" + element + "'";
+    } else {
+      keyString += "'" + element + "'" + ",";
+    }
+  });
+  console.log("sdf")
+
+  const sqlQuery = `DELETE FROM Subscribe WHERE id IN( ${keyString}) ;`;
+  console.log(sqlQuery + keyString);
+  db.query(sqlQuery, [keyString], (err, data) => {
+    console.log(db.query);
+    if (!err) {
+      console.log(key);
+      console.log(data.sql);
+      //return res.send({success: true, key});
+      return res.send("success")
+    } else {
+      console.log(key);
+      //res.send({success: false, key});
+      return res.send("fail")
+    }
+  });
+})
+
+// app.delete("/api/admin/user/delete/multi", (req, res) => {
+//   const key = req.body.id;
+//   var keyString = "";
+//   // key.forEach((element, index, array) => {
+//   //   if (index === array.length - 1) {
+//   //     keyString += "userID = " + `"`+element  + `"`;
+//   //   } else {
+//   //     keyString += "userID = "+`"` + element + `"` + `||`;
+//   //   }
+//   // });
+//   //  key.forEach((element, index, array) => {
+//   //     if( index === array.length -1 ){
+//   //       keyString += `"`+element + `"`;
+//   //     } else {
+//   //       keyString += `"` + element + `"` + ","
+//   //     }
+//   //  })
+//   key.forEach((element, index, array) => {
+//     if (index === array.length - 1) {
+//       keyString += "'" + element + "'";
+//     } else {
+//       keyString += "'" + element + "'" + ",";
+//     }
+//   });
+
 
 app.get("/api/admin/login", (req, res) => {
   const key = req.query.key;
