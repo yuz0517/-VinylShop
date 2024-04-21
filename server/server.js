@@ -529,8 +529,9 @@ app.get("/api/admin/subscribe/get", (req, res) => {
     }
   })
 });
-app.delete ("api/admin/subscribe/delete", (req, res) => {
+app.delete ("/api/admin/subscribe/delete", (req, res) => {
   const key = req.body.id;
+  console.log(key)
   var keyString = "";
    key.forEach((element, index, array) => {
     if (index === array.length - 1) {
